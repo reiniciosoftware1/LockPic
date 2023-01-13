@@ -1,0 +1,48 @@
+01-12-16
+
+Trama inicializar llave 1 
+03 08 42 00 73 01 02 03 04 00
+
+
+Trama apertura cerradura 1 llave 01020304
+03 07 10 01 01 02 03 04 00
+
+Trama Cerrar cerradura 1 lalve 01020304
+03 07 11 01 01 02 03 04 00
+
+Orden abrir
+MM 031 ORD ABRIR 1:01020304 528
+
+orden cerrar
+MM 032 ORD CERRAR 1:01020304 608
+
+
+--- Version 2 tarjta
+CommandVersion
+TX: 03 02 50 52
+RX: 03 05 50 A0 01 01 F5
+
+CommandPoll
+TX: 03 02 70 72
+RX: 03 05 70 A0 00 00 D5
+
+
+CommandBuzzer
+TX: 03 03 52 C8 99
+RX: 03 03 52 A0 F1
+
+CommandWriteEEProm
+TX: 03 04 40 00 FF BB
+RX: 03 03 40 A0 E3
+
+CommandInitBlock llava 01020304
+TX: 03 08 42 00 73 01 02 03 04 3D
+RX: 03 03 42 A0 E1
+
+CommandSetToken
+TX: 03 0C 80 3D A8 B4 F2 7E E6 CE 7A 38 4D 06
+RX: 03 03 80 A0 23
+
+CommandOpen2 Cerradura 1 llave 01020304
+TX: 03 11 12 01 6B A5 51 89 05 85 64 4E 5B A3 C9 6A 94 B4 C5
+RX: 03 03 12 F2 E3

@@ -1,0 +1,216 @@
+000     @SCRATCH
+000     @MEMSET.P1
+001     @SCRATCH
+001     _RETURN_
+001-002 @MEMSET.P1
+002     @SCRATCH
+003     @SCRATCH
+004     @INTERRUPT_AREA
+005     @INTERRUPT_AREA
+006     @INTERRUPT_AREA
+007     @INTERRUPT_AREA
+008     @INTERRUPT_AREA
+009     @INTERRUPT_AREA
+00A     @INTERRUPT_AREA
+00B     @INTERRUPT_AREA
+00C     @INTERRUPT_AREA
+00D     @INTERRUPT_AREA
+00E     @INTERRUPT_AREA
+00F     @INTERRUPT_AREA
+010     @INTERRUPT_AREA
+011     @INTERRUPT_AREA
+012     @INTERRUPT_AREA
+013     @INTERRUPT_AREA
+014     @INTERRUPT_AREA
+015     @INTERRUPT_AREA
+016     rs232_errors
+017-03E bufferRx
+03F-066 commandRx
+067-070 tokenCheck
+071-074 randomValue
+075     dataRx
+076-089 bufferTx
+08A     flagNewCommand
+08B     byteCountRx
+08C     commandSize
+08D     byteCountTx
+08E     flagRTCInstalled
+08F     versionOrder
+090     statusNow
+091     statusNew
+092     stepNow
+093     flagExit
+094     timerMain1
+095     timerMain2
+096-097 timerMain3
+098-099 timerMain4
+09A     timerRxCommand
+09B-09C timerPulse
+09D-09E timerCommunication
+09F     flagCommunication
+0A0-0A3 externalKey
+0A4-0A7 valueKey
+0A8     indexBlock
+0A9     accessBlock
+0AA     selectLock
+0AB     selectSensor
+0AC     flagReadSensor
+0AD     flagGetVersion
+0AE     flagPoll
+0AF     byteEEprom
+0B0     addressEEprom
+0B1     timeBuzzer
+0B2     failAuth
+0B3     failToken
+0B4     flagCashBox
+0B5     MAIN.tempStatus
+0B6-0BF MAIN.tempEEprom
+0C0     MAIN.tempAccess
+0C1     MAIN.tempByte
+0C2     MAIN.pos
+0C3-0F4 MAIN.tempBuffAns
+0F5     MAIN.tempFlagRx
+0F6-0F9 MAIN.tempNum
+0FA-0FD MAIN.tempNewKey
+0FE-101 MAIN.tempData2
+102-103 CompareBuffer.tempData1
+102     ValidateCommand.tempByte
+102     SendAns.tempCommand
+102     SendAnsComplex.tempCommand
+102     SleepMinute.tempMinute
+102     MAIN.@SCRATCH1
+103-104 ValidateToken.tempKeyToken
+103     SendAns.tempAns
+103     SendAnsComplex.tempAns
+103     SleepMinute.tempSecond
+103     MAIN.@SCRATCH2
+103     ValidateCommand.@SCRATCH1
+104     SendAns.pos
+104-105 SendAnsComplex.tempPointer
+104-105 CompareBuffer.tempData2
+104     MAIN.@SCRATCH3
+105     ValidateToken.tempByte
+105     MAIN.@SCRATCH4
+105     SendAns.@SCRATCH1
+106     CompareBuffer.tempLength
+106     SendAnsComplex.tempLength
+106     ValidateToken.tempSh
+107     CompareBuffer.pos
+107     SendAnsComplex.pos
+107     ValidateToken.tempSl
+108-10B ValidateToken.tempData
+108     CompareBuffer.@SCRATCH1
+108     SendAnsComplex.@SCRATCH1
+109     SendByte.tempData
+109     SendAnsComplex.@SCRATCH2
+10A-10B CalcCRC.tempBuffer
+10A     @PUTCHAR_BIU_1.P1
+10B     @PUTCHAR_BIU_1.@SCRATCH1
+10C-10F ValidateToken.tempCurrentTime
+10C     CalcCRC.tempCrc
+10D     CalcCRC.cont
+10E     CalcCRC.tempLimit
+10F     CalcCRC.@SCRATCH1
+110-113 ValidateToken.tempKey
+114-11D ValidateToken.tempBuffer
+11E-121 ValidateToken.tempBufferRand
+122-125 ValidateToken.tempBufferData
+126-12A ValidateToken.tempBufferTime
+12B-12E ValidateToken.tempData2
+12F-130 WriteEEprom.tempPtr
+12F     ValidateToken.@SCRATCH1
+130     ValidateToken.@SCRATCH2
+131     WriteEEprom.tempAddress
+131-132 ReadEEprom.tempPtr
+131     ValidateToken.@SCRATCH3
+132     WriteEEprom.tempSize
+132     ValidateToken.@SCRATCH4
+133     ReadEEprom.tempAddress
+133     WriteEEprom.pos
+133     ValidateToken.@SCRATCH5
+134     ReadEEprom.tempSize
+134     @delay_ms1.P1
+134     WriteEEprom.@SCRATCH1
+135     ReadEEprom.pos
+135     WriteEEprom.@SCRATCH2
+136     ReadEEprom.tempByte
+137     ReadEEprom.@SCRATCH1
+138     ReadEEprom.@SCRATCH2
+139     @GETCH_BIU_1.@SCRATCH1
+139     serial_isr.@SCRATCH1
+13A     @GETCH_BIU_1.@SCRATCH2
+13A     serial_isr.@SCRATCH2
+13B     @delay_us1.P1
+13B     @GETCH_BIU_1.@SCRATCH3
+FBB     CCP_2
+FBB     CCP_2_LOW
+FBC     CCP_2_HIGH
+FBE     CCP_1_LOW
+FBE     CCP_1
+FBF     CCP_1_HIGH
+FE1-FE2 @WRITE_PACKED_MEMORY.P1
+FE1-FE2 @READ_PACKED_MEMORY.P2
+FE9-FEA @WRITE_PROGRAM_MEMORY.P1
+FE9-FEA @READ_PROGRAM_MEMORY.P2
+FE9-FEA @MEMSET.P3
+FE9-FEA @WRITE_PACKED_MEMORY.P4
+FE9-FEA @READ_PACKED_MEMORY.P5
+FF6-FF8 @WRITE_PROGRAM_MEMORY.P1
+FF6-FF8 @READ_PROGRAM_MEMORY.P2
+
+ROM Allocation:
+0000A2  @delay_us1
+0000C4  @GETCH_BIU_1
+00011A  serial_isr
+00019E  timer0_isr
+000204  @MEMSET
+00021E  ClearBufferRx
+000234  ClearBufferTx
+000248  @delay_ms1
+000270  CalcCRC
+0002B0  ValidateCommand
+000756  @PUTCHAR_BIU_1
+000782  SendByte
+000794  SendAns
+0007E0  SleepMinute
+000814  SendAnsComplex
+0008A0  ReadEEprom
+0008E2  WriteEEprom
+000948  ValidateToken
+000BDA  CompareBuffer
+000C1C  MAIN
+000C1C  @cinit1
+000C38  @cinit2
+
+Project Directory:
+    E:\LockPic\Trunk\Source\
+
+Project Files:
+    Lock.c                                                  [22-Sep-22 15:05  CRC=2FC6E77C]
+    Lock.h                                                  [22-Sep-22 10:12  CRC=E8D784D7]
+    C:\Program Files (x86)\PICC\Devices\18F252.h            [12-Nov-13 14:35  CRC=BF791F18]
+
+Source signature=9790AA83
+
+Units:
+    Lock (main)
+
+Compiler Settings:
+    Processor:      PIC18F252
+    Pointer Size:   16
+    ADC Range:      0-65535
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   Lock.xsym
+    Errors:      Lock.err
+    Ext Symbols: Lock.esym
+    INHX32:      Lock.hex
+    Symbols:     Lock.sym
+    List:        Lock.lst
+    Debug/COFF:  Lock.cof
+    Project:     Lock.ccspjt
+    Call Tree:   Lock.tre
+    Statistics:  Lock.STA

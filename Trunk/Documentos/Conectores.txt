@@ -1,0 +1,7 @@
+J2 - RA0 - SL1 Puerta 1 bloqueada
+J3 - RA1 - SD1 Puerta 1 cerrada
+J4 - RA2 - SL2 Puerta 2 bloqueada
+J5 - RA3 - SD2 Puerta 2 cerrada
+J9 - RA5 - SD3 Puerta 3 cerrada
+J10 -RA4 - Cashbox
+

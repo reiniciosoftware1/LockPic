@@ -1,0 +1,20 @@
+Programar en Linux el archivo usando la tarjetaa PICKIT 2
+
+#Borrar toda memoria PIC
+pk2cmd -PPIC18f252 -X -C
+
+#Borrar toda memoria EEPROM
+pk2cmd -PPIC18f252 -X -E
+
+#Programar conservando EEPROM
+pk2cmd -PPIC18f252 -E -R -J -Z -M -FLock.hex
+
+# programar no conservar EEPROM
+pk2cmd -PPIC18f252 -E -R -J -M -FLock.hex
+
+#Leer EEPROM
+pk2cmd -PPIC18f252 -R -J -GE00-3F
+
+
+#Leer PROGRAMA
+pk2cmd -PPIC18f252 -R -J -GFsalida.hex

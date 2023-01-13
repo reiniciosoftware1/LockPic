@@ -1,0 +1,9 @@
+V 1.1 30092022
+
+
+
+Programar en Linux el archivo usando la tarjetaa PICKIT 2
+
+# programar no conservar EEPROM
+pk2cmd -PPIC18f252 -E -R -J -M -FLock_1_1.hex
+

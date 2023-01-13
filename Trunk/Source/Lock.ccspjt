@@ -1,0 +1,24 @@
+[PROJECT]
+Target=Lock.hex
+Processor_Text=PIC18F252
+CCSVerions=5.015
+Compiler=PCH
+CCSVersion=5.015
+[Target Data]
+FileList=Lock.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\
+[C:\Personal\Proyectos\Trabajo\SmartBox\Lock\Lock]
+Type=4
+[mru-list]
+1=Lock.c
+[Opened Files]
+1=Lock.c
+2=Lock.h
+3=
+4=
+[Lock.c]
+Type=4
+[Units]
+Count=1
+1=Lock (main)

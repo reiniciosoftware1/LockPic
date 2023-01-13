@@ -1,2 +1,2 @@
 # LockPic
-LockPic  windows
+Programa cerradura para microcontrolador PIC

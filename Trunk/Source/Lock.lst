@@ -1,0 +1,5229 @@
+CCS PCH C Compiler, Version 5.015, 5967               22-Sep-22 15:05
+
+               Filename:   E:\LockPic\Trunk\Source\Lock.lst
+
+               ROM used:   6122 bytes (19%)
+                           Largest free fragment is 26642
+               RAM used:   262 (17%) at main() level
+                           316 (21%) worst case
+               Stack used: 6 locations (3 in main + 3 for interrupts)
+               Stack size: 31
+
+*
+0000:  GOTO   0C1C
+*
+0008:  MOVWF  04
+000A:  MOVFF  FD8,05
+000E:  MOVFF  FE0,06
+0012:  MOVLB  0
+0014:  MOVFF  FE9,0C
+0018:  MOVFF  FEA,07
+001C:  MOVFF  FE1,08
+0020:  MOVFF  FE2,09
+0024:  MOVFF  FD9,0A
+0028:  MOVFF  FDA,0B
+002C:  MOVFF  FF3,12
+0030:  MOVFF  FF4,13
+0034:  MOVFF  FFA,14
+0038:  MOVFF  00,0E
+003C:  MOVFF  01,0F
+0040:  MOVFF  02,10
+0044:  MOVFF  03,11
+0048:  BTFSS  FF2.5
+004A:  GOTO   0054
+004E:  BTFSC  FF2.2
+0050:  GOTO   019E
+0054:  BTFSS  F9D.5
+0056:  GOTO   0060
+005A:  BTFSC  F9E.5
+005C:  GOTO   011A
+0060:  MOVFF  0E,00
+0064:  MOVFF  0F,01
+0068:  MOVFF  10,02
+006C:  MOVFF  11,03
+0070:  MOVFF  0C,FE9
+0074:  MOVFF  07,FEA
+0078:  BSF    07.7
+007A:  MOVFF  08,FE1
+007E:  MOVFF  09,FE2
+0082:  MOVFF  0A,FD9
+0086:  MOVFF  0B,FDA
+008A:  MOVFF  12,FF3
+008E:  MOVFF  13,FF4
+0092:  MOVFF  14,FFA
+0096:  MOVF   04,W
+0098:  MOVFF  06,FE0
+009C:  MOVFF  05,FD8
+00A0:  RETFIE 0
+.................... // VER 1.0.1 
+.................... // 06-14-2022 
+....................  
+.................... /* 
+.................... PROGRAMA PARA LA CERRADURA ELECTRONICA 
+....................  
+.................... PIC 18F252 
+.................... 1   MCLR   IN 
+.................... 2  RA0   IN      SL-1 
+.................... 3   RA1   IN      SD-1 
+.................... 4   RA2   IN      SL-2 
+.................... 5   RA3   IN      SD-2 
+.................... 6   RA4   IN      CASHBOX 
+.................... 7   RA5   IN      SD-3 
+.................... 8   VSS   0V 
+.................... 9   OSC1   IN 
+.................... 10   OSC2   IN 
+.................... 11   RC0   OUT   LOCKA-1-IA 
+.................... 12   RC1   OUT   LOCKA-1-IB 
+.................... 13   RC2   OUT   LOCKA-2-IA 
+.................... 14   RC3   OUT   LOCKA-2-IB 
+.................... 15   RC4   OUT   LOCKB-3-IA 
+.................... 16   RC5   OUT   LED indicador 
+.................... 17   RC6   OUT   TX    
+.................... 18   RC7   IN      RX 
+.................... 19   VSS   0V 
+.................... 20   VDD   5V 
+.................... 21   RB0   IN      LOCKA-1-LI 
+.................... 22   RB1   IN      LOCKA-1-LO 
+.................... 23   RB2   IN      LOCKA-2-LI 
+.................... 24   RB3   IN      LOCKA-2-LO 
+.................... 25   RB4   OUT   I2C-CLK 
+.................... 26   RB5   IN/OUT   I2C-SDA 
+.................... 27   RB6         
+.................... 28   RB7   OUT   BUZZER 
+....................  
+....................  
+.................... PIC 18F452 
+....................  
+.................... 1   MCLR   IN 
+.................... 2  RA0   IN      SL-1 
+.................... 3   RA1   IN      SD-1 
+.................... 4   RA2   IN      SL-2 
+.................... 5   RA3   IN      SD-2 
+.................... 6   RA4   IN      SL-3 
+.................... 7   RA5   IN      SD-3 
+.................... 8  RE0      
+.................... 9   RE1 
+.................... 10   RE2      
+.................... 11   VDD 
+.................... 12   VSS   0V 
+.................... 13   OSC1   IN 
+.................... 14   OSC2   IN 
+.................... 15   RC0   OUT   LOCKA-1-IA 
+.................... 16   RC1   OUT   LOCKA-1-IB 
+.................... 17   RC2   OUT   LOCKA-2-IA 
+.................... 18   RC3   IN/OUT   I2C-SDA //// ERA RB5 
+.................... 19   RD0   OUT   LOCKA-2-IB ////ERA RC3 
+.................... 20   RD1   OUT   LOCKB-3-IA //// ERA RC4 
+.................... 21   RD2   IN      LOCKB-3-LO  /// ERA RB6 
+.................... 22   RD3   OUT   BUZZER  ////// ERA RB7 
+.................... 23   RC4   OUT   I2C-CLK   //// ERA RB4 
+.................... 24   RC5   OUT   LED indicador 
+.................... 25   RC6   OUT   TX    
+.................... 26   RC7   IN      RX 
+.................... 27   RD4 
+.................... 28   RD5 
+.................... 29   RD6 
+.................... 30   RD7 
+.................... 31   VSS   0V 
+.................... 32   VDD   5V 
+.................... 33   RB0   IN      LOCKA-1-LI 
+.................... 34   RB1   IN      LOCKA-1-LO 
+.................... 35   RB2   IN      LOCKA-2-LI 
+.................... 36   RB3   IN      LOCKA-2-LO 
+.................... 37   RB4      
+.................... 38   RB5   XX   PGM   /////// NUEVO 
+.................... 39   RB6   XX   PGC   /////// NUEVO 
+.................... 40   RB7   XX   PGD   /////// NUEVO 
+....................  
+.................... CERRADURAS: LOCKx-n-ss  x = tipo, n numero, ss senal 
+....................  
+.................... COMUNICACION 
+.................... VELOCIDAD 9600 
+.................... BITS 8 
+.................... STOP 1 
+.................... PARIDAD PAR 
+....................       
+.................... FORMATO DE TRAMA 
+.................... ENCABEZADO (CBUFF 0)     :0X03 
+.................... LONGITUD   (CBUFF 1)     :CODIGO + DATOS + CHECKSUM 
+.................... CODIGO     (CBUFF 2)     :0x10, 0x11, 0x20, 0x21, 0x30, 0x31, 0x40, 0x41 
+.................... DATOS      (CBUFF 3-N)   :INFORMACION ADICIONAL AL COMANDO 
+.................... CHECKSUM   (CBUFF N+1)   :OPERACION XOR ENTRE LOS BYTES DE LONGITUD, COMANDO Y DATOS 
+....................  
+.................... */ 
+....................  
+.................... #include "Lock.h" 
+.................... #include <18F252.h> // C:\Program Files (x86)\PICC\Devices 
+.................... //////////// Standard Header file for the PIC18F252 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC18F252 
+*
+0204:  TSTFSZ 01
+0206:  BRA    020E
+0208:  TSTFSZ 02
+020A:  BRA    0210
+020C:  BRA    021C
+020E:  INCF   02,F
+0210:  MOVFF  00,FEE
+0214:  DECFSZ 01,F
+0216:  BRA    0210
+0218:  DECFSZ 02,F
+021A:  BRA    0210
+021C:  RETURN 0
+....................  
+.................... #list 
+....................  
+....................  
+....................  
+.................... /*----------------------------------------------------------------------------- 
+....................                                      CONFIGURACION 
+.................... -----------------------------------------------------------------------------*/ 
+.................... #device ADC=16 
+....................  
+.................... #FUSES PROTECT // Protege la memoria de programa para no lecturas 
+....................  
+.................... #ifndef DEBUG 
+.................... #FUSES CPD     // Protege la memoria EEPROM 
+.................... #endif 
+....................  
+.................... #FUSES NOWDT // DESACTIVA EL PERRO GUARDIAN DEL FUSE---> NECESARIO PARA ACTIVAR/DESACTIVAR EL PERRO GUARDIAN EN LA RUTINA PRINCIPAL 
+.................... #FUSES WDT64 // CONFIGURA PRE ESCALER EN 1,152 SEGUNDOS 
+....................  
+.................... #FUSES NOBROWNOUT               //No brownout reset 
+.................... #FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES NOPUT   // No power up timer 
+.................... #FUSES HS      // Oscilador  
+....................  
+.................... #USE delay ( crystal=20000000 )  // Velocidad 
+*
+00A2:  MOVLW  03
+00A4:  MOVLB  1
+00A6:  SUBWF  x3B,F
+00A8:  BNC   00BE
+00AA:  MOVLW  01
+00AC:  MOVWF  FEA
+00AE:  MOVLW  3B
+00B0:  MOVWF  FE9
+00B2:  MOVF   FEF,W
+00B4:  BZ    00BE
+00B6:  BRA    00BA
+00B8:  BRA    00BA
+00BA:  DECFSZ FEF,F
+00BC:  BRA    00B8
+00BE:  MOVLB  0
+00C0:  GOTO   00D6 (RETURN)
+*
+0248:  MOVLW  01
+024A:  MOVWF  FEA
+024C:  MOVLW  34
+024E:  MOVWF  FE9
+0250:  MOVF   FEF,W
+0252:  BZ    026E
+0254:  MOVLW  06
+0256:  MOVWF  01
+0258:  CLRF   00
+025A:  DECFSZ 00,F
+025C:  BRA    025A
+025E:  DECFSZ 01,F
+0260:  BRA    0258
+0262:  MOVLW  7B
+0264:  MOVWF  00
+0266:  DECFSZ 00,F
+0268:  BRA    0266
+026A:  DECFSZ FEF,F
+026C:  BRA    0254
+026E:  RETURN 0
+....................  
+.................... // Configura usar el modulo USART por hardware 
+.................... #USE rs232 ( UART1, BAUD=9600, PARITY=E, BITS = 8, STOP=1, TIMEOUT=20 ) 
+*
+00C4:  MOVLW  40
+00C6:  MOVLB  1
+00C8:  MOVWF  x39
+00CA:  MOVLW  02
+00CC:  MOVWF  x3A
+00CE:  MOVLW  9B
+00D0:  MOVWF  x3B
+00D2:  MOVLB  0
+00D4:  BRA    00A2
+00D6:  MOVLB  1
+00D8:  DECFSZ x3A,F
+00DA:  BRA    00CE
+00DC:  DECFSZ x39,F
+00DE:  BRA    00E6
+00E0:  CLRF   16
+00E2:  CLRF   01
+00E4:  BRA    0114
+00E6:  BTFSS  F9E.5
+00E8:  BRA    00CA
+00EA:  MOVF   FAB,W
+00EC:  MOVWF  16
+00EE:  MOVF   FAE,W
+00F0:  MOVWF  01
+00F2:  MOVLW  08
+00F4:  MOVWF  x3B
+00F6:  CLRF   x3A
+00F8:  MOVF   01,W
+00FA:  MOVWF  00
+00FC:  MOVF   00,W
+00FE:  XORWF  x3A,F
+0100:  RRCF   00,F
+0102:  DECFSZ x3B,F
+0104:  BRA    00FC
+0106:  MOVLW  01
+0108:  ANDWF  x3A,W
+010A:  XORWF  16,F
+010C:  BTFSS  16.1
+010E:  BRA    0114
+0110:  BCF    FAB.4
+0112:  BSF    FAB.4
+0114:  MOVLB  0
+0116:  GOTO   012C (RETURN)
+*
+0756:  MOVLW  08
+0758:  MOVWF  01
+075A:  MOVLB  1
+075C:  CLRF   x0B
+075E:  MOVFF  10A,00
+0762:  MOVF   00,W
+0764:  XORWF  x0B,F
+0766:  RRCF   00,F
+0768:  DECFSZ 01,F
+076A:  BRA    0762
+076C:  BTFSS  F9E.4
+076E:  BRA    076C
+0770:  MOVLW  FE
+0772:  ANDWF  FAC,F
+0774:  BTFSC  x0B.0
+0776:  BSF    FAC.0
+0778:  MOVFF  10A,FAD
+077C:  MOVLB  0
+077E:  GOTO   0788 (RETURN)
+....................  
+....................  
+.................... /*----------------------------------------------------------------------------- 
+....................                                      DEFINICIONES 
+.................... -----------------------------------------------------------------------------*/ 
+.................... // Version firmware 
+.................... #define VERSIONH         0x01 
+.................... #define VERSIONL         0x01 
+....................  
+.................... // Tamanos buffers 
+.................... #define   LENGTH_BUFFRX   40 
+.................... #define   LENGTH_BUFFTX   20 
+....................  
+.................... // Encabezado trama 
+.................... #define HEAD_BYTE   0x03 
+....................  
+.................... // Respuestas funciones  
+.................... #define ERROR_SIGNATURE 10 
+.................... #define ERROR_VALUE 11 
+....................  
+....................  
+.................... // Definicion de comandos--------------------------------------------------------------------------------------------------- 
+.................... #define COMMAND_OPEN             0x10  // Comando desbloqueo cerradura 
+.................... #define COMMAND_LOCK               0x11  // Comando bloqueo cerradura 
+.................... #define COMMAND_OPENV2           0x12  // Comando desbloqueo cerradura V2 
+.................... #define COMMAND_LOCKV2           0x13  // Comando bloqueo cerradura V2 
+.................... #define COMMAND_STATUS           0x20  // Comando lectura sensores 
+.................... #define COMMAND_EEPROM_WRITE     0x40  // COMANDO ESCRITURA EEPROM 
+.................... #define COMMAND_EEPROM_READ      0x41  // COMANDO LECTURA EEPROM 
+.................... #define COMMAND_EEPROM_FORMAT    0x42  // COMANDO FORMATEAR BLOQUE EEPROM 
+.................... #define COMMAND_CHANGE_KEY       0x43  // COMANDO CAMBIAR LLAVE 
+.................... #define COMMAND_EEPROM_FORMAT2   0x44  // COMANDO FORMATEAR BLOQUE EEPROM V2 
+.................... #define COMMAND_VERSION            0x50  // COMANDO VERSION FIRMWARE 
+.................... #define COMMAND_BUZZER            0x52   // COMANDO BUZZER 
+.................... #define COMMAND_CASHBOX            0x60   // COMANDO CASHBOX 
+.................... #define COMMAND_POLL            0x70   // COMANDO CASHBOX 
+.................... #define COMMAND_SETTOKEN            0x80   // COMANDO CASHBOX 
+....................  
+.................... // Defincion de respuestas 
+.................... #define ANS_OK                0xA0 
+.................... #define ANS_ERROR_FORMAT      0xE0   // Error formato comando 
+.................... #define ANS_ERROR_CRC         0xE1   // Error CRC 
+.................... #define ANS_ERROR_UNKNOWN      0xE2   // Error comando desconocido 
+.................... #define ANS_ERROR_VALUE         0xE3   // Error uno de los valores fuera de rango 
+.................... #define ANS_ERROR_LENGTH      0xE4   // Error longitud comando y datos 
+.................... #define ANS_ERROR_INITIALIZE   0xF0   // Error bloque sin inicializar bloque 
+.................... #define ANS_ERROR_CONDITION   0XF1   // Error condiciones de acceso 
+.................... #define ANS_ERROR_KEY         0xF2   // Error la llave no es la correcta 
+.................... #define ANS_ERROR_TOKEN       0xF3   // Error la llave no es la correcta 
+.................... #define ANS_ERROR_TIME        0xF4   // Error la llave no es la correcta 
+....................  
+.................... // Formatos para campos de fecha y hora 
+.................... #define FORMAT_24H   0 
+.................... #define FORMAT_12H   1 
+.................... #define TIME_AM      0 
+.................... #define TIME_PM      1 
+....................  
+.................... // Constante para el desbordamiento del TMR0 cada 10ms OSC 20MHZ 
+.................... #define TIMER_TMR0_10M      15535 
+....................  
+.................... // Tiempo maximo de espera de un byte luego de iniciar recepcion comando en 10ms* 
+.................... #define TIMEOUT_RXCOMMAND 2 
+....................  
+.................... // Tiempo para mantener el pulso necesario actuador lineal 10ms* 
+.................... #define TIMEOUT_PULSELOCK 200 
+....................  
+.................... // Tiempo para mantener el pulso que activa el solenoide en 10ms* 
+.................... #define TIMEOUT_SOLENOIDE 300 
+....................  
+.................... // Tiempo para mantener el pulso de no comuncaciones 
+.................... #define TIMEOUT_COMMUNICATION 50 
+....................  
+.................... // Direccion para escritura llave token 
+.................... #define ADDRESS_KEYTOKEN  0x1E 
+.................... #define ADDRESS_TIMETOKEN  0x23 
+....................  
+.................... // Estados logicos 
+.................... #define STATUS_UNITIALIZE   0 
+.................... #define STATUS_INITIALIZE   1 
+.................... #define STATUS_ERROR         2 
+.................... #define STATUS_FREE         4 
+.................... #define STATUS_WAIT         5 
+.................... #define STATUS_OPEN         6 
+.................... #define STATUS_LOCK         7 
+.................... #define STATUS_BLOCKFORMAT   8 
+.................... #define STATUS_BUZZER      9 
+.................... #define STATUS_SETTOKEN      10 
+.................... #define STATUS_CHANGE_KEY      11 
+....................  
+.................... #define STATUS_WRITEEEPROM   50 
+.................... #define STATUS_READEEPROM   51 
+....................  
+.................... // Definicion subprocesos 
+.................... #define STEP_START         0 
+.................... #define STEP_AUTHENTICATE   1 
+.................... #define STEP_UNLOCK_START   20 
+.................... #define STEP_UNLOCK_PULSE   21 
+.................... #define STEP_UNLOCK_WAIT   22 
+.................... #define STEP_LOCK_START      30 
+.................... #define STEP_LOCK_PULSE      31 
+.................... #define STEP_LOCK_WAIT      32 
+.................... #define STEP_WAIT            40 
+....................  
+.................... // Version de comandos 
+.................... #define VERSION_1    1 
+.................... #define VERSION_2    2 
+....................  
+.................... // Valida para PIC de 28 pines 
+.................... #ifndef PIC_40P   
+....................  
+....................    // Definicion de pines especiales 
+....................    #define PIN_LED            PIN_C5 
+....................    #define PIN_BUZZER         PIN_B7 
+....................       
+....................    // Cerradura 1 tipo A 
+....................    #define PIN_1_IA            PIN_C0 
+....................    #define PIN_1_IB            PIN_C1 
+....................    #define PIN_1_LI            PIN_B0 
+....................    #define PIN_1_LO            PIN_B1 
+....................    #define PIN_1_SL            PIN_A0 
+....................    #define PIN_1_SD            PIN_A1 
+....................       
+....................    // Cerradura 2 tipo A 
+....................    #define PIN_2_IA            PIN_C2 
+....................    #define PIN_2_IB            PIN_C3 
+....................    #define PIN_2_LI            PIN_B2 
+....................    #define PIN_2_LO            PIN_B3 
+....................    #define PIN_2_SL            PIN_A2 
+....................    #define PIN_2_SD            PIN_A3 
+....................       
+....................    // Cerradura 3 tipo B 
+....................    #define PIN_3_IA            PIN_C4      
+....................    #define PIN_3_SD            PIN_A5 
+....................       
+....................    // Cashbox ( bolsa lata) 
+....................    #define PIN_CASHBOX         PIN_A4 
+....................       
+....................    // MAscara de bits sensores 
+....................    #define MASK_SD            0b00000001 
+....................    #define MASK_SL            0b00000010 
+....................    #define MASK_LO            0b00010000 
+....................    #define MASK_LI            0b00100000      
+....................  
+.................... #else 
+.................... // PIC de 40 pines 
+....................       
+....................    // Definicion de pines especiales 
+....................    #define PIN_LED            PIN_C5 
+....................    #define PIN_BUZZER         PIN_RD3   // ya cambiado 
+....................       
+....................    // Cerradura 1 tipo A 
+....................    #define PIN_1_IA            PIN_C0 
+....................    #define PIN_1_IB            PIN_C1 
+....................    #define PIN_1_LI            PIN_B0 
+....................    #define PIN_1_LO            PIN_B1 
+....................    #define PIN_1_SL            PIN_A0 
+....................    #define PIN_1_SD            PIN_A1 
+....................       
+....................    // Cerradura 2 tipo A 
+....................    #define PIN_2_IA            PIN_C2 
+....................    #define PIN_2_IB            PIN_D0   //ya cambiado 
+....................    #define PIN_2_LI            PIN_B2 
+....................    #define PIN_2_LO            PIN_B3 
+....................    #define PIN_2_SL            PIN_A2 
+....................    #define PIN_2_SD            PIN_A3 
+....................       
+....................    // Cerradura 3 tipo B 
+....................    #define PIN_3_IA            PIN_D1   // ya cambiado 
+....................    #define PIN_3_SL            PIN_A4 
+....................    #define PIN_3_SD            PIN_A5 
+....................       
+....................    // Mascara de bits sensores 
+....................    #define MASK_SD            0b00000001 
+....................    #define MASK_SL            0b00000010 
+....................    #define MASK_LO            0b00010000 
+....................    #define MASK_LI            0b00100000 
+....................  
+....................  
+.................... #endif 
+....................  
+....................  
+.................... // Numero de bytes por cada bloque 
+.................... #define BLOCK_LENGTH         5 
+....................  
+.................... // Mascara de condicione de acceso 
+.................... #define PERMISSION_FORMAT   0b10000000   // Permiso inicializar condiciones del bloque 
+.................... #define PERMISSION_AUTH      0b00001000   // Permiso autenticar 
+.................... #define PERMISSION_WRAUTH   0b00000100   // Permiso escritura con autenticacion 
+.................... #define PERMISSION_WR      0b00000010   // Permiso escritura sin autenticacion 
+.................... #define PERMISSION_R         0b00000001   // Permiso lectura sin autenticacion 
+....................  
+....................  
+.................... /*----------------------------------------------------------------------------- 
+....................                                      FUNCIONES 
+.................... -----------------------------------------------------------------------------*/ 
+.................... extern int8 CalcCRC ( unsigned char * data );    
+.................... extern void ClearBufferRx ( void );  
+.................... extern void ClearBufferTx ( void ); 
+.................... extern int8 CompareBuffer ( int8 * tempData1, int8 * tempData2, int8 tempLenght ); 
+.................... extern void DebugInt32 ( unsigned int32 tempValue ); 
+.................... extern int8 GetSensorStatus ( void ); 
+.................... extern void ReadEEprom ( int8 * tempPtr, int8 tempAddress, int8 tempSize ); 
+.................... extern void SendByte ( int8 tempData ); 
+.................... extern void SendAns ( int8 tempCommand, int8 tempAns );    
+.................... extern void SendAnsComplex ( int8 tempCommand, int8 tempAns, int8 *tempPointer,  
+....................                      int8 tempLength ); 
+.................... extern void SleepMinute ( int8 tempMinute ); 
+.................... extern int8 ValidateCommand ( void ); 
+.................... extern int8 ValidateToken ( unsigned int8 * tempKeyToken ); 
+.................... extern void WriteEEprom ( int8 * tempPtr, int8 tempAddress, int8 tempSize ); 
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+.................... //-------------------------------------------------------------------------------------- 
+....................  
+.................... //CODIGOS DE DEPURACION---------------------------------------------------------------------------------------------------- 
+.................... //#define DEBUG               // PERMITE ACTIVAR CODIGO DE DEPURACION 
+.................... //#define ECO                 // PERMITE ACTIVAR ECO DEL DATO ENVIADO POR EL PC 
+.................... //#define BUFFER              // PERMITE VERIFICAR LO QUE SE GUARDO EN EL BUFFER 
+.................... //#define   PIC_40P            // HABILITA CAMBIOS PARA PIC DE 40 PINES 
+.................... //------------------------------------------------------------------------------------------------------------------------- 
+....................  
+.................... // VARIABLES EN RAM 
+.................... int8 bufferRx [ LENGTH_BUFFRX ];   // Buffer que almacena los caracteres recibidos                     
+.................... int8 commandRx [ LENGTH_BUFFRX ];   // Buffer para un comando recibido  
+.................... int8 tokenCheck [ 10 ];   // Buffer para una trama de token a analizar 
+.................... unsigned int32 randomValue;      // Ultimo valor randomico recibido 
+.................... int8 dataRx;                     // último byte recibido por el puerto USART 
+.................... int8 bufferTx [ LENGTH_BUFFTX ];   // Buffer datos a transmitir 
+.................... int8 flagNewCommand;               // Bandera nuevo comando recibido 
+.................... int8 byteCountRx;                  // numero de bytes recibidos  
+.................... int8 commandSize;                  // Numero de bytes recibidos del ultimo comando 
+.................... int8 byteCountTx;                  // numero de bytes transmitir 
+.................... int8 flagRTCInstalled;            // Indica si el RTC esta isntalado 
+.................... int8 versionOrder;               // Version del comando que se esta ejecutando 
+.................... int8 statusNow;                  // Estado logico actual 
+.................... int8 statusNew;                  // Estado logico futuro 
+.................... int8 stepNow;                     // Sub proceso logico actual               
+.................... int8 flagExit;                     // Controla finalizacion principal 
+.................... int8 timerMain1;                  // Timer en fracciones de 10ms-hasta 2.55s 
+.................... int8 timerMain2;                  // Timer en fracciones de 10ms-hasta 2.55s 
+.................... int16 timerMain3;                  // Timer en fracciones de 10ms-hasta 65.535s 
+.................... int16 timerMain4;                  // Timer en fracciones de 10ms-hasta 65.535s 
+.................... int8 timerRxCommand;               // Timer para temporizar recepcion comando 
+.................... int16 timerPulse;                  // Timer para temporizar pulsos ordenes cerradura 
+.................... int16 timerCommunication;          // Timer para temporizar recepcion de datos 
+.................... int8 flagCommunication;                 //Bandera para indicar que hay comunicaciones desde el computador 
+.................... int8 externalKey [ 4 ];         // llave a usar en la operacion 
+.................... int8 valueKey [ 4 ];               // Nuevo valor de llave para escritura o lectura 
+.................... int8 indexBlock;                  // Numero de bloque a operar 
+.................... int8 accessBlock;                  // Condiciones de acceso al bloque 
+.................... int8 selectLock;                  // ID cerradura sobre la que se esta ejecutando una operacion 
+.................... int8 selectSensor;               // ID cerradura a la cual leer los sensores 
+.................... int8 flagReadSensor;               // Indica si debe hacer proceso lectura sensonres 
+.................... int8 flagGetVersion;               // Indica si se debe hacer reporte de version firmware 
+.................... int8 flagPoll;                 // Indica si se debe hacer reporte de poll 
+.................... int8 byteEEprom;                  // Byte a escribir en la EEPROM coamndo de recuperacion 
+.................... int8 addressEEprom;               // Direccion a escribir en la EEPROM coamndo de recuperacion 
+.................... int8 timeBuzzer;                  // Tiempo en decimas de segundo apra el buzzer 
+.................... int8 failAuth;                     // Contador errores operaciones autenticadas 
+.................... int8 failToken;                  // Contador de errores de token 
+.................... int8 flagCashBox;                  // Indica si debe leer sensor cashbox 
+....................  
+....................  
+.................... /*---------------------------------------------------------------------- 
+....................                         INTERRUPCIONES 
+.................... ----------------------------------------------------------------------*/ 
+....................  
+.................... /*---------------------------------------------------------------------------- 
+....................  Interrupcion de dato recibido por el modulo USART 
+....................  @param Ninguno 
+....................  @return Ninguno 
+.................... ----------------------------------------------------------------------------*/ 
+.................... #int_rda 
+.................... void serial_isr ( void ) 
+.................... { 
+....................    // Borra dato recibido 
+....................    dataRx = 0x00; 
+*
+011A:  CLRF   75
+....................     
+....................    // Valida si ya llego un byte 
+....................    if ( kbhit ( ) == true ) 
+011C:  MOVLW  00
+011E:  BTFSC  F9E.5
+0120:  MOVLW  01
+0122:  SUBLW  01
+0124:  BNZ   0198
+....................    { 
+....................       // Reinicia timer de recepcion 
+....................       timerRxCommand = TIMEOUT_RXCOMMAND; 
+0126:  MOVLW  02
+0128:  MOVWF  x9A
+....................          
+....................       // Lee el byte del USART 
+....................       dataRx = getc ( );   
+012A:  BRA    00C4
+012C:  MOVFF  01,75
+....................        
+....................       // valida si es el byte de encabezado 
+....................       if ( ( byteCountRx == 0 ) && ( dataRx != HEAD_BYTE ) ) 
+0130:  MOVF   x8B,F
+0132:  BNZ   013C
+0134:  MOVF   75,W
+0136:  SUBLW  03
+0138:  BZ    013C
+....................       { 
+....................          // Error de byte no valida todabi incio de comando 
+....................          return; 
+013A:  BRA    0198
+....................       } 
+....................        
+....................       // Agrega el dato al buffer de recepcion 
+....................       bufferRx [ byteCountRx ] = dataRx;     
+013C:  CLRF   03
+013E:  MOVF   x8B,W
+0140:  ADDLW  17
+0142:  MOVWF  FE9
+0144:  MOVLW  00
+0146:  ADDWFC 03,W
+0148:  MOVWF  FEA
+014A:  MOVFF  75,FEF
+....................  
+....................       #ifdef ECO 
+....................       SendByte ( dataRx );            // ECO del dato recibido en el buffer. 
+....................       #endif 
+....................        
+....................       // Inidica que hay comunicacion desed el computador 
+....................       flagCommunication = true; 
+014E:  MOVLW  01
+0150:  MOVWF  x9F
+....................  
+....................       // Incrementa contador de bytes recibidos 
+....................       byteCountRx++; 
+0152:  INCF   x8B,F
+....................  
+....................       // Valida si ya recibio almenos el encabezado y longitud 
+....................       if ( byteCountRx >= 2 ) 
+0154:  MOVF   x8B,W
+0156:  SUBLW  01
+0158:  BC    0198
+....................       { 
+....................          // Valida si llegaron los datos esperados del comando 
+....................          if ( ( byteCountRx >= ( bufferRx [ 1 ] + 2 ) ) &&  
+....................                ( kbhit ( ) == false ) && ( flagNewCommand == FALSE ) ) 
+015A:  MOVLW  02
+015C:  ADDWF  18,W
+015E:  SUBWF  x8B,W
+0160:  BNC   0196
+0162:  MOVLW  00
+0164:  BTFSC  F9E.5
+0166:  MOVLW  01
+0168:  XORLW  00
+016A:  BNZ   0196
+016C:  MOVF   x8A,F
+016E:  BNZ   0196
+....................          { 
+....................             // Copia los datos del buffer de recepcion al de comandos 
+....................             memcpy ( commandRx, bufferRx, byteCountRx ); 
+0170:  CLRF   FEA
+0172:  MOVLW  3F
+0174:  MOVWF  FE9
+0176:  CLRF   FE2
+0178:  MOVLW  17
+017A:  MOVWF  FE1
+017C:  MOVF   x8B,W
+017E:  MOVWF  01
+0180:  BZ    018A
+0182:  MOVFF  FE6,FEE
+0186:  DECFSZ 01,F
+0188:  BRA    0182
+....................                
+....................             // Disponible nuevo comando pero sin verificar 
+....................             flagNewCommand = TRUE; 
+018A:  MOVLW  01
+018C:  MOVWF  x8A
+....................                
+....................             // Copia longitud de comando recibido 
+....................             commandSize = byteCountRx; 
+018E:  MOVFF  8B,8C
+....................                
+....................             byteCountRx = 0; 
+0192:  CLRF   x8B
+....................          } 
+0194:  BRA    0198
+....................          else 
+....................          { 
+....................             // No ha llegado el comando 
+....................             flagNewCommand = FALSE; 
+0196:  CLRF   x8A
+....................          } 
+....................       } 
+....................    } 
+.................... } 
+....................  
+.................... /*---------------------------------------------------------------------------- 
+....................  Interrupcion TMR0 cada 10ms 
+....................  @param Ninguno 
+....................  @return Ninguno 
+.................... ----------------------------------------------------------------------------*/ 
+0198:  BCF    F9E.5
+019A:  GOTO   0060
+.................... #int_timer0 
+.................... void timer0_isr ( void ) 
+.................... { 
+....................    // Asiga nuevamente valor para desbordar cada 10ms 
+....................    set_timer0 ( TIMER_TMR0_10M ); 
+019E:  MOVLW  3C
+01A0:  MOVWF  FD7
+01A2:  MOVLW  AF
+01A4:  MOVWF  FD6
+....................       
+....................    // decrementa timerMain1 
+....................    if ( timerMain1 > 0 ) 
+01A6:  MOVF   x94,F
+01A8:  BZ    01AC
+....................    { 
+....................       // Decrementa contador 
+....................       timerMain1 --; 
+01AA:  DECF   x94,F
+....................    } 
+....................       
+....................    // decrementa timerMain2 
+....................    if ( timerMain2 > 0 ) 
+01AC:  MOVF   x95,F
+01AE:  BZ    01B2
+....................    { 
+....................       // Decrementa contador 
+....................       timerMain2 --; 
+01B0:  DECF   x95,F
+....................    } 
+....................       
+....................    // decrementa timerMain3 
+....................    if ( timerMain3 > 0 ) 
+01B2:  MOVF   x96,F
+01B4:  BNZ   01BA
+01B6:  MOVF   x97,F
+01B8:  BZ    01C2
+....................    { 
+....................       // Decrementa contador 
+....................       timerMain3 --; 
+01BA:  MOVF   x96,W
+01BC:  BTFSC  FD8.2
+01BE:  DECF   x97,F
+01C0:  DECF   x96,F
+....................    } 
+....................       
+....................    // decrementa timerMain4 
+....................    if ( timerMain4 > 0 ) 
+01C2:  MOVF   x98,F
+01C4:  BNZ   01CA
+01C6:  MOVF   x99,F
+01C8:  BZ    01D2
+....................    { 
+....................       // Decrementa contador 
+....................       timerMain4 --; 
+01CA:  MOVF   x98,W
+01CC:  BTFSC  FD8.2
+01CE:  DECF   x99,F
+01D0:  DECF   x98,F
+....................    }      
+....................       
+....................    // decrementa timerPulse para pulso cerradura 
+....................    if ( timerPulse > 0 ) 
+01D2:  MOVF   x9B,F
+01D4:  BNZ   01DA
+01D6:  MOVF   x9C,F
+01D8:  BZ    01E2
+....................    { 
+....................       // Decrementa contador 
+....................       timerPulse --; 
+01DA:  MOVF   x9B,W
+01DC:  BTFSC  FD8.2
+01DE:  DECF   x9C,F
+01E0:  DECF   x9B,F
+....................    }    
+....................     
+....................    // decrementa timerPulse para pulso comunicaciones 
+....................    if ( timerCommunication > 0 ) 
+01E2:  MOVF   x9D,F
+01E4:  BNZ   01EA
+01E6:  MOVF   x9E,F
+01E8:  BZ    01F2
+....................    { 
+....................       // Decrementa contador 
+....................       timerCommunication --; 
+01EA:  MOVF   x9D,W
+01EC:  BTFSC  FD8.2
+01EE:  DECF   x9E,F
+01F0:  DECF   x9D,F
+....................    }                
+....................       
+....................    // decrementa timerMain4 
+....................    if ( timerRxCommand > 0 ) 
+01F2:  MOVF   x9A,F
+01F4:  BZ    01FE
+....................    { 
+....................       // Decrementa contador 
+....................       timerRxCommand --; 
+01F6:  DECF   x9A,F
+....................          
+....................       // Valida si ya expiro el tiemout 
+....................       if ( timerRxCommand == 0 ) 
+01F8:  MOVF   x9A,F
+01FA:  BNZ   01FE
+....................       { 
+....................          // Descarta bytes recibidos hasta el momento      
+....................          byteCountRx = 0; 
+01FC:  CLRF   x8B
+....................       } 
+....................    } 
+....................  
+01FE:  BCF    FF2.2
+0200:  GOTO   0060
+.................... } 
+.................... /*---------------------------------------------------------------------- 
+....................                   FUNCIONES 
+.................... ----------------------------------------------------------------------*/ 
+....................  
+.................... /*--------------------------------------------------------------------------- 
+....................  Calcula el CRC de un frame de datos. Operacion XOR de todos los datos 
+....................  @param tempBuffer Puntero al buffer que se debe calcular el CRC 
+....................  @return CRC calculado 
+.................... ----------------------------------------------------------------------------*/ 
+.................... int8 CalcCRC ( unsigned char * tempBuffer ) 
+.................... { 
+....................    int8 tempCrc; 
+....................    int8 cont; 
+....................    int8 tempLimit; 
+....................       
+....................    // Valor inicial para el calculo del CRC 
+....................    tempCrc = 0x00; 
+*
+0270:  MOVLB  1
+0272:  CLRF   x0C
+....................       
+....................    // Calcula la cantidad de bytes hasta la que se tiene en cuenta el CRC 
+....................    tempLimit = tempBuffer [ 1 ] + 1; 
+0274:  MOVLW  01
+0276:  ADDWF  x0A,W
+0278:  MOVWF  FE9
+027A:  MOVLW  00
+027C:  ADDWFC x0B,W
+027E:  MOVWF  FEA
+0280:  MOVLW  01
+0282:  ADDWF  FEF,W
+0284:  MOVWF  x0E
+....................       
+....................    // Ciclo para calcular el CRC 
+....................    for ( cont = 1; cont < tempLimit; cont ++ ) 
+0286:  MOVLW  01
+0288:  MOVWF  x0D
+028A:  MOVF   x0E,W
+028C:  SUBWF  x0D,W
+028E:  BC    02A8
+....................    { 
+....................        tempCrc = tempCrc ^ ( * ( tempBuffer + cont ) ); 
+0290:  MOVF   x0D,W
+0292:  ADDWF  x0A,W
+0294:  MOVWF  01
+0296:  MOVLW  00
+0298:  ADDWFC x0B,W
+029A:  MOVFF  01,FE9
+029E:  MOVWF  FEA
+02A0:  MOVF   FEF,W
+02A2:  XORWF  x0C,F
+02A4:  INCF   x0D,F
+02A6:  BRA    028A
+....................    } 
+....................       
+....................    return tempCrc; 
+02A8:  MOVFF  10C,01
+02AC:  MOVLB  0
+02AE:  RETURN 0
+.................... } 
+....................  
+.................... /*----------------------------------------------------------------------------- 
+....................  Borra los datos del buffer de recepcion 
+....................  @param Ninguno 
+....................  @return Nada 
+.................... ------------------------------------------------------------------------------*/ 
+.................... void ClearBufferRx ( void ) 
+.................... {   
+....................    memset ( bufferRx, 0x00, LENGTH_BUFFRX ); 
+*
+021E:  CLRF   FEA
+0220:  MOVLW  17
+0222:  MOVWF  FE9
+0224:  CLRF   00
+0226:  CLRF   02
+0228:  MOVLW  28
+022A:  MOVWF  01
+022C:  RCALL  0204
+....................    
+....................    // Apunta al inicio del buffer para recibir datos 
+....................    byteCountRx = 0x00; 
+022E:  CLRF   x8B
+0230:  GOTO   0C7A (RETURN)
+.................... } 
+....................  
+.................... /*----------------------------------------------------------------------------- 
+....................  Borra los datos del buffer de transmision 
+....................  @param Ninguno 
+....................  @return Nada 
+.................... ------------------------------------------------------------------------------*/ 
+.................... void ClearBufferTx ( void ) 
+.................... {                   
+....................    memset ( bufferRx, 0x00, LENGTH_BUFFTX ); 
+0234:  CLRF   FEA
+0236:  MOVLW  17
+0238:  MOVWF  FE9
+023A:  CLRF   00
+023C:  CLRF   02
+023E:  MOVLW  14
+0240:  MOVWF  01
+0242:  RCALL  0204
+0244:  GOTO   0C7E (RETURN)
+.................... } 
+....................  
+.................... /*----------------------------------------------------------------------------- 
+....................  Compara los datos de dos arrays  
+....................  @param tempData1 Apuntador a el array 1 
+....................  @param Apuntador a el array 2 
+....................  @param tempLength Numero de bytes a comparar 
+....................  @return TRUE Ambos array tiene los mismos datos 
+....................  @return FALSE Los array son diferentes 
+.................... ------------------------------------------------------------------------------*/ 
+.................... int8 CompareBuffer ( int8 * tempData1, int8 * tempData2, int8 tempLength ) 
+.................... { 
+....................    int pos; 
+....................       
+....................    // Ciclo para comparar cada byte de ambos buffers 
+....................    for ( pos = 0; pos < tempLength; pos++ ) 
+*
+0BDA:  MOVLB  1
+0BDC:  CLRF   x07
+0BDE:  MOVF   x06,W
+0BE0:  SUBWF  x07,W
+0BE2:  BC    0C14
+....................    { 
+....................       // Compara cada byte 
+....................       if ( tempData1 [ pos ] != tempData2 [ pos ] ) 
+0BE4:  CLRF   03
+0BE6:  MOVF   x07,W
+0BE8:  ADDWF  x02,W
+0BEA:  MOVWF  FE9
+0BEC:  MOVF   x03,W
+0BEE:  ADDWFC 03,W
+0BF0:  MOVWF  FEA
+0BF2:  MOVFF  FEF,108
+0BF6:  CLRF   03
+0BF8:  MOVF   x07,W
+0BFA:  ADDWF  x04,W
+0BFC:  MOVWF  FE9
+0BFE:  MOVF   x05,W
+0C00:  ADDWFC 03,W
+0C02:  MOVWF  FEA
+0C04:  MOVF   FEF,W
+0C06:  SUBWF  x08,W
+0C08:  BZ    0C10
+....................       { 
+....................          return FALSE; 
+0C0A:  MOVLW  00
+0C0C:  MOVWF  01
+0C0E:  BRA    0C18
+....................       } 
+0C10:  INCF   x07,F
+0C12:  BRA    0BDE
+....................    } 
+....................       
+....................    return TRUE;      
+0C14:  MOVLW  01
+0C16:  MOVWF  01
+0C18:  MOVLB  0
+0C1A:  RETURN 0
+.................... } 
+....................  
+.................... /*----------------------------------------------------------------------------- 
+....................  Depura varible de 4Bytes 
+....................  @param tempData1 Apuntador a el array 1 
+....................  @param tempData2 Apuntador a el array 2 
+....................  @param tempLength Numero de bytes a comparar 
+....................  @return TRUE Ambos array tiene los mismos datos 
+....................  @return FALSE Los array son diferentes 
+.................... ------------------------------------------------------------------------------*/ 
+.................... void DebugInt32 ( unsigned int32 tempValue ) 
+.................... {       
+.................... #ifdef DEBUG   
+....................    unsigned int8 tempBuffer [ 8 ]; 
+....................     
+....................    // Convert time to array, offset 0 is highest byte 
+....................    tempBuffer [ 0 ] = tempValue >> 24; 
+....................    tempBuffer [ 1 ] = tempValue >> 16; 
+....................    tempBuffer [ 2 ] = tempValue >> 8; 
+....................    tempBuffer [ 3 ] = tempValue; 
+....................  
+....................    SendByte ( 0xDE ); 
+....................    SendByte (tempBuffer [ 0 ] ); 
+....................    SendByte (tempBuffer [ 1 ] ); 
+....................    SendByte (tempBuffer [ 2 ] ); 
+....................    SendByte (tempBuffer [ 3 ] ); 
+.................... #endif            
+.................... } 
+....................  
+....................  
+....................  
+.................... /*----------------------------------------------------------------------------- 
+....................  Funcion principal 
+....................  @param Ninguno 
+....................  @return Ninguno 
+.................... ------------------------------------------------------------------------------*/ 
+.................... void main ( ) 
+0C1C:  CLRF   FF8
+0C1E:  BCF    FD0.7
+0C20:  BSF    07.7
+0C22:  CLRF   16
+0C24:  MOVLW  81
+0C26:  MOVWF  FAF
+0C28:  MOVLW  E6
+0C2A:  MOVWF  FAC
+0C2C:  MOVLW  D0
+0C2E:  MOVWF  FAB
+0C30:  BSF    FC1.0
+0C32:  BSF    FC1.1
+0C34:  BSF    FC1.2
+0C36:  BCF    FC1.3
+.................... {    
+....................    int8 tempStatus;          
+....................    int8 tempEEprom [ 10 ]; 
+....................    int8 tempAccess; 
+....................    int8 tempByte; 
+....................    int8 pos; 
+....................    int8 tempBuffAns [ 50 ];    
+....................    int8 tempFlagRx; 
+....................    int32 tempNum;    
+....................    unsigned char tempNewKey [ 4 ]; 
+....................    unsigned int32 tempData2; 
+....................     
+....................    // Define estado logico inicial 
+....................    statusNow = STATUS_UNITIALIZE; 
+0C38:  CLRF   x90
+....................    statusNew = STATUS_INITIALIZE; 
+0C3A:  MOVLW  01
+0C3C:  MOVWF  x91
+....................    stepNow = STEP_START; 
+0C3E:  CLRF   x92
+....................     
+....................    // reinicia contador de errores autenticacion 
+....................    failAuth = 0; 
+0C40:  CLRF   xB2
+....................    failToken = 0; 
+0C42:  CLRF   xB3
+....................  
+....................    // Apaga el perro guardian 
+....................    setup_wdt ( WDT_OFF );    
+0C44:  BCF    FD1.0
+....................     
+....................    // Estados iniciales pines cerraduras 
+....................    output_high ( PIN_1_IA ); 
+0C46:  BCF    F94.0
+0C48:  BSF    F8B.0
+....................    output_high ( PIN_1_IB );    
+0C4A:  BCF    F94.1
+0C4C:  BSF    F8B.1
+....................    output_high ( PIN_2_IA ); 
+0C4E:  BCF    F94.2
+0C50:  BSF    F8B.2
+....................    output_high ( PIN_2_IB ); 
+0C52:  BCF    F94.3
+0C54:  BSF    F8B.3
+....................    output_low ( PIN_3_IA );    
+0C56:  BCF    F94.4
+0C58:  BCF    F8B.4
+....................     
+....................    // No ha rebido ningun dato 
+....................    dataRx = 0;          
+0C5A:  CLRF   75
+....................    byteCountRx = 0;            
+0C5C:  CLRF   x8B
+....................    commandSize = 0; 
+0C5E:  CLRF   x8C
+....................    byteCountTx = 0;     
+0C60:  CLRF   x8D
+....................    timerRxCommand = 0; 
+0C62:  CLRF   x9A
+....................    flagNewCommand = FALSE; 
+0C64:  CLRF   x8A
+....................       
+....................    // No hay cerrdura en operacion  
+....................    selectLock = 0; 
+0C66:  CLRF   xAA
+....................    selectSensor = 0; 
+0C68:  CLRF   xAB
+....................    flagReadSensor = false; 
+0C6A:  CLRF   xAC
+....................       
+....................    // Borra solicitud cashbox    
+....................    flagCashBox = false;    
+0C6C:  CLRF   xB4
+....................    
+....................    // Borra otros estados 
+....................    flagGetVersion = false;    
+0C6E:  CLRF   xAD
+....................    flagPoll = false; 
+0C70:  CLRF   xAE
+....................    timeBuzzer = 0; 
+0C72:  CLRF   xB1
+....................     
+....................    tempFlagRx = false; 
+0C74:  CLRF   xF5
+....................  
+....................    // Borra buffer de datos 
+....................    ClearBufferRx ( ); 
+0C76:  GOTO   021E
+....................    ClearBufferTx ( );      
+0C7A:  GOTO   0234
+....................  
+....................    // RTC esta funcioanando bien 
+....................    flagRTCInstalled = FALSE;                                
+0C7E:  CLRF   x8E
+....................  
+....................    // Secuencia de inicio           
+....................    output_high ( PIN_LED ); 
+0C80:  BCF    F94.5
+0C82:  BSF    F8B.5
+....................    output_high ( PIN_BUZZER ); 
+0C84:  BCF    F93.7
+0C86:  BSF    F8A.7
+....................    delay_ms ( 500 ); 
+0C88:  MOVLW  02
+0C8A:  MOVLB  1
+0C8C:  MOVWF  x02
+0C8E:  MOVLW  FA
+0C90:  MOVWF  x34
+0C92:  MOVLB  0
+0C94:  CALL   0248
+0C98:  MOVLB  1
+0C9A:  DECFSZ x02,F
+0C9C:  BRA    0C8E
+....................    output_low ( PIN_LED ); 
+0C9E:  BCF    F94.5
+0CA0:  BCF    F8B.5
+....................    delay_ms ( 200 );    
+0CA2:  MOVLW  C8
+0CA4:  MOVWF  x34
+0CA6:  MOVLB  0
+0CA8:  CALL   0248
+....................    output_high ( PIN_LED ); 
+0CAC:  BCF    F94.5
+0CAE:  BSF    F8B.5
+....................    delay_ms ( 200 ); 
+0CB0:  MOVLW  C8
+0CB2:  MOVLB  1
+0CB4:  MOVWF  x34
+0CB6:  MOVLB  0
+0CB8:  CALL   0248
+....................    output_low ( PIN_LED ); 
+0CBC:  BCF    F94.5
+0CBE:  BCF    F8B.5
+....................    delay_ms ( 200 );    
+0CC0:  MOVLW  C8
+0CC2:  MOVLB  1
+0CC4:  MOVWF  x34
+0CC6:  MOVLB  0
+0CC8:  CALL   0248
+....................    output_high ( PIN_LED );       
+0CCC:  BCF    F94.5
+0CCE:  BSF    F8B.5
+....................    output_low ( PIN_BUZZER );           
+0CD0:  BCF    F93.7
+0CD2:  BCF    F8A.7
+....................        
+....................    // Activa interrupcion recepcion de datos 
+....................    enable_interrupts ( int_rda );    
+0CD4:  BSF    F9D.5
+....................       
+....................    // Activa interrupciones globales 
+....................    enable_interrupts ( global ); 
+0CD6:  MOVLW  C0
+0CD8:  IORWF  FF2,F
+....................     
+....................    // Configura el TMR0 como reloj principla para genera interrupcion cada 10ms 
+....................    setup_timer_0 ( T0_INTERNAL | T0_DIV_1 ); 
+0CDA:  MOVLW  88
+0CDC:  MOVWF  FD5
+....................    set_timer0 ( TIMER_TMR0_10M ); 
+0CDE:  MOVLW  3C
+0CE0:  MOVWF  FD7
+0CE2:  MOVLW  AF
+0CE4:  MOVWF  FD6
+....................     
+....................    // Activa interrupcion TMR0 
+....................    enable_interrupts ( int_timer0 );        
+0CE6:  BSF    FF2.5
+....................     
+....................    // Inicia timer para senalizar comunicacion 
+....................    timerCommunication = TIMEOUT_COMMUNICATION; 
+0CE8:  CLRF   x9E
+0CEA:  MOVLW  32
+0CEC:  MOVWF  x9D
+....................    flagCommunication = false;                
+0CEE:  CLRF   x9F
+....................    
+....................    // Ciclo principal 
+....................    flagExit = FALSE; 
+0CF0:  CLRF   x93
+....................    while ( flagExit == FALSE ) 
+0CF2:  MOVF   x93,F
+0CF4:  BTFSS  FD8.2
+0CF6:  GOTO   17EC
+....................    { 
+....................       // Valida timer comunicaciones 
+....................       if ( timerCommunication == 0 ) 
+0CFA:  MOVF   x9D,F
+0CFC:  BNZ   0D18
+0CFE:  MOVF   x9E,F
+0D00:  BNZ   0D18
+....................       { 
+....................          // Valida si llego un comando dentro del tiempo de parpadeo 
+....................          if ( flagCommunication == true ) 
+0D02:  DECFSZ x9F,W
+0D04:  BRA    0D0E
+....................          { 
+....................             flagCommunication = false; 
+0D06:  CLRF   x9F
+....................              
+....................             // Apaga el LED 
+....................             output_toggle ( PIN_LED ); 
+0D08:  BCF    F94.5
+0D0A:  BTG    F8B.5
+....................          } 
+0D0C:  BRA    0D12
+....................          else 
+....................          { 
+....................             // Mantiene el LED encendido 
+....................             output_high ( PIN_LED ); 
+0D0E:  BCF    F94.5
+0D10:  BSF    F8B.5
+....................          } 
+....................           
+....................          // Inicia timer para senalizar comunicacion 
+....................          timerCommunication = TIMEOUT_COMMUNICATION;          
+0D12:  CLRF   x9E
+0D14:  MOVLW  32
+0D16:  MOVWF  x9D
+....................       } 
+....................     
+....................       // Valida el proceso actual 
+....................       if ( statusNew == STATUS_INITIALIZE ) 
+0D18:  DECFSZ x91,W
+0D1A:  BRA    0D26
+....................       { 
+....................          statusNow = STATUS_INITIALIZE; 
+0D1C:  MOVLW  01
+0D1E:  MOVWF  x90
+....................          statusNew = STATUS_FREE; 
+0D20:  MOVLW  04
+0D22:  MOVWF  x91
+....................          continue; 
+0D24:  BRA    0CF2
+....................       }               
+....................          
+....................       // Valida si hay comando recibido 
+....................       if ( flagNewCommand == TRUE ) 
+0D26:  DECFSZ x8A,W
+0D28:  BRA    0D48
+....................       { 
+....................          // Verifica formato comando 
+....................          tempStatus = ValidateCommand ( ); 
+0D2A:  GOTO   02B0
+0D2E:  MOVFF  01,B5
+....................             
+....................          commandSize = 0; 
+0D32:  CLRF   x8C
+....................             
+....................          // Valida si hubo error 
+....................          if ( tempStatus != ANS_OK ) 
+0D34:  MOVF   xB5,W
+0D36:  SUBLW  A0
+0D38:  BZ    0D48
+....................          {               
+....................             // Envia respuesta de error 
+....................             SendAns ( commandRx [ 2 ], tempStatus );               
+0D3A:  MOVFF  41,102
+0D3E:  MOVFF  B5,103
+0D42:  RCALL  0794
+....................                
+....................             // Indica que ya fue procesado el comando               
+....................             flagNewCommand = FALSE; 
+0D44:  CLRF   x8A
+....................                
+....................             continue; 
+0D46:  BRA    0CF2
+....................          }                                                   
+....................       }     
+....................          
+....................       // Valida contador de errores autenticacion 
+....................       if ( ( failAuth >= 3 ) || ( failToken >= 3 ) ) 
+0D48:  MOVF   xB2,W
+0D4A:  SUBLW  02
+0D4C:  BNC   0D54
+0D4E:  MOVF   xB3,W
+0D50:  SUBLW  02
+0D52:  BC    0D5E
+....................       { 
+....................          SleepMinute ( 5 ); 
+0D54:  MOVLW  05
+0D56:  MOVLB  1
+0D58:  MOVWF  x02
+0D5A:  MOVLB  0
+0D5C:  BRA    07E0
+....................       } 
+....................          
+....................       // Valida si debe reportar version firmware 
+....................       if ( flagGetVersion == true ) 
+0D5E:  DECFSZ xAD,W
+0D60:  BRA    0D86
+....................       {                  
+....................          tempBuffAns [ 0 ] = VERSIONH; 
+0D62:  MOVLW  01
+0D64:  MOVWF  xC3
+....................          tempBuffAns [ 1 ] = VERSIONL; 
+0D66:  MOVWF  xC4
+....................             
+....................          // Comando terminado procesar 
+....................          flagNewCommand = FALSE; 
+0D68:  CLRF   x8A
+....................             
+....................          // Envia respuesta 
+....................          SendAnsComplex ( COMMAND_VERSION, ANS_OK, tempBuffAns, 2 ); 
+0D6A:  MOVLW  50
+0D6C:  MOVLB  1
+0D6E:  MOVWF  x02
+0D70:  MOVLW  A0
+0D72:  MOVWF  x03
+0D74:  CLRF   x05
+0D76:  MOVLW  C3
+0D78:  MOVWF  x04
+0D7A:  MOVLW  02
+0D7C:  MOVWF  x06
+0D7E:  MOVLB  0
+0D80:  RCALL  0814
+....................             
+....................          flagGetVersion = false; 
+0D82:  CLRF   xAD
+....................          continue; 
+0D84:  BRA    0CF2
+....................       }       
+....................        
+....................       // Valida si debe reportar poll 
+....................       if ( flagPoll == true ) 
+0D86:  DECFSZ xAE,W
+0D88:  BRA    0DAC
+....................       {                  
+....................          tempBuffAns [ 0 ] = 0x00; 
+0D8A:  CLRF   xC3
+....................          tempBuffAns [ 1 ] = 0x00; 
+0D8C:  CLRF   xC4
+....................             
+....................          // Comando terminado procesar 
+....................          flagNewCommand = FALSE; 
+0D8E:  CLRF   x8A
+....................             
+....................          // Envia respuesta 
+....................          SendAnsComplex ( COMMAND_POLL, ANS_OK, tempBuffAns, 2 ); 
+0D90:  MOVLW  70
+0D92:  MOVLB  1
+0D94:  MOVWF  x02
+0D96:  MOVLW  A0
+0D98:  MOVWF  x03
+0D9A:  CLRF   x05
+0D9C:  MOVLW  C3
+0D9E:  MOVWF  x04
+0DA0:  MOVLW  02
+0DA2:  MOVWF  x06
+0DA4:  MOVLB  0
+0DA6:  RCALL  0814
+....................             
+....................          flagPoll = false; 
+0DA8:  CLRF   xAE
+....................          continue; 
+0DAA:  BRA    0CF2
+....................       }  
+....................          
+....................       // Valida si es activacion buzzer 
+....................       if ( statusNew == STATUS_BUZZER ) 
+0DAC:  MOVF   x91,W
+0DAE:  SUBLW  09
+0DB0:  BNZ   0DF2
+....................       { 
+....................          statusNow = STATUS_BUZZER;      
+0DB2:  MOVLW  09
+0DB4:  MOVWF  x90
+....................             
+....................          // Valida paso configuracion inicial 
+....................          if ( stepNow == STEP_START ) 
+0DB6:  MOVF   x92,F
+0DB8:  BNZ   0DD8
+....................          {         
+....................             // Comando terminado procesar 
+....................             flagNewCommand = FALSE; 
+0DBA:  CLRF   x8A
+....................                
+....................             timerMain1 = timeBuzzer; 
+0DBC:  MOVFF  B1,94
+....................                
+....................             // Envia respuesta 
+....................             SendAns ( commandRx [ 2 ], ANS_OK );      
+0DC0:  MOVFF  41,102
+0DC4:  MOVLW  A0
+0DC6:  MOVLB  1
+0DC8:  MOVWF  x03
+0DCA:  MOVLB  0
+0DCC:  RCALL  0794
+....................                
+....................             stepNow = STEP_WAIT;  
+0DCE:  MOVLW  28
+0DD0:  MOVWF  x92
+....................                
+....................             // Activa buzzer 
+....................             output_high ( PIN_BUZZER ); 
+0DD2:  BCF    F93.7
+0DD4:  BSF    F8A.7
+....................             continue;                  
+0DD6:  BRA    0CF2
+....................          } 
+....................             
+....................          // Valida terminacion tiempo 
+....................          if ( stepNow == STEP_WAIT ) 
+0DD8:  MOVF   x92,W
+0DDA:  SUBLW  28
+0DDC:  BNZ   0DF0
+....................          {         
+....................             // Valida si transcurrio el tiempo 
+....................             if ( timerMain1 == 0 ) 
+0DDE:  MOVF   x94,F
+0DE0:  BNZ   0DEE
+....................             {               
+....................                // Apaga buzzer 
+....................                output_low ( PIN_BUZZER ); 
+0DE2:  BCF    F93.7
+0DE4:  BCF    F8A.7
+....................                   
+....................                // Termina proceso 
+....................                statusNew = STATUS_FREE; 
+0DE6:  MOVLW  04
+0DE8:  MOVWF  x91
+....................                stepNow = STEP_START; 
+0DEA:  CLRF   x92
+....................                   
+....................                continue;                  
+0DEC:  BRA    0CF2
+....................             }      
+....................                
+....................             continue; 
+0DEE:  BRA    0CF2
+....................          }                     
+....................             
+....................          continue; 
+0DF0:  BRA    0CF2
+....................       }         
+....................          
+....................       // Valida si debe hacer lectura sensores 
+....................       if ( flagReadSensor == true ) 
+0DF2:  DECFSZ xAC,W
+0DF4:  BRA    0E72
+....................       {                  
+....................          tempByte = 0x00;                           
+0DF6:  CLRF   xC1
+....................  
+....................          // Valida ID cerradura 
+....................          if ( selectSensor == 1 ) 
+0DF8:  DECFSZ xAB,W
+0DFA:  BRA    0E1C
+....................          { 
+....................             // Valida sensor 
+....................             if ( input ( PIN_1_SD ) == 1 ) 
+0DFC:  BSF    F92.1
+0DFE:  BTFSS  F80.1
+0E00:  BRA    0E04
+....................             { 
+....................                tempByte |= MASK_SD; 
+0E02:  BSF    xC1.0
+....................             } 
+....................                
+....................             // Valida sensor 
+....................             if ( input ( PIN_1_SL ) == 1 ) 
+0E04:  BSF    F92.0
+0E06:  BTFSS  F80.0
+0E08:  BRA    0E0C
+....................             { 
+....................                tempByte |= MASK_SL;               
+0E0A:  BSF    xC1.1
+....................             } 
+....................                
+....................             // Valida sensor 
+....................             if ( input ( PIN_1_LO ) == 1 ) 
+0E0C:  BSF    F93.1
+0E0E:  BTFSS  F81.1
+0E10:  BRA    0E14
+....................             { 
+....................                tempByte |= MASK_LO; 
+0E12:  BSF    xC1.4
+....................             } 
+....................                
+....................             // Valida sensor 
+....................             if ( input ( PIN_1_LI ) == 1 ) 
+0E14:  BSF    F93.0
+0E16:  BTFSS  F81.0
+0E18:  BRA    0E1C
+....................             { 
+....................                tempByte |= MASK_LI; 
+0E1A:  BSF    xC1.5
+....................             } 
+....................          } 
+....................             
+....................          // Valida ID cerradura 
+....................          if ( selectSensor == 2 ) 
+0E1C:  MOVF   xAB,W
+0E1E:  SUBLW  02
+0E20:  BNZ   0E42
+....................          { 
+....................             // Valida sensor 
+....................             if ( input ( PIN_2_SD ) == 1 ) 
+0E22:  BSF    F92.3
+0E24:  BTFSS  F80.3
+0E26:  BRA    0E2A
+....................             { 
+....................                tempByte |= MASK_SD; 
+0E28:  BSF    xC1.0
+....................             } 
+....................                
+....................             // Valida sensor 
+....................             if ( input ( PIN_2_SL ) == 1 ) 
+0E2A:  BSF    F92.2
+0E2C:  BTFSS  F80.2
+0E2E:  BRA    0E32
+....................             { 
+....................                tempByte |= MASK_SL; 
+0E30:  BSF    xC1.1
+....................             } 
+....................                
+....................             // Valida sensor 
+....................             if ( input ( PIN_2_LO ) == 1 ) 
+0E32:  BSF    F93.3
+0E34:  BTFSS  F81.3
+0E36:  BRA    0E3A
+....................             { 
+....................                tempByte |= MASK_LO; 
+0E38:  BSF    xC1.4
+....................             } 
+....................                
+....................             // Valida sensor 
+....................             if ( input ( PIN_2_LI ) == 1 ) 
+0E3A:  BSF    F93.2
+0E3C:  BTFSS  F81.2
+0E3E:  BRA    0E42
+....................             { 
+....................                tempByte |= MASK_LI; 
+0E40:  BSF    xC1.5
+....................             } 
+....................          } 
+....................             
+....................          // Valida ID cerradura 
+....................          if ( selectSensor == 3 ) 
+0E42:  MOVF   xAB,W
+0E44:  SUBLW  03
+0E46:  BNZ   0E50
+....................          { 
+....................             // Valida sensor 
+....................             if ( input ( PIN_3_SD ) == 1 ) 
+0E48:  BSF    F92.5
+0E4A:  BTFSS  F80.5
+0E4C:  BRA    0E50
+....................             { 
+....................                tempByte |= MASK_SD; 
+0E4E:  BSF    xC1.0
+....................             } 
+....................                
+....................             /* 
+....................             // Valida sensor 
+....................             if ( input ( PIN_3_SL ) == 1 ) 
+....................             { 
+....................                tempByte |= MASK_SL; 
+....................             } 
+....................             */ 
+....................          }                  
+....................             
+....................          // Coamndo termiando procesar 
+....................          flagNewCommand = FALSE;                     
+0E50:  CLRF   x8A
+....................  
+....................          // Asigna byte de estado 
+....................          tempBuffAns [ 0 ] = tempByte; 
+0E52:  MOVFF  C1,C3
+....................             
+....................          // Envia respuesta 
+....................          SendAnsComplex ( COMMAND_STATUS, ANS_OK, tempBuffAns, 1 ); 
+0E56:  MOVLW  20
+0E58:  MOVLB  1
+0E5A:  MOVWF  x02
+0E5C:  MOVLW  A0
+0E5E:  MOVWF  x03
+0E60:  CLRF   x05
+0E62:  MOVLW  C3
+0E64:  MOVWF  x04
+0E66:  MOVLW  01
+0E68:  MOVWF  x06
+0E6A:  MOVLB  0
+0E6C:  RCALL  0814
+....................             
+....................          flagReadSensor = false; 
+0E6E:  CLRF   xAC
+....................       
+....................          continue; 
+0E70:  BRA    0CF2
+....................       }               
+....................          
+....................       // Valida si debe hacer lectura cashbox 
+....................       if ( flagCashBox == true ) 
+0E72:  DECFSZ xB4,W
+0E74:  BRA    0EA4
+....................       {                  
+....................          tempByte = 0x00;                           
+0E76:  CLRF   xC1
+....................  
+....................          // Valida sensor 
+....................          if ( input ( PIN_CASHBOX ) == 1 ) 
+0E78:  BSF    F92.4
+0E7A:  BTFSS  F80.4
+0E7C:  BRA    0E82
+....................          { 
+....................             tempByte = 0x01; 
+0E7E:  MOVLW  01
+0E80:  MOVWF  xC1
+....................          }                                 
+....................             
+....................          // Coamndo termiando procesar 
+....................          flagNewCommand = FALSE;                     
+0E82:  CLRF   x8A
+....................  
+....................          // Asigna byte de estado 
+....................          tempBuffAns [ 0 ] = tempByte; 
+0E84:  MOVFF  C1,C3
+....................             
+....................          // Envia respuesta 
+....................          SendAnsComplex ( COMMAND_CASHBOX, ANS_OK, tempBuffAns, 1 ); 
+0E88:  MOVLW  60
+0E8A:  MOVLB  1
+0E8C:  MOVWF  x02
+0E8E:  MOVLW  A0
+0E90:  MOVWF  x03
+0E92:  CLRF   x05
+0E94:  MOVLW  C3
+0E96:  MOVWF  x04
+0E98:  MOVLW  01
+0E9A:  MOVWF  x06
+0E9C:  MOVLB  0
+0E9E:  RCALL  0814
+....................             
+....................          flagCashBox = false; 
+0EA0:  CLRF   xB4
+....................       
+....................          continue; 
+0EA2:  BRA    0CF2
+....................       } 
+....................          
+....................       // Valida estado escritura EEPROM 
+....................       if ( statusNew == STATUS_WRITEEEPROM ) 
+0EA4:  MOVF   x91,W
+0EA6:  SUBLW  32
+0EA8:  BNZ   0EEC
+....................       { 
+....................          // Escribe el dato en la EEPROM 
+....................          WRITE_EEPROM ( addressEEprom, byteEEprom );         
+0EAA:  MOVF   FF2,W
+0EAC:  MOVWF  00
+0EAE:  BCF    FF2.7
+0EB0:  MOVFF  B0,FA9
+0EB4:  MOVFF  AF,FA8
+0EB8:  BCF    FA6.6
+0EBA:  BCF    FA6.7
+0EBC:  BSF    FA6.2
+0EBE:  MOVLB  F
+0EC0:  MOVLW  55
+0EC2:  MOVWF  FA7
+0EC4:  MOVLW  AA
+0EC6:  MOVWF  FA7
+0EC8:  BSF    FA6.1
+0ECA:  BTFSC  FA6.1
+0ECC:  BRA    0ECA
+0ECE:  BCF    FA6.2
+0ED0:  MOVF   00,W
+0ED2:  IORWF  FF2,F
+....................             
+....................          // Comando terminado procesar 
+....................          flagNewCommand = FALSE;         
+0ED4:  MOVLB  0
+0ED6:  CLRF   x8A
+....................  
+....................          // Envia respuesta 
+....................          SendAns ( commandRx [ 2 ], ANS_OK );      
+0ED8:  MOVFF  41,102
+0EDC:  MOVLW  A0
+0EDE:  MOVLB  1
+0EE0:  MOVWF  x03
+0EE2:  MOVLB  0
+0EE4:  RCALL  0794
+....................             
+....................          // Liberar para nuevo proceso 
+....................          statusNew = STATUS_FREE; 
+0EE6:  MOVLW  04
+0EE8:  MOVWF  x91
+....................       
+....................          continue; 
+0EEA:  BRA    0CF2
+....................       }        
+....................        
+....................       // Valida estado lectura EEPROM 
+....................       if ( statusNew == STATUS_READEEPROM ) 
+0EEC:  MOVF   x91,W
+0EEE:  SUBLW  33
+0EF0:  BNZ   0F4E
+....................       { 
+....................          // cilo para leer datos de la EEPROM          
+....................          for ( pos = 0; pos < byteEEprom; pos ++ ) 
+0EF2:  CLRF   xC2
+0EF4:  MOVF   xAF,W
+0EF6:  SUBWF  xC2,W
+0EF8:  BC    0F2E
+....................          {          
+....................             tempBuffAns [ pos ] = READ_EEPROM ( addressEEprom + pos );             
+0EFA:  CLRF   03
+0EFC:  MOVF   xC2,W
+0EFE:  ADDLW  C3
+0F00:  MOVWF  FE9
+0F02:  MOVLW  00
+0F04:  ADDWFC 03,W
+0F06:  MOVWF  FEA
+0F08:  MOVF   xC2,W
+0F0A:  ADDWF  xB0,W
+0F0C:  MOVLB  1
+0F0E:  MOVWF  x04
+0F10:  MOVFF  FF2,105
+0F14:  BCF    FF2.7
+0F16:  MOVFF  104,FA9
+0F1A:  BCF    FA6.6
+0F1C:  BCF    FA6.7
+0F1E:  BSF    FA6.0
+0F20:  MOVF   FA8,W
+0F22:  BTFSC  x05.7
+0F24:  BSF    FF2.7
+0F26:  MOVWF  FEF
+0F28:  MOVLB  0
+0F2A:  INCF   xC2,F
+0F2C:  BRA    0EF4
+....................          } 
+....................           
+....................          // Envia respuesta 
+....................          SendAnsComplex ( COMMAND_EEPROM_READ, ANS_OK, tempBuffAns, byteEEprom ); 
+0F2E:  MOVLW  41
+0F30:  MOVLB  1
+0F32:  MOVWF  x02
+0F34:  MOVLW  A0
+0F36:  MOVWF  x03
+0F38:  CLRF   x05
+0F3A:  MOVLW  C3
+0F3C:  MOVWF  x04
+0F3E:  MOVFF  AF,106
+0F42:  MOVLB  0
+0F44:  RCALL  0814
+....................             
+....................          // Comando terminado procesar 
+....................          flagNewCommand = FALSE;           
+0F46:  CLRF   x8A
+....................             
+....................          // Liberar para nuevo proceso 
+....................          statusNew = STATUS_FREE; 
+0F48:  MOVLW  04
+0F4A:  MOVWF  x91
+....................       
+....................          continue; 
+0F4C:  BRA    0CF2
+....................       }    
+....................        
+....................       // Valida estado nuevo token 
+....................       if ( statusNew == STATUS_SETTOKEN ) 
+0F4E:  MOVF   x91,W
+0F50:  SUBLW  0A
+0F52:  BNZ   0FBA
+....................       {                            
+....................          // check token data 
+....................          tempStatus = ValidateToken ( ADDRESS_KEYTOKEN );          
+0F54:  MOVLB  1
+0F56:  CLRF   x04
+0F58:  MOVLW  1E
+0F5A:  MOVWF  x03
+0F5C:  MOVLB  0
+0F5E:  RCALL  0948
+0F60:  MOVFF  01,B5
+....................           
+....................          // Valida si debe incrementar contador errores 
+....................          if ( tempStatus == TRUE ) 
+0F64:  DECFSZ xB5,W
+0F66:  BRA    0F6C
+....................          { 
+....................             failToken = 0; 
+0F68:  CLRF   xB3
+....................          } 
+0F6A:  BRA    0F74
+....................          else 
+....................          {                   
+....................             // Incrementa contador de errores 
+....................             if ( failToken < 250 ) 
+0F6C:  MOVF   xB3,W
+0F6E:  SUBLW  F9
+0F70:  BNC   0F74
+....................             { 
+....................                failAuth ++; 
+0F72:  INCF   xB2,F
+....................             }               
+....................          } 
+....................           
+....................          // Check ans 
+....................          if ( tempStatus == ERROR_SIGNATURE ) 
+0F74:  MOVF   xB5,W
+0F76:  SUBLW  0A
+0F78:  BNZ   0F8A
+....................          {                
+....................             // Envia respuesta 
+....................             SendAns ( commandRx [ 2 ], ANS_ERROR_TOKEN ); 
+0F7A:  MOVFF  41,102
+0F7E:  MOVLW  F3
+0F80:  MOVLB  1
+0F82:  MOVWF  x03
+0F84:  MOVLB  0
+0F86:  RCALL  0794
+....................          } 
+0F88:  BRA    0FB2
+....................          else 
+....................          { 
+....................             if ( tempStatus == ERROR_VALUE ) 
+0F8A:  MOVF   xB5,W
+0F8C:  SUBLW  0B
+0F8E:  BNZ   0FA2
+....................             {                   
+....................                // Envia respuesta 
+....................                SendAns ( commandRx [ 2 ], ANS_ERROR_TIME ); 
+0F90:  MOVFF  41,102
+0F94:  MOVLW  F4
+0F96:  MOVLB  1
+0F98:  MOVWF  x03
+0F9A:  MOVLB  0
+0F9C:  CALL   0794
+....................             } 
+0FA0:  BRA    0FB2
+....................             else 
+....................             {                  
+....................                // Envia respuesta 
+....................                SendAns ( commandRx [ 2 ], ANS_OK );                               
+0FA2:  MOVFF  41,102
+0FA6:  MOVLW  A0
+0FA8:  MOVLB  1
+0FAA:  MOVWF  x03
+0FAC:  MOVLB  0
+0FAE:  CALL   0794
+....................             }          
+....................          }                    
+....................           
+....................          // Comando terminado procesar 
+....................          flagNewCommand = FALSE;   
+0FB2:  CLRF   x8A
+....................           
+....................          // Liberar para nuevo proceso 
+....................          statusNew = STATUS_FREE; 
+0FB4:  MOVLW  04
+0FB6:  MOVWF  x91
+....................       
+....................          continue; 
+0FB8:  BRA    0CF2
+....................       } 
+....................        
+....................       // Valida proceso de formatear bloque 
+....................       if ( statusNew == STATUS_BLOCKFORMAT ) 
+0FBA:  MOVF   x91,W
+0FBC:  SUBLW  08
+0FBE:  BTFSS  FD8.2
+0FC0:  BRA    11B4
+....................       {       
+....................          statusNow = STATUS_BLOCKFORMAT; 
+0FC2:  MOVLW  08
+0FC4:  MOVWF  x90
+....................          statusNew = STATUS_FREE; 
+0FC6:  MOVLW  04
+0FC8:  MOVWF  x91
+....................           
+....................           // Obtiene los datos del bloque actual 
+....................          ReadEEprom ( tempEEprom, indexBlock * BLOCK_LENGTH, BLOCK_LENGTH ); 
+0FCA:  MOVF   xA8,W
+0FCC:  MULLW  05
+0FCE:  MOVFF  FF3,102
+0FD2:  MOVLB  1
+0FD4:  CLRF   x32
+0FD6:  MOVLW  B6
+0FD8:  MOVWF  x31
+0FDA:  MOVFF  102,133
+0FDE:  MOVLW  05
+0FE0:  MOVWF  x34
+0FE2:  MOVLB  0
+0FE4:  RCALL  08A0
+....................             
+....................          // Obtiene las condiciones de acceso 
+....................          tempAccess = tempEEprom [ 0 ]; 
+0FE6:  MOVFF  B6,C0
+....................          
+....................          // Valida si es comando version 2 
+....................          if ( versionOrder == VERSION_2 ) 
+0FEA:  MOVF   x8F,W
+0FEC:  SUBLW  02
+0FEE:  BTFSS  FD8.2
+0FF0:  BRA    10FE
+....................          {         
+....................             // Valida informacion del token 
+....................             tempStatus = ValidateToken ( indexBlock * BLOCK_LENGTH ); 
+0FF2:  MOVF   xA8,W
+0FF4:  MULLW  05
+0FF6:  MOVFF  FF3,102
+0FFA:  MOVLB  1
+0FFC:  CLRF   x04
+0FFE:  MOVFF  102,103
+1002:  MOVLB  0
+1004:  RCALL  0948
+1006:  MOVFF  01,B5
+....................              
+....................             // Valida si el bloque fue inicializado 
+....................             if ( tempAccess != 0xFF ) 
+100A:  INCFSZ xC0,W
+100C:  BRA    1010
+100E:  BRA    104A
+....................             {                
+....................                if ( tempStatus != TRUE ) 
+1010:  DECFSZ xB5,W
+1012:  BRA    1016
+1014:  BRA    104A
+....................                { 
+....................                   // Error validando token 
+....................                   flagNewCommand = FALSE; 
+1016:  CLRF   x8A
+....................                    
+....................                   // Check ans 
+....................                   if ( tempStatus == ERROR_SIGNATURE ) 
+1018:  MOVF   xB5,W
+101A:  SUBLW  0A
+101C:  BNZ   102E
+....................                   {                
+....................                      // Envia respuesta 
+....................                      SendAns ( commandRx [ 2 ], ANS_ERROR_TOKEN ); 
+101E:  MOVFF  41,102
+1022:  MOVLW  F3
+1024:  MOVLB  1
+1026:  MOVWF  x03
+1028:  MOVLB  0
+102A:  CALL   0794
+....................                   } 
+....................           
+....................                   if ( tempStatus == ERROR_VALUE ) 
+102E:  MOVF   xB5,W
+1030:  SUBLW  0B
+1032:  BNZ   1044
+....................                   {                   
+....................                      // Envia respuesta 
+....................                      SendAns ( commandRx [ 2 ], ANS_ERROR_TIME ); 
+1034:  MOVFF  41,102
+1038:  MOVLW  F4
+103A:  MOVLB  1
+103C:  MOVWF  x03
+103E:  MOVLB  0
+1040:  CALL   0794
+....................                   }                                                                   
+....................                      
+....................                   statusNew = STATUS_FREE; 
+1044:  MOVLW  04
+1046:  MOVWF  x91
+....................                      
+....................                   continue; 
+1048:  BRA    0CF2
+....................                }                                                                         
+....................             }             
+....................              
+....................             // Convierte a numero la llave random             
+....................             tempNum = valueKey [ 0 ] << 24; 
+104A:  MOVFF  A4,F9
+104E:  CLRF   xF6
+1050:  CLRF   xF7
+1052:  CLRF   xF8
+....................             tempData2 = valueKey [ 1 ] << 16; 
+1054:  MOVFF  A5,100
+1058:  CLRF   xFE
+105A:  CLRF   xFF
+105C:  MOVLB  1
+105E:  CLRF   x01
+....................             tempNum += tempData2; 
+1060:  MOVLB  0
+1062:  MOVF   xFE,W
+1064:  ADDWF  xF6,F
+1066:  MOVF   xFF,W
+1068:  ADDWFC xF7,F
+106A:  MOVLB  1
+106C:  MOVF   x00,W
+106E:  MOVLB  0
+1070:  ADDWFC xF8,F
+1072:  MOVLB  1
+1074:  MOVF   x01,W
+1076:  MOVLB  0
+1078:  ADDWFC xF9,F
+....................             tempData2 = valueKey [ 2 ] << 8; 
+107A:  MOVFF  A6,FF
+107E:  CLRF   xFE
+1080:  MOVLB  1
+1082:  CLRF   x00
+1084:  CLRF   x01
+....................             tempNum += tempData2; 
+1086:  MOVLB  0
+1088:  MOVF   xFE,W
+108A:  ADDWF  xF6,F
+108C:  MOVF   xFF,W
+108E:  ADDWFC xF7,F
+1090:  MOVLB  1
+1092:  MOVF   x00,W
+1094:  MOVLB  0
+1096:  ADDWFC xF8,F
+1098:  MOVLB  1
+109A:  MOVF   x01,W
+109C:  MOVLB  0
+109E:  ADDWFC xF9,F
+....................             tempData2 = valueKey [ 3 ]; 
+10A0:  MOVLB  1
+10A2:  CLRF   x01
+10A4:  CLRF   x00
+10A6:  MOVLB  0
+10A8:  CLRF   xFF
+10AA:  MOVFF  A7,FE
+....................             tempNum += tempData2;   
+10AE:  MOVF   xFE,W
+10B0:  ADDWF  xF6,F
+10B2:  MOVF   xFF,W
+10B4:  ADDWFC xF7,F
+10B6:  MOVLB  1
+10B8:  MOVF   x00,W
+10BA:  MOVLB  0
+10BC:  ADDWFC xF8,F
+10BE:  MOVLB  1
+10C0:  MOVF   x01,W
+10C2:  MOVLB  0
+10C4:  ADDWFC xF9,F
+....................              
+....................             // Retira mascara a la llave recibida 
+....................             tempNum -= randomValue;      
+10C6:  MOVF   71,W
+10C8:  SUBWF  xF6,F
+10CA:  MOVF   72,W
+10CC:  SUBWFB xF7,F
+10CE:  MOVF   73,W
+10D0:  SUBWFB xF8,F
+10D2:  MOVF   74,W
+10D4:  SUBWFB xF9,F
+....................              
+....................             // Convierte a byte el valor 
+....................             valueKey [ 0 ] = tempNum >> 24; 
+10D6:  MOVFF  F9,A4
+....................             valueKey [ 1 ] = tempNum >> 16; 
+10DA:  MOVFF  F8,A5
+....................             valueKey [ 2 ] = tempNum >> 8; 
+10DE:  MOVFF  F7,A6
+....................             valueKey [ 3 ] = tempNum; 
+10E2:  MOVFF  F6,A7
+....................              
+.................... #ifdef DEBUG 
+.................... // llave autenticacion recibida 
+.................... SendByte ( 0xDE ); 
+.................... SendByte ( 0xD7 ); 
+.................... SendByte ( valueKey [ 0] ); 
+.................... SendByte ( valueKey [ 1] ); 
+.................... SendByte ( valueKey [ 2] ); 
+.................... SendByte ( valueKey [ 3] ); 
+....................  
+.................... // Llave token recibida 
+.................... SendByte ( 0xDE ); 
+.................... SendByte ( 0xD8 ); 
+.................... SendByte ( externalKey [ 0] ); 
+.................... SendByte ( externalKey [ 1] ); 
+.................... SendByte ( externalKey [ 2] ); 
+.................... SendByte ( externalKey [ 3] ); 
+....................  
+.................... #endif             
+....................              
+....................             memcpy ( externalKey, valueKey, 4 ); 
+10E6:  CLRF   FEA
+10E8:  MOVLW  A0
+10EA:  MOVWF  FE9
+10EC:  CLRF   FE2
+10EE:  MOVLW  A4
+10F0:  MOVWF  FE1
+10F2:  MOVLW  04
+10F4:  MOVWF  01
+10F6:  MOVFF  FE6,FEE
+10FA:  DECFSZ 01,F
+10FC:  BRA    10F6
+....................          }            
+....................             
+....................          // Valida si tiene permiso de inicializar el bloque 
+....................          if ( ( tempAccess & PERMISSION_FORMAT ) == 0 ) 
+10FE:  MOVF   xC0,W
+1100:  ANDLW  80
+1102:  BNZ   1166
+....................          { 
+....................             // Debe validar si puede cambiar condiciones con autenticacion 
+....................              
+....................              
+.................... #ifdef DEBUG 
+.................... // l;l;ave EEPROM leida 
+.................... SendByte ( 0xDE ); 
+.................... SendByte ( 0xD4 ); 
+.................... SendByte ( tempEEprom [ 0] ); 
+.................... SendByte ( tempEEprom [ 1] ); 
+.................... SendByte ( tempEEprom [ 2] ); 
+.................... SendByte ( tempEEprom [ 3] ); 
+.................... SendByte ( tempEEprom [ 4] ); 
+....................  
+.................... // Llave recibida 
+.................... SendByte ( 0xDE ); 
+.................... SendByte ( 0xD5 ); 
+.................... SendByte ( externalKey [ 0] ); 
+.................... SendByte ( externalKey [ 1] ); 
+.................... SendByte ( externalKey [ 2] ); 
+.................... SendByte ( externalKey [ 3] ); 
+.................... SendByte ( externalKey [ 4] ); 
+....................  
+.................... #endif             
+....................                
+....................             // Compara la llave recibida con la actual 
+....................             tempStatus = CompareBuffer ( tempEEprom + 1, externalKey, 4 ); 
+1104:  MOVLB  1
+1106:  CLRF   x03
+1108:  MOVLW  B7
+110A:  MOVWF  x02
+110C:  CLRF   x05
+110E:  MOVLW  A0
+1110:  MOVWF  x04
+1112:  MOVLW  04
+1114:  MOVWF  x06
+1116:  MOVLB  0
+1118:  RCALL  0BDA
+111A:  MOVFF  01,B5
+....................                
+....................             // Valida si coinciden 
+....................             if ( tempStatus != TRUE ) 
+111E:  DECFSZ xB5,W
+1120:  BRA    1124
+1122:  BRA    1140
+....................             { 
+....................                flagNewCommand = FALSE; 
+1124:  CLRF   x8A
+....................                SendAns ( commandRx [ 2 ], ANS_ERROR_KEY );         
+1126:  MOVFF  41,102
+112A:  MOVLW  F2
+112C:  MOVLB  1
+112E:  MOVWF  x03
+1130:  MOVLB  0
+1132:  CALL   0794
+....................                   
+....................                // Incrementa contador de errores autenticacion 
+....................                if ( failAuth < 250 ) 
+1136:  MOVF   xB2,W
+1138:  SUBLW  F9
+113A:  BNC   113E
+....................                { 
+....................                   failAuth ++; 
+113C:  INCF   xB2,F
+....................                } 
+....................                   
+....................                continue; 
+113E:  BRA    0CF2
+....................             } 
+....................              
+....................             failAuth = 0; 
+1140:  CLRF   xB2
+....................                
+....................             // Asigna las nuevas condiciones de acceso 
+....................             tempEEprom [ 0 ] = accessBlock; 
+1142:  MOVFF  A9,B6
+....................                
+....................             // Graba las nuevas condiciones 
+....................             WriteEEprom ( tempEEprom, indexBlock * BLOCK_LENGTH, 1 ); 
+1146:  MOVF   xA8,W
+1148:  MULLW  05
+114A:  MOVFF  FF3,102
+114E:  MOVLB  1
+1150:  CLRF   x30
+1152:  MOVLW  B6
+1154:  MOVWF  x2F
+1156:  MOVFF  102,131
+115A:  MOVLW  01
+115C:  MOVWF  x32
+115E:  MOVLB  0
+1160:  CALL   08E2
+....................          }         
+1164:  BRA    11A0
+....................          else 
+....................          {            
+....................             // Escribe la nueva llave y condiciones de acceso      
+....................             tempEEprom [ 0 ] = accessBlock; 
+1166:  MOVFF  A9,B6
+....................             memcpy ( tempEEprom + 1, valueKey, 4 ); 
+116A:  CLRF   FEA
+116C:  MOVLW  B7
+116E:  MOVWF  FE9
+1170:  CLRF   FE2
+1172:  MOVLW  A4
+1174:  MOVWF  FE1
+1176:  MOVLW  04
+1178:  MOVWF  01
+117A:  MOVFF  FE6,FEE
+117E:  DECFSZ 01,F
+1180:  BRA    117A
+....................                
+....................             // Graba las nuevas condiciones 
+....................             WriteEEprom ( tempEEprom, indexBlock * BLOCK_LENGTH, BLOCK_LENGTH );               
+1182:  MOVF   xA8,W
+1184:  MULLW  05
+1186:  MOVFF  FF3,102
+118A:  MOVLB  1
+118C:  CLRF   x30
+118E:  MOVLW  B6
+1190:  MOVWF  x2F
+1192:  MOVFF  102,131
+1196:  MOVLW  05
+1198:  MOVWF  x32
+119A:  MOVLB  0
+119C:  CALL   08E2
+....................          } 
+....................             
+....................          // Lee el byte de acceso del bloque seleccionado                                    
+....................          flagNewCommand = FALSE; 
+11A0:  CLRF   x8A
+....................          SendAns ( commandRx [ 2 ], ANS_OK );      
+11A2:  MOVFF  41,102
+11A6:  MOVLW  A0
+11A8:  MOVLB  1
+11AA:  MOVWF  x03
+11AC:  MOVLB  0
+11AE:  CALL   0794
+....................          continue; 
+11B2:  BRA    0CF2
+....................       }     
+....................        
+....................       // Valida proceso cambiar llave 
+....................       if ( statusNew == STATUS_CHANGE_KEY ) 
+11B4:  MOVF   x91,W
+11B6:  SUBLW  0B
+11B8:  BTFSS  FD8.2
+11BA:  BRA    13B2
+....................       { 
+....................          statusNow = STATUS_CHANGE_KEY; 
+11BC:  MOVLW  0B
+11BE:  MOVWF  x90
+....................          statusNew = STATUS_FREE;                     
+11C0:  MOVLW  04
+11C2:  MOVWF  x91
+....................            
+....................          // Obtiene los datos del bloque actual 
+....................          ReadEEprom ( tempEEprom, indexBlock * BLOCK_LENGTH, BLOCK_LENGTH ); 
+11C4:  MOVF   xA8,W
+11C6:  MULLW  05
+11C8:  MOVFF  FF3,102
+11CC:  MOVLB  1
+11CE:  CLRF   x32
+11D0:  MOVLW  B6
+11D2:  MOVWF  x31
+11D4:  MOVFF  102,133
+11D8:  MOVLW  05
+11DA:  MOVWF  x34
+11DC:  MOVLB  0
+11DE:  CALL   08A0
+....................             
+....................          // Obtiene las condiciones de acceso 
+....................          tempAccess = tempEEprom [ 0 ];            
+11E2:  MOVFF  B6,C0
+....................             
+....................          // Valida si tiene permiso de escritura sin autenticacion 
+....................          if ( ( tempAccess & PERMISSION_WR ) == 0 ) 
+11E6:  MOVF   xC0,W
+11E8:  ANDLW  02
+11EA:  BNZ   1224
+....................          {              
+....................             // Graba la nueva llave 
+....................             WriteEEprom ( valueKey, ( indexBlock * BLOCK_LENGTH ) + 1,  
+....................                      BLOCK_LENGTH - 1 ); 
+11EC:  MOVF   xA8,W
+11EE:  MULLW  05
+11F0:  MOVF   FF3,W
+11F2:  ADDLW  01
+11F4:  MOVLB  1
+11F6:  MOVWF  x02
+11F8:  CLRF   x30
+11FA:  MOVLW  A4
+11FC:  MOVWF  x2F
+11FE:  MOVFF  102,131
+1202:  MOVLW  04
+1204:  MOVWF  x32
+1206:  MOVLB  0
+1208:  CALL   08E2
+....................                       
+....................             // Comando procesado 
+....................             flagNewCommand = FALSE; 
+120C:  CLRF   x8A
+....................             statusNew = STATUS_FREE; 
+120E:  MOVLW  04
+1210:  MOVWF  x91
+....................             SendAns ( commandRx [ 2 ], ANS_OK );   
+1212:  MOVFF  41,102
+1216:  MOVLW  A0
+1218:  MOVLB  1
+121A:  MOVWF  x03
+121C:  MOVLB  0
+121E:  CALL   0794
+....................             continue; 
+1222:  BRA    0CF2
+....................          } 
+....................           
+....................          // Valida si tiene permiso de escritura con autenticacion 
+....................          if ( ( tempAccess & PERMISSION_WRAUTH ) == 0 ) 
+1224:  MOVF   xC0,W
+1226:  ANDLW  04
+1228:  BTFSS  FD8.2
+122A:  BRA    1360
+....................          {                      
+....................             // Valida informacion del token 
+....................             tempStatus = ValidateToken ( indexBlock * BLOCK_LENGTH ); 
+122C:  MOVF   xA8,W
+122E:  MULLW  05
+1230:  MOVFF  FF3,102
+1234:  MOVLB  1
+1236:  CLRF   x04
+1238:  MOVFF  102,103
+123C:  MOVLB  0
+123E:  CALL   0948
+1242:  MOVFF  01,B5
+....................             if ( tempStatus != TRUE ) 
+1246:  DECFSZ xB5,W
+1248:  BRA    124C
+124A:  BRA    1288
+....................             { 
+....................                // Error validando token 
+....................                flagNewCommand = FALSE; 
+124C:  CLRF   x8A
+....................                 
+....................                // Check ans 
+....................                if ( tempStatus == ERROR_SIGNATURE ) 
+124E:  MOVF   xB5,W
+1250:  SUBLW  0A
+1252:  BNZ   1264
+....................                {                
+....................                   // Envia respuesta 
+....................                   SendAns ( commandRx [ 2 ], ANS_ERROR_TOKEN ); 
+1254:  MOVFF  41,102
+1258:  MOVLW  F3
+125A:  MOVLB  1
+125C:  MOVWF  x03
+125E:  MOVLB  0
+1260:  CALL   0794
+....................                } 
+....................              
+....................                if ( tempStatus == ERROR_VALUE ) 
+1264:  MOVF   xB5,W
+1266:  SUBLW  0B
+1268:  BNZ   127A
+....................                {                   
+....................                   // Envia respuesta 
+....................                   SendAns ( commandRx [ 2 ], ANS_ERROR_TIME ); 
+126A:  MOVFF  41,102
+126E:  MOVLW  F4
+1270:  MOVLB  1
+1272:  MOVWF  x03
+1274:  MOVLB  0
+1276:  CALL   0794
+....................                }                                                                   
+....................                   
+....................                statusNew = STATUS_FREE; 
+127A:  MOVLW  04
+127C:  MOVWF  x91
+....................                 
+....................                // Incrementa contador de errores autenticacion 
+....................                if ( failAuth < 250 ) 
+127E:  MOVF   xB2,W
+1280:  SUBLW  F9
+1282:  BNC   1286
+....................                { 
+....................                   failAuth ++; 
+1284:  INCF   xB2,F
+....................                }                                                          
+....................                   
+....................                continue; 
+1286:  BRA    0CF2
+....................             }     
+....................              
+....................             failAuth = 0; 
+1288:  CLRF   xB2
+....................              
+....................             // Convierte a numero la llave random             
+....................             tempNum = valueKey [ 0 ] << 24; 
+128A:  MOVFF  A4,F9
+128E:  CLRF   xF6
+1290:  CLRF   xF7
+1292:  CLRF   xF8
+....................             tempData2 = valueKey [ 1 ] << 16; 
+1294:  MOVFF  A5,100
+1298:  CLRF   xFE
+129A:  CLRF   xFF
+129C:  MOVLB  1
+129E:  CLRF   x01
+....................             tempNum += tempData2; 
+12A0:  MOVLB  0
+12A2:  MOVF   xFE,W
+12A4:  ADDWF  xF6,F
+12A6:  MOVF   xFF,W
+12A8:  ADDWFC xF7,F
+12AA:  MOVLB  1
+12AC:  MOVF   x00,W
+12AE:  MOVLB  0
+12B0:  ADDWFC xF8,F
+12B2:  MOVLB  1
+12B4:  MOVF   x01,W
+12B6:  MOVLB  0
+12B8:  ADDWFC xF9,F
+....................             tempData2 = valueKey [ 2 ] << 8; 
+12BA:  MOVFF  A6,FF
+12BE:  CLRF   xFE
+12C0:  MOVLB  1
+12C2:  CLRF   x00
+12C4:  CLRF   x01
+....................             tempNum += tempData2; 
+12C6:  MOVLB  0
+12C8:  MOVF   xFE,W
+12CA:  ADDWF  xF6,F
+12CC:  MOVF   xFF,W
+12CE:  ADDWFC xF7,F
+12D0:  MOVLB  1
+12D2:  MOVF   x00,W
+12D4:  MOVLB  0
+12D6:  ADDWFC xF8,F
+12D8:  MOVLB  1
+12DA:  MOVF   x01,W
+12DC:  MOVLB  0
+12DE:  ADDWFC xF9,F
+....................             tempData2 = valueKey [ 3 ]; 
+12E0:  MOVLB  1
+12E2:  CLRF   x01
+12E4:  CLRF   x00
+12E6:  MOVLB  0
+12E8:  CLRF   xFF
+12EA:  MOVFF  A7,FE
+....................             tempNum += tempData2;   
+12EE:  MOVF   xFE,W
+12F0:  ADDWF  xF6,F
+12F2:  MOVF   xFF,W
+12F4:  ADDWFC xF7,F
+12F6:  MOVLB  1
+12F8:  MOVF   x00,W
+12FA:  MOVLB  0
+12FC:  ADDWFC xF8,F
+12FE:  MOVLB  1
+1300:  MOVF   x01,W
+1302:  MOVLB  0
+1304:  ADDWFC xF9,F
+....................              
+....................             // Retira mascara a la llave recibida 
+....................             tempNum -= randomValue;                     
+1306:  MOVF   71,W
+1308:  SUBWF  xF6,F
+130A:  MOVF   72,W
+130C:  SUBWFB xF7,F
+130E:  MOVF   73,W
+1310:  SUBWFB xF8,F
+1312:  MOVF   74,W
+1314:  SUBWFB xF9,F
+....................              
+....................             // Convierte a byte el valor 
+....................             tempNewKey [ 0 ] = tempNum >> 24;  
+1316:  MOVFF  F9,FA
+....................             tempNewKey [ 1 ] = tempNum >> 16; 
+131A:  MOVFF  F8,FB
+....................             tempNewKey [ 2 ] = tempNum >> 8; 
+131E:  MOVFF  F7,FC
+....................             tempNewKey [ 3 ] = tempNum;                         
+1322:  MOVFF  F6,FD
+....................                
+....................             // Graba las nueva llave 
+....................             WriteEEprom ( tempNewKey, ( indexBlock * BLOCK_LENGTH ) + 1, 
+....................                      BLOCK_LENGTH - 1 ); 
+1326:  MOVF   xA8,W
+1328:  MULLW  05
+132A:  MOVF   FF3,W
+132C:  ADDLW  01
+132E:  MOVLB  1
+1330:  MOVWF  x02
+1332:  CLRF   x30
+1334:  MOVLW  FA
+1336:  MOVWF  x2F
+1338:  MOVFF  102,131
+133C:  MOVLW  04
+133E:  MOVWF  x32
+1340:  MOVLB  0
+1342:  CALL   08E2
+....................                       
+....................             // Comando procesado 
+....................             flagNewCommand = FALSE; 
+1346:  CLRF   x8A
+....................             statusNew = STATUS_FREE; 
+1348:  MOVLW  04
+134A:  MOVWF  x91
+....................             SendAns ( commandRx [ 2 ], ANS_OK );   
+134C:  MOVFF  41,102
+1350:  MOVLW  A0
+1352:  MOVLB  1
+1354:  MOVWF  x03
+1356:  MOVLB  0
+1358:  CALL   0794
+....................             continue; 
+135C:  BRA    0CF2
+....................          }         
+135E:  BRA    139A
+....................          else 
+....................          {            
+....................             // Escribe la nueva llave y condiciones de acceso      
+....................             tempEEprom [ 0 ] = accessBlock; 
+1360:  MOVFF  A9,B6
+....................             memcpy ( tempEEprom + 1, valueKey, 4 ); 
+1364:  CLRF   FEA
+1366:  MOVLW  B7
+1368:  MOVWF  FE9
+136A:  CLRF   FE2
+136C:  MOVLW  A4
+136E:  MOVWF  FE1
+1370:  MOVLW  04
+1372:  MOVWF  01
+1374:  MOVFF  FE6,FEE
+1378:  DECFSZ 01,F
+137A:  BRA    1374
+....................                
+....................             // Graba las nuevas condiciones 
+....................             WriteEEprom ( tempEEprom, indexBlock * BLOCK_LENGTH, BLOCK_LENGTH );               
+137C:  MOVF   xA8,W
+137E:  MULLW  05
+1380:  MOVFF  FF3,102
+1384:  MOVLB  1
+1386:  CLRF   x30
+1388:  MOVLW  B6
+138A:  MOVWF  x2F
+138C:  MOVFF  102,131
+1390:  MOVLW  05
+1392:  MOVWF  x32
+1394:  MOVLB  0
+1396:  CALL   08E2
+....................          } 
+....................             
+....................          // Las condiciones de acceso no son las correctas                                  
+....................          flagNewCommand = FALSE; 
+139A:  CLRF   x8A
+....................          statusNew = STATUS_FREE; 
+139C:  MOVLW  04
+139E:  MOVWF  x91
+....................          SendAns ( commandRx [ 2 ], ANS_ERROR_CONDITION );      
+13A0:  MOVFF  41,102
+13A4:  MOVLW  F1
+13A6:  MOVLB  1
+13A8:  MOVWF  x03
+13AA:  MOVLB  0
+13AC:  CALL   0794
+....................          continue; 
+13B0:  BRA    0CF2
+....................       }     
+....................          
+....................       // Valida proceso de abrir cerradura 
+....................       if ( statusNew == STATUS_OPEN ) 
+13B2:  MOVF   x91,W
+13B4:  SUBLW  06
+13B6:  BTFSS  FD8.2
+13B8:  BRA    15CC
+....................       { 
+....................          statusNow = STATUS_OPEN;                        
+13BA:  MOVLW  06
+13BC:  MOVWF  x90
+....................             
+....................          // Valida paso de autenticacion 
+....................          if ( stepNow == STEP_AUTHENTICATE )                  
+13BE:  DECFSZ x92,W
+13C0:  BRA    155A
+....................          {           
+....................             // Valida si es comando version 2 
+....................             if ( versionOrder == VERSION_2 ) 
+13C2:  MOVF   x8F,W
+13C4:  SUBLW  02
+13C6:  BNZ   14B0
+....................             {          
+....................                // Valida informacion del token 
+....................                tempStatus = ValidateToken ( ADDRESS_KEYTOKEN ); 
+13C8:  MOVLB  1
+13CA:  CLRF   x04
+13CC:  MOVLW  1E
+13CE:  MOVWF  x03
+13D0:  MOVLB  0
+13D2:  CALL   0948
+13D6:  MOVFF  01,B5
+....................                if ( tempStatus != TRUE ) 
+13DA:  DECFSZ xB5,W
+13DC:  BRA    13E0
+13DE:  BRA    1414
+....................                { 
+....................                   // Error validando token 
+....................                   flagNewCommand = FALSE; 
+13E0:  CLRF   x8A
+....................                    
+....................                   // Check ans 
+....................                   if ( tempStatus == ERROR_SIGNATURE ) 
+13E2:  MOVF   xB5,W
+13E4:  SUBLW  0A
+13E6:  BNZ   13F8
+....................                   {                
+....................                      // Envia respuesta 
+....................                      SendAns ( commandRx [ 2 ], ANS_ERROR_TOKEN ); 
+13E8:  MOVFF  41,102
+13EC:  MOVLW  F3
+13EE:  MOVLB  1
+13F0:  MOVWF  x03
+13F2:  MOVLB  0
+13F4:  CALL   0794
+....................                   } 
+....................           
+....................                   if ( tempStatus == ERROR_VALUE ) 
+13F8:  MOVF   xB5,W
+13FA:  SUBLW  0B
+13FC:  BNZ   140E
+....................                   {                   
+....................                      // Envia respuesta 
+....................                      SendAns ( commandRx [ 2 ], ANS_ERROR_TIME ); 
+13FE:  MOVFF  41,102
+1402:  MOVLW  F4
+1404:  MOVLB  1
+1406:  MOVWF  x03
+1408:  MOVLB  0
+140A:  CALL   0794
+....................                   }                                                                   
+....................                      
+....................                   statusNew = STATUS_FREE; 
+140E:  MOVLW  04
+1410:  MOVWF  x91
+....................                      
+....................                   continue; 
+1412:  BRA    0CF2
+....................                }                             
+....................                 
+....................                // Convierte a numero la llave random             
+....................                tempNum = valueKey [ 0 ] << 24; 
+1414:  MOVFF  A4,F9
+1418:  CLRF   xF6
+141A:  CLRF   xF7
+141C:  CLRF   xF8
+....................                tempData2 = valueKey [ 1 ] << 16; 
+141E:  MOVFF  A5,100
+1422:  CLRF   xFE
+1424:  CLRF   xFF
+1426:  MOVLB  1
+1428:  CLRF   x01
+....................                tempNum += tempData2; 
+142A:  MOVLB  0
+142C:  MOVF   xFE,W
+142E:  ADDWF  xF6,F
+1430:  MOVF   xFF,W
+1432:  ADDWFC xF7,F
+1434:  MOVLB  1
+1436:  MOVF   x00,W
+1438:  MOVLB  0
+143A:  ADDWFC xF8,F
+143C:  MOVLB  1
+143E:  MOVF   x01,W
+1440:  MOVLB  0
+1442:  ADDWFC xF9,F
+....................                tempData2 = valueKey [ 2 ] << 8; 
+1444:  MOVFF  A6,FF
+1448:  CLRF   xFE
+144A:  MOVLB  1
+144C:  CLRF   x00
+144E:  CLRF   x01
+....................                tempNum += tempData2; 
+1450:  MOVLB  0
+1452:  MOVF   xFE,W
+1454:  ADDWF  xF6,F
+1456:  MOVF   xFF,W
+1458:  ADDWFC xF7,F
+145A:  MOVLB  1
+145C:  MOVF   x00,W
+145E:  MOVLB  0
+1460:  ADDWFC xF8,F
+1462:  MOVLB  1
+1464:  MOVF   x01,W
+1466:  MOVLB  0
+1468:  ADDWFC xF9,F
+....................                tempData2 = valueKey [ 3 ]; 
+146A:  MOVLB  1
+146C:  CLRF   x01
+146E:  CLRF   x00
+1470:  MOVLB  0
+1472:  CLRF   xFF
+1474:  MOVFF  A7,FE
+....................                tempNum += tempData2;  
+1478:  MOVF   xFE,W
+147A:  ADDWF  xF6,F
+147C:  MOVF   xFF,W
+147E:  ADDWFC xF7,F
+1480:  MOVLB  1
+1482:  MOVF   x00,W
+1484:  MOVLB  0
+1486:  ADDWFC xF8,F
+1488:  MOVLB  1
+148A:  MOVF   x01,W
+148C:  MOVLB  0
+148E:  ADDWFC xF9,F
+....................                 
+....................                // Retira mascara a la llave recibida 
+....................                tempNum -= randomValue;                     
+1490:  MOVF   71,W
+1492:  SUBWF  xF6,F
+1494:  MOVF   72,W
+1496:  SUBWFB xF7,F
+1498:  MOVF   73,W
+149A:  SUBWFB xF8,F
+149C:  MOVF   74,W
+149E:  SUBWFB xF9,F
+....................                 
+....................                // Convierte a byte el valor 
+....................                externalKey [ 0 ] = tempNum >> 24; 
+14A0:  MOVFF  F9,A0
+....................                externalKey [ 1 ] = tempNum >> 16; 
+14A4:  MOVFF  F8,A1
+....................                externalKey [ 2 ] = tempNum >> 8; 
+14A8:  MOVFF  F7,A2
+....................                externalKey [ 3 ] = tempNum;                                   
+14AC:  MOVFF  F6,A3
+....................             } 
+....................              
+....................             // Obtiene los datos del bloque que contiene la llave de la cerradura 
+....................             ReadEEprom ( tempEEprom, ( selectLock - 1 ) * BLOCK_LENGTH, BLOCK_LENGTH ); 
+14B0:  MOVLW  01
+14B2:  SUBWF  xAA,W
+14B4:  MULLW  05
+14B6:  MOVFF  FF3,102
+14BA:  MOVLB  1
+14BC:  CLRF   x32
+14BE:  MOVLW  B6
+14C0:  MOVWF  x31
+14C2:  MOVFF  102,133
+14C6:  MOVLW  05
+14C8:  MOVWF  x34
+14CA:  MOVLB  0
+14CC:  CALL   08A0
+....................                
+....................             // Obtiene las condiciones de acceso 
+....................             tempAccess = tempEEprom [ 0 ];            
+14D0:  MOVFF  B6,C0
+....................                
+....................             // Valida si el bloque esta inicializado 
+....................             if ( ( ( tempAccess & PERMISSION_FORMAT ) != 0 ) ||  
+....................                   ( ( tempAccess & PERMISSION_AUTH ) != 0 ) ) 
+14D4:  MOVF   xC0,W
+14D6:  ANDLW  80
+14D8:  BNZ   14E0
+14DA:  MOVF   xC0,W
+14DC:  ANDLW  08
+14DE:  BZ    14FA
+....................             { 
+....................                // Error no hay condiciones de acceso suficientes 
+....................                flagNewCommand = FALSE; 
+14E0:  CLRF   x8A
+....................                SendAns ( commandRx [ 2 ], ANS_ERROR_CONDITION );     
+14E2:  MOVFF  41,102
+14E6:  MOVLW  F1
+14E8:  MOVLB  1
+14EA:  MOVWF  x03
+14EC:  MOVLB  0
+14EE:  CALL   0794
+....................                   
+....................                statusNew = STATUS_FREE; 
+14F2:  MOVLW  04
+14F4:  MOVWF  x91
+....................                   
+....................                continue; 
+14F6:  GOTO   0CF2
+....................             } 
+....................                
+....................             // Compara la llave recibida con la actual 
+....................             tempStatus = CompareBuffer ( tempEEprom + 1, externalKey, 4 ); 
+14FA:  MOVLB  1
+14FC:  CLRF   x03
+14FE:  MOVLW  B7
+1500:  MOVWF  x02
+1502:  CLRF   x05
+1504:  MOVLW  A0
+1506:  MOVWF  x04
+1508:  MOVLW  04
+150A:  MOVWF  x06
+150C:  MOVLB  0
+150E:  CALL   0BDA
+1512:  MOVFF  01,B5
+....................                   
+....................             // Valida si coinciden 
+....................             if ( tempStatus != TRUE ) 
+1516:  DECFSZ xB5,W
+1518:  BRA    151C
+151A:  BRA    153E
+....................             { 
+....................                flagNewCommand = FALSE; 
+151C:  CLRF   x8A
+....................                SendAns ( commandRx [ 2 ], ANS_ERROR_KEY );         
+151E:  MOVFF  41,102
+1522:  MOVLW  F2
+1524:  MOVLB  1
+1526:  MOVWF  x03
+1528:  MOVLB  0
+152A:  CALL   0794
+....................                   
+....................                // Incremnta contador de errores autenticacion 
+....................                if ( failAuth < 250 ) 
+152E:  MOVF   xB2,W
+1530:  SUBLW  F9
+1532:  BNC   1536
+....................                { 
+....................                   failAuth ++; 
+1534:  INCF   xB2,F
+....................                } 
+....................                   
+....................                statusNew = STATUS_FREE; 
+1536:  MOVLW  04
+1538:  MOVWF  x91
+....................                      
+....................                continue; 
+153A:  GOTO   0CF2
+....................             }    
+....................              
+....................             failAuth = 0; 
+153E:  CLRF   xB2
+....................                
+....................             // Lee el byte de acceso del bloque seleccionado                                    
+....................             flagNewCommand = FALSE; 
+1540:  CLRF   x8A
+....................             SendAns ( commandRx [ 2 ], ANS_OK );      
+1542:  MOVFF  41,102
+1546:  MOVLW  A0
+1548:  MOVLB  1
+154A:  MOVWF  x03
+154C:  MOVLB  0
+154E:  CALL   0794
+....................                
+....................             // Pasa a iniciar pulso 
+....................             stepNow = STEP_UNLOCK_START; 
+1552:  MOVLW  14
+1554:  MOVWF  x92
+....................             continue;         
+1556:  GOTO   0CF2
+....................          } 
+....................                      
+....................          // Valida paso iniciar pulso 
+....................          if ( stepNow == STEP_UNLOCK_START ) 
+155A:  MOVF   x92,W
+155C:  SUBLW  14
+155E:  BNZ   1598
+....................          { 
+....................             // Valida Id cerradura 1 tipo A 
+....................             if ( selectLock == 1 )  
+1560:  DECFSZ xAA,W
+1562:  BRA    156E
+....................             { 
+....................                // Coloca senal a bajo 
+....................                output_low ( PIN_1_IA ); 
+1564:  BCF    F94.0
+1566:  BCF    F8B.0
+....................                   
+....................                // Inicia timer para pulso 
+....................                timerPulse = TIMEOUT_PULSELOCK; 
+1568:  CLRF   x9C
+156A:  MOVLW  C8
+156C:  MOVWF  x9B
+....................             } 
+....................                
+....................             // Valida Id cerradura 2 tipo A 
+....................             if ( selectLock == 2 )  
+156E:  MOVF   xAA,W
+1570:  SUBLW  02
+1572:  BNZ   157E
+....................             { 
+....................                // Coloca senal a bajo 
+....................                output_low ( PIN_2_IA ); 
+1574:  BCF    F94.2
+1576:  BCF    F8B.2
+....................                   
+....................                // Inicia timer para pulso 
+....................                timerPulse = TIMEOUT_PULSELOCK; 
+1578:  CLRF   x9C
+157A:  MOVLW  C8
+157C:  MOVWF  x9B
+....................             } 
+....................                
+....................             // Valida Id cerradura 3 tipo B 
+....................             if ( selectLock == 3 )  
+157E:  MOVF   xAA,W
+1580:  SUBLW  03
+1582:  BNZ   1590
+....................             { 
+....................                // Coloca senal a alto 
+....................                output_high ( PIN_3_IA );            
+1584:  BCF    F94.4
+1586:  BSF    F8B.4
+....................                   
+....................                // Inicia timer para pulso 
+....................                timerPulse = TIMEOUT_SOLENOIDE; 
+1588:  MOVLW  01
+158A:  MOVWF  x9C
+158C:  MOVLW  2C
+158E:  MOVWF  x9B
+....................             }                           
+....................                
+....................             // Pasa a esperar pulso 
+....................             stepNow = STEP_UNLOCK_PULSE; 
+1590:  MOVLW  15
+1592:  MOVWF  x92
+....................             continue;      
+1594:  GOTO   0CF2
+....................          } 
+....................             
+....................          // Valida si esta esperando fin del pulso 
+....................          if ( stepNow == STEP_UNLOCK_PULSE ) 
+1598:  MOVF   x92,W
+159A:  SUBLW  15
+159C:  BNZ   15CC
+....................          { 
+....................             // Valida si ya termino el timer del pulso 
+....................             if ( timerPulse == 0 ) 
+159E:  MOVF   x9B,F
+15A0:  BNZ   15C8
+15A2:  MOVF   x9C,F
+15A4:  BNZ   15C8
+....................             { 
+....................                // Valida Id cerradura 1 tipo A 
+....................                if ( selectLock == 1 )  
+15A6:  DECFSZ xAA,W
+15A8:  BRA    15AE
+....................                { 
+....................                   // Desactiva senal  
+....................                   output_high ( PIN_1_IA ); 
+15AA:  BCF    F94.0
+15AC:  BSF    F8B.0
+....................                } 
+....................                   
+....................                // Valida Id cerradura 2 tipo A 
+....................                if ( selectLock == 2 )  
+15AE:  MOVF   xAA,W
+15B0:  SUBLW  02
+15B2:  BNZ   15B8
+....................                { 
+....................                   // Desactiva senal  
+....................                   output_high ( PIN_2_IA ); 
+15B4:  BCF    F94.2
+15B6:  BSF    F8B.2
+....................                } 
+....................                   
+....................                // Valida Id cerradura 3 tipo A 
+....................                if ( selectLock == 3 )  
+15B8:  MOVF   xAA,W
+15BA:  SUBLW  03
+15BC:  BNZ   15C2
+....................                { 
+....................                   // Desactiva senal  
+....................                   output_low ( PIN_3_IA ); 
+15BE:  BCF    F94.4
+15C0:  BCF    F8B.4
+....................                } 
+....................                   
+....................                // Termina proceso 
+....................                statusNew = STATUS_FREE; 
+15C2:  MOVLW  04
+15C4:  MOVWF  x91
+....................                stepNow = STEP_START; 
+15C6:  CLRF   x92
+....................             } 
+....................                
+....................             continue; 
+15C8:  GOTO   0CF2
+....................          }                                       
+....................       }     
+....................          
+....................       // Valida proceso de bloquear cerradura 
+....................       if ( statusNew == STATUS_LOCK ) 
+15CC:  MOVF   x91,W
+15CE:  SUBLW  07
+15D0:  BTFSS  FD8.2
+15D2:  BRA    17E8
+....................       { 
+....................          statusNow = STATUS_LOCK;      
+15D4:  MOVLW  07
+15D6:  MOVWF  x90
+....................             
+....................          // Valida paso de autenticacion 
+....................          if ( stepNow == STEP_AUTHENTICATE ) 
+15D8:  DECFSZ x92,W
+15DA:  BRA    1776
+....................          {              
+....................             // Valida si es comando version 2 
+....................             if ( versionOrder == VERSION_2 ) 
+15DC:  MOVF   x8F,W
+15DE:  SUBLW  02
+15E0:  BNZ   16CC
+....................             {          
+....................                // Valida informacion del token 
+....................                tempStatus = ValidateToken ( ADDRESS_KEYTOKEN ); 
+15E2:  MOVLB  1
+15E4:  CLRF   x04
+15E6:  MOVLW  1E
+15E8:  MOVWF  x03
+15EA:  MOVLB  0
+15EC:  CALL   0948
+15F0:  MOVFF  01,B5
+....................                if ( tempStatus != TRUE ) 
+15F4:  DECFSZ xB5,W
+15F6:  BRA    15FA
+15F8:  BRA    1630
+....................                { 
+....................                   // Error validando token 
+....................                   flagNewCommand = FALSE; 
+15FA:  CLRF   x8A
+....................                    
+....................                   // Check ans 
+....................                   if ( tempStatus == ERROR_SIGNATURE ) 
+15FC:  MOVF   xB5,W
+15FE:  SUBLW  0A
+1600:  BNZ   1612
+....................                   {                
+....................                      // Envia respuesta 
+....................                      SendAns ( commandRx [ 2 ], ANS_ERROR_TOKEN ); 
+1602:  MOVFF  41,102
+1606:  MOVLW  F3
+1608:  MOVLB  1
+160A:  MOVWF  x03
+160C:  MOVLB  0
+160E:  CALL   0794
+....................                   } 
+....................           
+....................                   if ( tempStatus == ERROR_VALUE ) 
+1612:  MOVF   xB5,W
+1614:  SUBLW  0B
+1616:  BNZ   1628
+....................                   {                   
+....................                      // Envia respuesta 
+....................                      SendAns ( commandRx [ 2 ], ANS_ERROR_TIME ); 
+1618:  MOVFF  41,102
+161C:  MOVLW  F4
+161E:  MOVLB  1
+1620:  MOVWF  x03
+1622:  MOVLB  0
+1624:  CALL   0794
+....................                   }                                                                   
+....................                      
+....................                   statusNew = STATUS_FREE; 
+1628:  MOVLW  04
+162A:  MOVWF  x91
+....................                      
+....................                   continue; 
+162C:  GOTO   0CF2
+....................                }                             
+....................                 
+....................                // Convierte a numero la llave random             
+....................                tempNum = valueKey [ 0 ] << 24; 
+1630:  MOVFF  A4,F9
+1634:  CLRF   xF6
+1636:  CLRF   xF7
+1638:  CLRF   xF8
+....................                tempData2 = valueKey [ 1 ] << 16; 
+163A:  MOVFF  A5,100
+163E:  CLRF   xFE
+1640:  CLRF   xFF
+1642:  MOVLB  1
+1644:  CLRF   x01
+....................                tempNum += tempData2; 
+1646:  MOVLB  0
+1648:  MOVF   xFE,W
+164A:  ADDWF  xF6,F
+164C:  MOVF   xFF,W
+164E:  ADDWFC xF7,F
+1650:  MOVLB  1
+1652:  MOVF   x00,W
+1654:  MOVLB  0
+1656:  ADDWFC xF8,F
+1658:  MOVLB  1
+165A:  MOVF   x01,W
+165C:  MOVLB  0
+165E:  ADDWFC xF9,F
+....................                tempData2 = valueKey [ 2 ] << 8; 
+1660:  MOVFF  A6,FF
+1664:  CLRF   xFE
+1666:  MOVLB  1
+1668:  CLRF   x00
+166A:  CLRF   x01
+....................                tempNum += tempData2; 
+166C:  MOVLB  0
+166E:  MOVF   xFE,W
+1670:  ADDWF  xF6,F
+1672:  MOVF   xFF,W
+1674:  ADDWFC xF7,F
+1676:  MOVLB  1
+1678:  MOVF   x00,W
+167A:  MOVLB  0
+167C:  ADDWFC xF8,F
+167E:  MOVLB  1
+1680:  MOVF   x01,W
+1682:  MOVLB  0
+1684:  ADDWFC xF9,F
+....................                tempData2 = valueKey [ 3 ]; 
+1686:  MOVLB  1
+1688:  CLRF   x01
+168A:  CLRF   x00
+168C:  MOVLB  0
+168E:  CLRF   xFF
+1690:  MOVFF  A7,FE
+....................                tempNum += tempData2; 
+1694:  MOVF   xFE,W
+1696:  ADDWF  xF6,F
+1698:  MOVF   xFF,W
+169A:  ADDWFC xF7,F
+169C:  MOVLB  1
+169E:  MOVF   x00,W
+16A0:  MOVLB  0
+16A2:  ADDWFC xF8,F
+16A4:  MOVLB  1
+16A6:  MOVF   x01,W
+16A8:  MOVLB  0
+16AA:  ADDWFC xF9,F
+....................                 
+....................                // Retira mascara a la llave recibida 
+....................                tempNum -= randomValue;                     
+16AC:  MOVF   71,W
+16AE:  SUBWF  xF6,F
+16B0:  MOVF   72,W
+16B2:  SUBWFB xF7,F
+16B4:  MOVF   73,W
+16B6:  SUBWFB xF8,F
+16B8:  MOVF   74,W
+16BA:  SUBWFB xF9,F
+....................                 
+....................                // Convierte a byte el valor 
+....................                externalKey [ 0 ] = tempNum >> 24; 
+16BC:  MOVFF  F9,A0
+....................                externalKey [ 1 ] = tempNum >> 16; 
+16C0:  MOVFF  F8,A1
+....................                externalKey [ 2 ] = tempNum >> 8; 
+16C4:  MOVFF  F7,A2
+....................                externalKey [ 3 ] = tempNum;                                   
+16C8:  MOVFF  F6,A3
+....................             } 
+....................              
+....................             // Obtiene los datos del bloque que contiene la llave de la cerradura 
+....................             ReadEEprom ( tempEEprom, ( selectLock - 1 ) * BLOCK_LENGTH, BLOCK_LENGTH ); 
+16CC:  MOVLW  01
+16CE:  SUBWF  xAA,W
+16D0:  MULLW  05
+16D2:  MOVFF  FF3,102
+16D6:  MOVLB  1
+16D8:  CLRF   x32
+16DA:  MOVLW  B6
+16DC:  MOVWF  x31
+16DE:  MOVFF  102,133
+16E2:  MOVLW  05
+16E4:  MOVWF  x34
+16E6:  MOVLB  0
+16E8:  CALL   08A0
+....................                
+....................             // Obtiene las condiciones de acceso 
+....................             tempAccess = tempEEprom [ 0 ];            
+16EC:  MOVFF  B6,C0
+....................                
+....................             // Valida si el bloque esta inicializado 
+....................             if ( ( ( tempAccess & PERMISSION_FORMAT ) != 0 ) ||  
+....................                   ( ( tempAccess & PERMISSION_AUTH ) != 0 ) ) 
+16F0:  MOVF   xC0,W
+16F2:  ANDLW  80
+16F4:  BNZ   16FC
+16F6:  MOVF   xC0,W
+16F8:  ANDLW  08
+16FA:  BZ    1716
+....................             { 
+....................                // Error no hay condiciones de acceso suficientes 
+....................                flagNewCommand = FALSE; 
+16FC:  CLRF   x8A
+....................                SendAns ( commandRx [ 2 ], ANS_ERROR_CONDITION );     
+16FE:  MOVFF  41,102
+1702:  MOVLW  F1
+1704:  MOVLB  1
+1706:  MOVWF  x03
+1708:  MOVLB  0
+170A:  CALL   0794
+....................                   
+....................                statusNew = STATUS_FREE; 
+170E:  MOVLW  04
+1710:  MOVWF  x91
+....................                   
+....................                continue; 
+1712:  GOTO   0CF2
+....................             }                  
+....................                
+....................             // Compara la llave recibida con la actual 
+....................             tempStatus = CompareBuffer ( tempEEprom + 1, externalKey, 4 ); 
+1716:  MOVLB  1
+1718:  CLRF   x03
+171A:  MOVLW  B7
+171C:  MOVWF  x02
+171E:  CLRF   x05
+1720:  MOVLW  A0
+1722:  MOVWF  x04
+1724:  MOVLW  04
+1726:  MOVWF  x06
+1728:  MOVLB  0
+172A:  CALL   0BDA
+172E:  MOVFF  01,B5
+....................                   
+....................             // Valida si coinciden 
+....................             if ( tempStatus != TRUE ) 
+1732:  DECFSZ xB5,W
+1734:  BRA    1738
+1736:  BRA    175A
+....................             { 
+....................                flagNewCommand = FALSE; 
+1738:  CLRF   x8A
+....................                SendAns ( commandRx [ 2 ], ANS_ERROR_KEY );     
+173A:  MOVFF  41,102
+173E:  MOVLW  F2
+1740:  MOVLB  1
+1742:  MOVWF  x03
+1744:  MOVLB  0
+1746:  CALL   0794
+....................                   
+....................                // Incremnta contador de errores autenticacion 
+....................                if ( failAuth < 250 ) 
+174A:  MOVF   xB2,W
+174C:  SUBLW  F9
+174E:  BNC   1752
+....................                { 
+....................                   failAuth ++; 
+1750:  INCF   xB2,F
+....................                } 
+....................                   
+....................                statusNew = STATUS_FREE; 
+1752:  MOVLW  04
+1754:  MOVWF  x91
+....................                      
+....................                continue; 
+1756:  GOTO   0CF2
+....................             }     
+....................              
+....................             failAuth = 0; 
+175A:  CLRF   xB2
+....................                
+....................             // Lee el byte de acceso del bloque seleccionado                                    
+....................             flagNewCommand = FALSE; 
+175C:  CLRF   x8A
+....................             SendAns ( commandRx [ 2 ], ANS_OK );      
+175E:  MOVFF  41,102
+1762:  MOVLW  A0
+1764:  MOVLB  1
+1766:  MOVWF  x03
+1768:  MOVLB  0
+176A:  CALL   0794
+....................                
+....................             // Pasa a iniciar pulso 
+....................             stepNow = STEP_LOCK_START; 
+176E:  MOVLW  1E
+1770:  MOVWF  x92
+....................             continue;         
+1772:  GOTO   0CF2
+....................          } 
+....................             
+....................          // Valida paso iniciar pulso 
+....................          if ( stepNow == STEP_LOCK_START ) 
+1776:  MOVF   x92,W
+1778:  SUBLW  1E
+177A:  BNZ   17B4
+....................          { 
+....................             // Valida Id cerradura 1 tipo A 
+....................             if ( selectLock == 1 )  
+177C:  DECFSZ xAA,W
+177E:  BRA    178A
+....................             {               
+....................                // Coloca senal a bajo 
+....................                output_low ( PIN_1_IB ); 
+1780:  BCF    F94.1
+1782:  BCF    F8B.1
+....................                   
+....................                // Inicia timer para pulso 
+....................                timerPulse = TIMEOUT_PULSELOCK; 
+1784:  CLRF   x9C
+1786:  MOVLW  C8
+1788:  MOVWF  x9B
+....................             } 
+....................                
+....................             // Valida Id cerradura 2 tipo A 
+....................             if ( selectLock == 2 )  
+178A:  MOVF   xAA,W
+178C:  SUBLW  02
+178E:  BNZ   179A
+....................             {               
+....................                // Coloca senal a bajo 
+....................                output_low ( PIN_2_IB ); 
+1790:  BCF    F94.3
+1792:  BCF    F8B.3
+....................                   
+....................                // Inicia timer para pulso 
+....................                timerPulse = TIMEOUT_PULSELOCK; 
+1794:  CLRF   x9C
+1796:  MOVLW  C8
+1798:  MOVWF  x9B
+....................             } 
+....................                
+....................             // Valida Id cerradura 3 tipo A 
+....................             if ( selectLock == 3 )  
+179A:  MOVF   xAA,W
+179C:  SUBLW  03
+179E:  BNZ   17AC
+....................             {               
+....................                // Coloca senal a alto 
+....................                output_high ( PIN_3_IA ); 
+17A0:  BCF    F94.4
+17A2:  BSF    F8B.4
+....................                   
+....................                // Inicia timer para pulso 
+....................                timerPulse = TIMEOUT_SOLENOIDE; 
+17A4:  MOVLW  01
+17A6:  MOVWF  x9C
+17A8:  MOVLW  2C
+17AA:  MOVWF  x9B
+....................             } 
+....................                   
+....................             // Pasa a esperar pulso 
+....................             stepNow = STEP_LOCK_PULSE; 
+17AC:  MOVLW  1F
+17AE:  MOVWF  x92
+....................             continue;      
+17B0:  GOTO   0CF2
+....................          } 
+....................             
+....................          // Valida si esta esperando fin del pulso 
+....................          if ( stepNow == STEP_LOCK_PULSE ) 
+17B4:  MOVF   x92,W
+17B6:  SUBLW  1F
+17B8:  BNZ   17E8
+....................          { 
+....................             // Valida si ya termino el timer del pulso 
+....................             if ( timerPulse == 0 ) 
+17BA:  MOVF   x9B,F
+17BC:  BNZ   17E4
+17BE:  MOVF   x9C,F
+17C0:  BNZ   17E4
+....................             { 
+....................                // Valida Id cerradura 1 tipo A 
+....................                if ( selectLock == 1 )  
+17C2:  DECFSZ xAA,W
+17C4:  BRA    17CA
+....................                { 
+....................                   // Desactiva senal  
+....................                   output_high ( PIN_1_IB ); 
+17C6:  BCF    F94.1
+17C8:  BSF    F8B.1
+....................                } 
+....................                   
+....................                // Valida Id cerradura 2 tipo A 
+....................                if ( selectLock == 2 )  
+17CA:  MOVF   xAA,W
+17CC:  SUBLW  02
+17CE:  BNZ   17D4
+....................                { 
+....................                   // Desactiva senal  
+....................                   output_high ( PIN_2_IB ); 
+17D0:  BCF    F94.3
+17D2:  BSF    F8B.3
+....................                } 
+....................                   
+....................                // Valida Id cerradura 3 tipo A 
+....................                if ( selectLock == 3 )  
+17D4:  MOVF   xAA,W
+17D6:  SUBLW  03
+17D8:  BNZ   17DE
+....................                { 
+....................                   // Desactiva senal  
+....................                   output_low ( PIN_3_IA ); 
+17DA:  BCF    F94.4
+17DC:  BCF    F8B.4
+....................                } 
+....................                   
+....................                // Termina proceso 
+....................                statusNew = STATUS_FREE; 
+17DE:  MOVLW  04
+17E0:  MOVWF  x91
+....................                stepNow = STEP_START; 
+17E2:  CLRF   x92
+....................             } 
+....................                
+....................             continue; 
+17E4:  GOTO   0CF2
+....................          }                                       
+....................       } 
+17E8:  GOTO   0CF2
+....................    }              
+.................... } 
+....................  
+17EC:  SLEEP 
+.................... /*----------------------------------------------------------------------------- 
+....................  Lee un segmento de la memoria EEPROM 
+....................  @param tempPtr Puntero donde dejara los datos leidos 
+....................  @param tempAddress Direcion EEPROM desde donde leer 
+....................  @parm tempSize Numero de bytes a leer 
+....................  @return Ninguno 
+.................... ------------------------------------------------------------------------------*/ 
+.................... void ReadEEprom ( int8 * tempPtr, int8 tempAddress, int8 tempSize ) 
+.................... { 
+....................    int8 pos; 
+....................    int8 tempByte; 
+....................       
+....................    // Ciclo para leer los datos 
+....................    for ( pos = 0; pos < tempSize; pos ++ ) 
+*
+08A0:  MOVLB  1
+08A2:  CLRF   x35
+08A4:  MOVF   x34,W
+08A6:  SUBWF  x35,W
+08A8:  BC    08DE
+....................    { 
+....................       tempByte = READ_EEPROM ( tempAddress + pos ); 
+08AA:  MOVF   x35,W
+08AC:  ADDWF  x33,W
+08AE:  MOVWF  x37
+08B0:  MOVFF  FF2,138
+08B4:  BCF    FF2.7
+08B6:  MOVFF  137,FA9
+08BA:  BCF    FA6.6
+08BC:  BCF    FA6.7
+08BE:  BSF    FA6.0
+08C0:  MOVF   FA8,W
+08C2:  BTFSC  x38.7
+08C4:  BSF    FF2.7
+08C6:  MOVWF  x36
+....................       
+....................       // Lo guarda en el buffer de respuesta 
+....................       tempPtr [ pos ] = tempByte; 
+08C8:  CLRF   03
+08CA:  MOVF   x35,W
+08CC:  ADDWF  x31,W
+08CE:  MOVWF  FE9
+08D0:  MOVF   x32,W
+08D2:  ADDWFC 03,W
+08D4:  MOVWF  FEA
+08D6:  MOVFF  136,FEF
+08DA:  INCF   x35,F
+08DC:  BRA    08A4
+....................    } 
+08DE:  MOVLB  0
+08E0:  RETURN 0
+.................... } 
+....................  
+.................... /*----------------------------------------------------------------------------- 
+.................... Envia uan respueta simple 
+.................... @param tempCommand Comando al que se da respuesta 
+.................... @param tempAns Estado de la respuesta 
+.................... @return Nada 
+.................... -----------------------------------------------------------------------------*/ 
+.................... void SendAns ( int8 tempCommand, int8 tempAns ) 
+.................... { 
+....................    int8 pos; 
+....................       
+....................    // Estructura el frame a enviar 
+....................    bufferTx [ 0 ] = HEAD_BYTE; 
+*
+0794:  MOVLW  03
+0796:  MOVWF  76
+....................    bufferTx [ 1 ] = 0x03; 
+0798:  MOVWF  77
+....................    bufferTx [ 2 ] = tempCommand; 
+079A:  MOVFF  102,78
+....................    bufferTx [ 3 ] = tempAns; 
+079E:  MOVFF  103,79
+....................    bufferTx [ 4 ] = CalcCRC ( bufferTx ); 
+07A2:  MOVLB  1
+07A4:  CLRF   x0B
+07A6:  MOVLW  76
+07A8:  MOVWF  x0A
+07AA:  MOVLB  0
+07AC:  RCALL  0270
+07AE:  MOVFF  01,7A
+....................       
+....................    // Ciclo para enviar todos los bytes      
+....................    for ( pos = 0; pos <= 4; pos++ ) 
+07B2:  MOVLB  1
+07B4:  CLRF   x04
+07B6:  MOVF   x04,W
+07B8:  SUBLW  04
+07BA:  BNC   07DC
+....................    { 
+....................       // Envia el byte 
+....................       SendByte ( bufferTx [ pos ] );     
+07BC:  CLRF   03
+07BE:  MOVF   x04,W
+07C0:  ADDLW  76
+07C2:  MOVWF  FE9
+07C4:  MOVLW  00
+07C6:  ADDWFC 03,W
+07C8:  MOVWF  FEA
+07CA:  MOVFF  FEF,105
+07CE:  MOVFF  105,109
+07D2:  MOVLB  0
+07D4:  RCALL  0782
+07D6:  MOVLB  1
+07D8:  INCF   x04,F
+07DA:  BRA    07B6
+....................    } 
+07DC:  MOVLB  0
+07DE:  RETURN 0
+.................... } 
+....................  
+.................... /*----------------------------------------------------------------------------- 
+.................... Envia uan respueta de con datos 
+.................... @param tempCommand Comando al que se da respuesta 
+.................... @param tempAns Estado de la respuesta 
+.................... @param tempPonter Puntero al buffer con los datos a enviar 
+.................... @param tempLength Numero de datos del buffer a enviar 
+.................... @return Nada 
+.................... -----------------------------------------------------------------------------*/ 
+.................... void SendAnsComplex ( int8 tempCommand, int8 tempAns, int8 *tempPointer,  
+....................                      int8 tempLength ) 
+.................... { 
+....................    int8 pos;      
+....................       
+....................    // Estructura el frame a enviar 
+....................    bufferTx [ 0 ] = HEAD_BYTE; 
+*
+0814:  MOVLW  03
+0816:  MOVWF  76
+....................    bufferTx [ 1 ] = 0x03 + tempLength; 
+0818:  MOVLB  1
+081A:  ADDWF  x06,W
+081C:  MOVWF  77
+....................    bufferTx [ 2 ] = tempCommand; 
+081E:  MOVFF  102,78
+....................    bufferTx [ 3 ] = tempAns;          
+0822:  MOVFF  103,79
+....................       
+....................    // Copia datos buffer 
+....................    memcpy ( bufferTx + 4, tempPointer, tempLength );      
+0826:  CLRF   FEA
+0828:  MOVLW  7A
+082A:  MOVWF  FE9
+082C:  MOVFF  105,FE2
+0830:  MOVFF  104,FE1
+0834:  MOVF   x06,W
+0836:  MOVWF  01
+0838:  BZ    0842
+083A:  MOVFF  FE6,FEE
+083E:  DECFSZ 01,F
+0840:  BRA    083A
+....................       
+....................    // Calcula el CRC 
+....................    bufferTx [ tempLength + 4 ] = CalcCRC ( bufferTx ); 
+0842:  MOVLW  04
+0844:  ADDWF  x06,W
+0846:  CLRF   03
+0848:  ADDLW  76
+084A:  MOVWF  01
+084C:  MOVLW  00
+084E:  ADDWFC 03,F
+0850:  MOVFF  01,108
+0854:  MOVFF  03,109
+0858:  CLRF   x0B
+085A:  MOVLW  76
+085C:  MOVWF  x0A
+085E:  MOVLB  0
+0860:  RCALL  0270
+0862:  MOVFF  109,FEA
+0866:  MOVFF  108,FE9
+086A:  MOVFF  01,FEF
+....................       
+....................    // Calcula total de bytes  a enviar 
+....................    tempLength = tempLength + 5;           
+086E:  MOVLW  05
+0870:  MOVLB  1
+0872:  ADDWF  x06,F
+....................       
+....................    // Ciclo para enviar todos los bytes      
+....................    for ( pos = 0; pos < tempLength; pos++ ) 
+0874:  CLRF   x07
+0876:  MOVF   x06,W
+0878:  SUBWF  x07,W
+087A:  BC    089C
+....................    { 
+....................       // Envia cada byte 
+....................       SendByte ( bufferTx [ pos ] );     
+087C:  CLRF   03
+087E:  MOVF   x07,W
+0880:  ADDLW  76
+0882:  MOVWF  FE9
+0884:  MOVLW  00
+0886:  ADDWFC 03,W
+0888:  MOVWF  FEA
+088A:  MOVFF  FEF,108
+088E:  MOVFF  108,109
+0892:  MOVLB  0
+0894:  RCALL  0782
+0896:  MOVLB  1
+0898:  INCF   x07,F
+089A:  BRA    0876
+....................    } 
+089C:  MOVLB  0
+089E:  RETURN 0
+.................... } 
+....................  
+.................... /*----------------------------------------------------------------------------- 
+.................... Envia un byte por el puerto USART 
+.................... @param tempData Dato a enviar 
+.................... @return Nada 
+.................... -----------------------------------------------------------------------------*/ 
+.................... void SendByte ( int8 tempData ) 
+.................... { 
+....................    // Envia el dato por el puerto serial 
+....................    putc ( tempData ); 
+*
+0782:  MOVFF  109,10A
+0786:  BRA    0756
+....................     
+....................    // Retardo entre bytes 
+....................    delay_ms ( 2 ); 
+0788:  MOVLW  02
+078A:  MOVLB  1
+078C:  MOVWF  x34
+078E:  MOVLB  0
+0790:  RCALL  0248
+0792:  RETURN 0
+.................... } 
+....................  
+.................... /*----------------------------------------------------------------------------- 
+.................... Espera x minutos 
+.................... @param tempMinute cantiad de minutos a esperar 
+.................... @return Nada 
+.................... -----------------------------------------------------------------------------*/ 
+.................... void SleepMinute ( int8 tempMinute ) 
+.................... {      
+....................    int8 tempSecond; 
+....................       
+....................    tempSecond = 60; 
+*
+07E0:  MOVLW  3C
+07E2:  MOVLB  1
+07E4:  MOVWF  x03
+....................       
+....................    // Ciclo para contar segundos 
+....................    while ( ( tempMinute > 0 ) || ( tempSecond > 0 ) ) 
+07E6:  MOVF   x02,F
+07E8:  BNZ   07EE
+07EA:  MOVF   x03,F
+07EC:  BZ    080E
+....................    {         
+....................       // Asigna timer para 1 segundo 
+....................       timerMain2 = 100; 
+07EE:  MOVLW  64
+07F0:  MOVLB  0
+07F2:  MOVWF  x95
+....................          
+....................       // Espera un segundo 
+....................       while ( timerMain2 > 0 ) 
+07F4:  MOVF   x95,F
+07F6:  BZ    07FA
+....................       {            
+07F8:  BRA    07F4
+....................       } 
+....................          
+....................       // Decrementa contador de segundos         
+....................       tempSecond --;         
+07FA:  MOVLB  1
+07FC:  DECF   x03,F
+....................          
+....................       // Valida si cumplio 1 minuto 
+....................       if ( tempSecond == 0 ) 
+07FE:  MOVF   x03,F
+0800:  BNZ   080C
+....................       { 
+....................          // Decrementa minutos 
+....................          tempMinute --;            
+0802:  DECF   x02,F
+....................             
+....................          // Valida si termino temporizador 
+....................          if ( tempMinute > 0 ) 
+0804:  MOVF   x02,F
+0806:  BZ    080C
+....................          { 
+....................             tempSecond = 60; 
+0808:  MOVLW  3C
+080A:  MOVWF  x03
+....................          } 
+....................       }         
+080C:  BRA    07E6
+....................    }           
+080E:  MOVLB  0
+0810:  GOTO   0D5E (RETURN)
+.................... } 
+....................  
+.................... /*----------------------------------------------------------------------------- 
+.................... Verifica que un comando recibido cumpla con la definicion del protocolo. 
+.................... El comando debe estar ya en bufferRx 
+.................... @param Ninguno 
+.................... @return Nada 
+.................... -----------------------------------------------------------------------------*/ 
+.................... int8 ValidateCommand ( void ) 
+.................... { 
+....................    int8 tempByte;      
+....................       
+....................    // Calcula el CRC 
+....................    tempByte = CalcCRC ( commandRx ); 
+*
+02B0:  MOVLB  1
+02B2:  CLRF   x0B
+02B4:  MOVLW  3F
+02B6:  MOVWF  x0A
+02B8:  MOVLB  0
+02BA:  RCALL  0270
+02BC:  MOVFF  01,102
+....................  
+....................    // Valida el CRC del comando recibido con el calculado 
+....................    if ( tempByte != commandRx [ ( commandRx [ 1 ] + 1 ) ] ) 
+02C0:  MOVLW  01
+02C2:  ADDWF  40,W
+02C4:  CLRF   03
+02C6:  ADDLW  3F
+02C8:  MOVWF  FE9
+02CA:  MOVLW  00
+02CC:  ADDWFC 03,W
+02CE:  MOVWF  FEA
+02D0:  MOVF   FEF,W
+02D2:  MOVLB  1
+02D4:  SUBWF  x02,W
+02D6:  BZ    02DE
+....................    { 
+....................       return ANS_ERROR_CRC; 
+02D8:  MOVLW  E1
+02DA:  MOVWF  01
+02DC:  BRA    0750
+....................    } 
+....................  
+....................    // Segun el comando valida los datos recibidos 
+....................    switch ( commandRx [ 2 ] ) 
+02DE:  MOVF   41,W
+02E0:  XORLW  10
+02E2:  MOVLB  0
+02E4:  BZ    033A
+02E6:  XORLW  01
+02E8:  BZ    0390
+02EA:  XORLW  03
+02EC:  BTFSC  FD8.2
+02EE:  BRA    03E6
+02F0:  XORLW  01
+02F2:  BTFSC  FD8.2
+02F4:  BRA    0456
+02F6:  XORLW  33
+02F8:  BTFSC  FD8.2
+02FA:  BRA    04C6
+02FC:  XORLW  60
+02FE:  BTFSC  FD8.2
+0300:  BRA    04FE
+0302:  XORLW  C0
+0304:  BTFSC  FD8.2
+0306:  BRA    0524
+0308:  XORLW  C1
+030A:  BTFSC  FD8.2
+030C:  BRA    055A
+030E:  XORLW  03
+0310:  BTFSC  FD8.2
+0312:  BRA    0580
+0314:  XORLW  06
+0316:  BTFSC  FD8.2
+0318:  BRA    05E6
+031A:  XORLW  07
+031C:  BTFSC  FD8.2
+031E:  BRA    0668
+0320:  XORLW  13
+0322:  BTFSC  FD8.2
+0324:  BRA    06CA
+0326:  XORLW  20
+0328:  BTFSC  FD8.2
+032A:  BRA    06E8
+032C:  XORLW  22
+032E:  BTFSC  FD8.2
+0330:  BRA    0706
+0332:  XORLW  32
+0334:  BTFSC  FD8.2
+0336:  BRA    072A
+0338:  BRA    074A
+....................    {              
+....................       // Comando desbloqueo cerradura 
+....................       case COMMAND_OPEN: 
+....................       {         
+....................          // Valida numero de datos necesarios 
+....................          if ( commandSize != 9 ) 
+033A:  MOVF   x8C,W
+033C:  SUBLW  09
+033E:  BZ    034A
+....................          { 
+....................             return ANS_ERROR_LENGTH; 
+0340:  MOVLW  E4
+0342:  MOVWF  01
+0344:  MOVLB  1
+0346:  BRA    0750
+0348:  MOVLB  0
+....................          } 
+....................             
+....................          // Valida los posibles valores 
+....................          if ( ( commandRx [ 3 ] > 0x00 ) && ( commandRx [ 3 ] < 0x04 ) ) 
+034A:  MOVF   42,F
+034C:  BZ    0386
+034E:  MOVF   42,W
+0350:  SUBLW  03
+0352:  BNC   0386
+....................          { 
+....................             // Obtiene el ID de cerradura a abrir 
+....................             selectLock = commandRx [ 3 ] ;            
+0354:  MOVFF  42,AA
+....................             
+....................             // Copia nuevo valor de llave 
+....................             memcpy ( externalKey, commandRx + 4, 4 );      
+0358:  CLRF   FEA
+035A:  MOVLW  A0
+035C:  MOVWF  FE9
+035E:  CLRF   FE2
+0360:  MOVLW  43
+0362:  MOVWF  FE1
+0364:  MOVLW  04
+0366:  MOVWF  01
+0368:  MOVFF  FE6,FEE
+036C:  DECFSZ 01,F
+036E:  BRA    0368
+....................                
+....................             // Cambia a nuevo estado 
+....................             statusNew = STATUS_OPEN;     
+0370:  MOVLW  06
+0372:  MOVWF  x91
+....................             stepNow = STEP_AUTHENTICATE; 
+0374:  MOVLW  01
+0376:  MOVWF  x92
+....................             versionOrder = VERSION_1; 
+0378:  MOVWF  x8F
+....................                
+....................             // Comando puede ser procesado 
+....................              return ANS_OK; 
+037A:  MOVLW  A0
+037C:  MOVWF  01
+037E:  MOVLB  1
+0380:  BRA    0750
+....................          } 
+0382:  BRA    038E
+0384:  MOVLB  0
+....................          else 
+....................          {   // Error valor fuera de rango 
+....................             return ANS_ERROR_VALUE; 
+0386:  MOVLW  E3
+0388:  MOVWF  01
+038A:  MOVLB  1
+038C:  BRA    0750
+....................          } 
+....................       } 
+....................       break; 
+038E:  BRA    0750
+....................          
+....................       // Comando bloqueo cerradura 
+....................       case COMMAND_LOCK: 
+....................       {         
+....................          // Valida numero de datos necesarios 
+....................          if ( commandSize != 9 ) 
+0390:  MOVF   x8C,W
+0392:  SUBLW  09
+0394:  BZ    03A0
+....................          { 
+....................             return ANS_ERROR_LENGTH; 
+0396:  MOVLW  E4
+0398:  MOVWF  01
+039A:  MOVLB  1
+039C:  BRA    0750
+039E:  MOVLB  0
+....................          } 
+....................             
+....................          // Valida los posibles valores 
+....................          if ( ( commandRx [ 3 ] > 0x00 ) && ( commandRx [ 3 ] < 0x04 ) ) 
+03A0:  MOVF   42,F
+03A2:  BZ    03DC
+03A4:  MOVF   42,W
+03A6:  SUBLW  03
+03A8:  BNC   03DC
+....................          { 
+....................             // Obtiene el ID de cerradura a abrir 
+....................             selectLock = commandRx [ 3 ] ;            
+03AA:  MOVFF  42,AA
+....................             
+....................             // Copia nuevo valor de llave 
+....................             memcpy ( externalKey, commandRx + 4, 4 );    
+03AE:  CLRF   FEA
+03B0:  MOVLW  A0
+03B2:  MOVWF  FE9
+03B4:  CLRF   FE2
+03B6:  MOVLW  43
+03B8:  MOVWF  FE1
+03BA:  MOVLW  04
+03BC:  MOVWF  01
+03BE:  MOVFF  FE6,FEE
+03C2:  DECFSZ 01,F
+03C4:  BRA    03BE
+....................                
+....................             // Cambia a nuevo estado 
+....................             statusNew = STATUS_LOCK;      
+03C6:  MOVLW  07
+03C8:  MOVWF  x91
+....................             stepNow = STEP_AUTHENTICATE; 
+03CA:  MOVLW  01
+03CC:  MOVWF  x92
+....................             versionOrder = VERSION_1; 
+03CE:  MOVWF  x8F
+....................                
+....................             // Comando puede ser procesado 
+....................             return ANS_OK; 
+03D0:  MOVLW  A0
+03D2:  MOVWF  01
+03D4:  MOVLB  1
+03D6:  BRA    0750
+....................          } 
+03D8:  BRA    03E4
+03DA:  MOVLB  0
+....................          else 
+....................          {   // Error valor fuera de rango 
+....................             return ANS_ERROR_VALUE; 
+03DC:  MOVLW  E3
+03DE:  MOVWF  01
+03E0:  MOVLB  1
+03E2:  BRA    0750
+....................          } 
+....................       } 
+....................       break; 
+03E4:  BRA    0750
+....................        
+....................       // Comando desbloqueo cerradura version 2 
+....................       case COMMAND_OPENV2: 
+....................       {         
+....................          // Valida numero de datos necesarios 
+....................          if ( commandSize != 19 ) 
+03E6:  MOVF   x8C,W
+03E8:  SUBLW  13
+03EA:  BZ    03F6
+....................          { 
+....................             return ANS_ERROR_LENGTH; 
+03EC:  MOVLW  E4
+03EE:  MOVWF  01
+03F0:  MOVLB  1
+03F2:  BRA    0750
+03F4:  MOVLB  0
+....................          } 
+....................             
+....................          // Valida los posibles valores 
+....................          if ( ( commandRx [ 3 ] > 0x00 ) && ( commandRx [ 3 ] < 0x04 ) ) 
+03F6:  MOVF   42,F
+03F8:  BZ    044C
+03FA:  MOVF   42,W
+03FC:  SUBLW  03
+03FE:  BNC   044C
+....................          { 
+....................             // Obtiene el ID de cerradura a abrir 
+....................             selectLock = commandRx [ 3 ] ;            
+0400:  MOVFF  42,AA
+....................             
+....................             // Copia nuevo valor de llave 
+....................             memcpy ( valueKey, commandRx + 4, 4 ); 
+0404:  CLRF   FEA
+0406:  MOVLW  A4
+0408:  MOVWF  FE9
+040A:  CLRF   FE2
+040C:  MOVLW  43
+040E:  MOVWF  FE1
+0410:  MOVLW  04
+0412:  MOVWF  01
+0414:  MOVFF  FE6,FEE
+0418:  DECFSZ 01,F
+041A:  BRA    0414
+....................              
+....................             // Copia bytes token del comando 
+....................             memcpy ( tokenCheck, commandRx + 8, 10 ); 
+041C:  CLRF   FEA
+041E:  MOVLW  67
+0420:  MOVWF  FE9
+0422:  CLRF   FE2
+0424:  MOVLW  47
+0426:  MOVWF  FE1
+0428:  MOVLW  0A
+042A:  MOVWF  01
+042C:  MOVFF  FE6,FEE
+0430:  DECFSZ 01,F
+0432:  BRA    042C
+....................                
+....................             // Cambia a nuevo estado 
+....................             statusNew = STATUS_OPEN;     
+0434:  MOVLW  06
+0436:  MOVWF  x91
+....................             stepNow = STEP_AUTHENTICATE; 
+0438:  MOVLW  01
+043A:  MOVWF  x92
+....................             versionOrder = VERSION_2; 
+043C:  MOVLW  02
+043E:  MOVWF  x8F
+....................                
+....................             // Comando puede ser procesado 
+....................              return ANS_OK; 
+0440:  MOVLW  A0
+0442:  MOVWF  01
+0444:  MOVLB  1
+0446:  BRA    0750
+....................          } 
+0448:  BRA    0454
+044A:  MOVLB  0
+....................          else 
+....................          {   // Error valor fuera de rango 
+....................             return ANS_ERROR_VALUE; 
+044C:  MOVLW  E3
+044E:  MOVWF  01
+0450:  MOVLB  1
+0452:  BRA    0750
+....................          } 
+....................       } 
+....................       break; 
+0454:  BRA    0750
+....................        
+....................        // Comando desbloqueo cerradura version 2 
+....................       case COMMAND_LOCKV2: 
+....................       {         
+....................          // Valida numero de datos necesarios 
+....................          if ( commandSize != 19 ) 
+0456:  MOVF   x8C,W
+0458:  SUBLW  13
+045A:  BZ    0466
+....................          { 
+....................             return ANS_ERROR_LENGTH; 
+045C:  MOVLW  E4
+045E:  MOVWF  01
+0460:  MOVLB  1
+0462:  BRA    0750
+0464:  MOVLB  0
+....................          } 
+....................             
+....................          // Valida los posibles valores 
+....................          if ( ( commandRx [ 3 ] > 0x00 ) && ( commandRx [ 3 ] < 0x04 ) ) 
+0466:  MOVF   42,F
+0468:  BZ    04BC
+046A:  MOVF   42,W
+046C:  SUBLW  03
+046E:  BNC   04BC
+....................          { 
+....................             // Obtiene el ID de cerradura a abrir 
+....................             selectLock = commandRx [ 3 ] ;            
+0470:  MOVFF  42,AA
+....................             
+....................             // Copia nuevo valor de llave 
+....................             memcpy ( valueKey, commandRx + 4, 4 ); 
+0474:  CLRF   FEA
+0476:  MOVLW  A4
+0478:  MOVWF  FE9
+047A:  CLRF   FE2
+047C:  MOVLW  43
+047E:  MOVWF  FE1
+0480:  MOVLW  04
+0482:  MOVWF  01
+0484:  MOVFF  FE6,FEE
+0488:  DECFSZ 01,F
+048A:  BRA    0484
+....................              
+....................             // Copia bytes token del comando 
+....................             memcpy ( tokenCheck, commandRx + 8, 10 ); 
+048C:  CLRF   FEA
+048E:  MOVLW  67
+0490:  MOVWF  FE9
+0492:  CLRF   FE2
+0494:  MOVLW  47
+0496:  MOVWF  FE1
+0498:  MOVLW  0A
+049A:  MOVWF  01
+049C:  MOVFF  FE6,FEE
+04A0:  DECFSZ 01,F
+04A2:  BRA    049C
+....................                
+....................             // Cambia a nuevo estado 
+....................             statusNew = STATUS_LOCK;     
+04A4:  MOVLW  07
+04A6:  MOVWF  x91
+....................             stepNow = STEP_AUTHENTICATE; 
+04A8:  MOVLW  01
+04AA:  MOVWF  x92
+....................             versionOrder = VERSION_2; 
+04AC:  MOVLW  02
+04AE:  MOVWF  x8F
+....................                
+....................             // Comando puede ser procesado 
+....................              return ANS_OK; 
+04B0:  MOVLW  A0
+04B2:  MOVWF  01
+04B4:  MOVLB  1
+04B6:  BRA    0750
+....................          } 
+04B8:  BRA    04C4
+04BA:  MOVLB  0
+....................          else 
+....................          {   // Error valor fuera de rango 
+....................             return ANS_ERROR_VALUE; 
+04BC:  MOVLW  E3
+04BE:  MOVWF  01
+04C0:  MOVLB  1
+04C2:  BRA    0750
+....................          } 
+....................       } 
+....................       break; 
+04C4:  BRA    0750
+....................          
+....................       // Comando estado sensores 
+....................       case COMMAND_STATUS: 
+....................       {         
+....................          // Valida numero de datos necesarios 
+....................          if ( commandSize != 5 ) 
+04C6:  MOVF   x8C,W
+04C8:  SUBLW  05
+04CA:  BZ    04D6
+....................          { 
+....................             return ANS_ERROR_LENGTH; 
+04CC:  MOVLW  E4
+04CE:  MOVWF  01
+04D0:  MOVLB  1
+04D2:  BRA    0750
+04D4:  MOVLB  0
+....................          } 
+....................             
+....................          // Valida los posibles valores 
+....................          if ( ( commandRx [ 3 ] > 0x00 ) && ( commandRx [ 3 ] < 0x04 ) ) 
+04D6:  MOVF   42,F
+04D8:  BZ    04F4
+04DA:  MOVF   42,W
+04DC:  SUBLW  03
+04DE:  BNC   04F4
+....................          { 
+....................             // ACtiva lectura de sensor 
+....................             selectSensor = commandRx [ 3 ] ;      
+04E0:  MOVFF  42,AB
+....................             flagReadSensor = true; 
+04E4:  MOVLW  01
+04E6:  MOVWF  xAC
+....................                
+....................             // Comando puede ser procesado 
+....................             return ANS_OK; 
+04E8:  MOVLW  A0
+04EA:  MOVWF  01
+04EC:  MOVLB  1
+04EE:  BRA    0750
+....................          } 
+04F0:  BRA    04FC
+04F2:  MOVLB  0
+....................          else 
+....................          {   // Error valor fuera de rango 
+....................             return ANS_ERROR_VALUE; 
+04F4:  MOVLW  E3
+04F6:  MOVWF  01
+04F8:  MOVLB  1
+04FA:  BRA    0750
+....................          } 
+....................       } 
+....................       break;         
+04FC:  BRA    0750
+....................          
+....................       // Comando escritura en la EEPROM 
+....................       case COMMAND_EEPROM_WRITE: 
+....................       { 
+....................          // Valida numero de datos necesarios 
+....................          if ( commandSize != 6 ) 
+04FE:  MOVF   x8C,W
+0500:  SUBLW  06
+0502:  BZ    050E
+....................          { 
+....................             return ANS_ERROR_LENGTH; 
+0504:  MOVLW  E4
+0506:  MOVWF  01
+0508:  MOVLB  1
+050A:  BRA    0750
+050C:  MOVLB  0
+....................          } 
+....................             
+....................          // Direccion a escribir 
+....................          addressEEprom = commandRx [ 3 ]; 
+050E:  MOVFF  42,B0
+....................             
+....................          // VAlro a escribir 
+....................          byteEEprom = commandRx [ 4 ]; 
+0512:  MOVFF  43,AF
+....................             
+....................          // Asigna estado escritura EEPROM 
+....................          statusNew = STATUS_WRITEEEPROM;            
+0516:  MOVLW  32
+0518:  MOVWF  x91
+....................             
+....................          return ANS_OK; 
+051A:  MOVLW  A0
+051C:  MOVWF  01
+051E:  MOVLB  1
+0520:  BRA    0750
+....................       } 
+....................       break; 
+0522:  BRA    0750
+....................        
+....................       // Comando escritura token en EEPROM 
+....................       case COMMAND_SETTOKEN: 
+....................       { 
+....................          // Valida numero de datos necesarios 
+....................          if ( commandSize != 14 ) 
+0524:  MOVF   x8C,W
+0526:  SUBLW  0E
+0528:  BZ    0534
+....................          { 
+....................             return ANS_ERROR_LENGTH; 
+052A:  MOVLW  E4
+052C:  MOVWF  01
+052E:  MOVLB  1
+0530:  BRA    0750
+0532:  MOVLB  0
+....................          } 
+....................           
+....................          // copia buffer token para proceso 
+....................          memcpy ( tokenCheck, commandRx + 3, 10 );          
+0534:  CLRF   FEA
+0536:  MOVLW  67
+0538:  MOVWF  FE9
+053A:  CLRF   FE2
+053C:  MOVLW  42
+053E:  MOVWF  FE1
+0540:  MOVLW  0A
+0542:  MOVWF  01
+0544:  MOVFF  FE6,FEE
+0548:  DECFSZ 01,F
+054A:  BRA    0544
+....................             
+....................          // Asigna estado nuevo token 
+....................          statusNew = STATUS_SETTOKEN;   
+054C:  MOVLW  0A
+054E:  MOVWF  x91
+....................             
+....................          return ANS_OK; 
+0550:  MOVLW  A0
+0552:  MOVWF  01
+0554:  MOVLB  1
+0556:  BRA    0750
+....................       } 
+....................       break; 
+0558:  BRA    0750
+....................  
+....................       // Comando lectura EEPROM 
+....................       case COMMAND_EEPROM_READ: 
+....................       { 
+....................          // Valida numero de datos necesarios 
+....................          if ( commandSize != 6 ) 
+055A:  MOVF   x8C,W
+055C:  SUBLW  06
+055E:  BZ    056A
+....................          { 
+....................             return ANS_ERROR_LENGTH; 
+0560:  MOVLW  E4
+0562:  MOVWF  01
+0564:  MOVLB  1
+0566:  BRA    0750
+0568:  MOVLB  0
+....................          } 
+....................             
+....................          // Direccion iniciaal a leer 
+....................          addressEEprom = commandRx [ 3 ]; 
+056A:  MOVFF  42,B0
+....................             
+....................          // Numero de bytes a leer 
+....................          byteEEprom = commandRx [ 4 ]; 
+056E:  MOVFF  43,AF
+....................             
+....................          // Asigna estado escritura EEPROM 
+....................          statusNew = STATUS_READEEPROM;            
+0572:  MOVLW  33
+0574:  MOVWF  x91
+....................             
+....................          return ANS_OK; 
+0576:  MOVLW  A0
+0578:  MOVWF  01
+057A:  MOVLB  1
+057C:  BRA    0750
+....................       } 
+....................       break; 
+057E:  BRA    0750
+....................          
+....................       // Comando formatear bloque EEPROM 
+....................       case COMMAND_EEPROM_FORMAT: 
+....................       { 
+....................          // Valida numero de datos necesarios 
+....................          if ( commandSize != 10 ) 
+0580:  MOVF   x8C,W
+0582:  SUBLW  0A
+0584:  BZ    0590
+....................          { 
+....................             return ANS_ERROR_LENGTH; 
+0586:  MOVLW  E4
+0588:  MOVWF  01
+058A:  MOVLB  1
+058C:  BRA    0750
+058E:  MOVLB  0
+....................          } 
+....................             
+....................          // valida rango de bloque 
+....................          if ( commandRx [ 3 ] > 7 ) 
+0590:  MOVF   42,W
+0592:  SUBLW  07
+0594:  BC    05A0
+....................          { 
+....................             return ANS_ERROR_VALUE; 
+0596:  MOVLW  E3
+0598:  MOVWF  01
+059A:  MOVLB  1
+059C:  BRA    0750
+059E:  MOVLB  0
+....................          } 
+....................             
+....................          // Obtiene el indice del bloque 
+....................          indexBlock = commandRx [ 3 ] ; 
+05A0:  MOVFF  42,A8
+....................             
+....................          // Obtiene las condiciones de acceso 
+....................          accessBlock  = commandRx [ 4 ] ; 
+05A4:  MOVFF  43,A9
+....................             
+....................          // Copia nuevo valor de llave 
+....................          memcpy ( valueKey, commandRx + 5, 4 ); 
+05A8:  CLRF   FEA
+05AA:  MOVLW  A4
+05AC:  MOVWF  FE9
+05AE:  CLRF   FE2
+05B0:  MOVLW  44
+05B2:  MOVWF  FE1
+05B4:  MOVLW  04
+05B6:  MOVWF  01
+05B8:  MOVFF  FE6,FEE
+05BC:  DECFSZ 01,F
+05BE:  BRA    05B8
+....................          memcpy ( externalKey, commandRx + 5, 4 ); 
+05C0:  CLRF   FEA
+05C2:  MOVLW  A0
+05C4:  MOVWF  FE9
+05C6:  CLRF   FE2
+05C8:  MOVLW  44
+05CA:  MOVWF  FE1
+05CC:  MOVLW  04
+05CE:  MOVWF  01
+05D0:  MOVFF  FE6,FEE
+05D4:  DECFSZ 01,F
+05D6:  BRA    05D0
+....................             
+....................          // Cambia a nuevo estado 
+....................          statusNew = STATUS_BLOCKFORMAT;            
+05D8:  MOVLW  08
+05DA:  MOVWF  x91
+....................             
+....................          return ANS_OK; 
+05DC:  MOVLW  A0
+05DE:  MOVWF  01
+05E0:  MOVLB  1
+05E2:  BRA    0750
+....................       } 
+....................       break; 
+05E4:  BRA    0750
+....................        
+....................       // Comando formatear V2 
+....................       case COMMAND_EEPROM_FORMAT2: 
+....................       { 
+....................          // Valida numero de datos necesarios 
+....................          if ( commandSize != 20 ) 
+05E6:  MOVF   x8C,W
+05E8:  SUBLW  14
+05EA:  BZ    05F6
+....................          { 
+....................             return ANS_ERROR_LENGTH; 
+05EC:  MOVLW  E4
+05EE:  MOVWF  01
+05F0:  MOVLB  1
+05F2:  BRA    0750
+05F4:  MOVLB  0
+....................          } 
+....................             
+....................          // valida rango de bloque 
+....................          if ( commandRx [ 3 ] > 7 ) 
+05F6:  MOVF   42,W
+05F8:  SUBLW  07
+05FA:  BC    0606
+....................          { 
+....................             return ANS_ERROR_VALUE; 
+05FC:  MOVLW  E3
+05FE:  MOVWF  01
+0600:  MOVLB  1
+0602:  BRA    0750
+0604:  MOVLB  0
+....................          } 
+....................             
+....................          // Obtiene el indice del bloque 
+....................          indexBlock = commandRx [ 3 ] ; 
+0606:  MOVFF  42,A8
+....................             
+....................          // Obtiene las condiciones de acceso 
+....................          accessBlock  = commandRx [ 4 ] ; 
+060A:  MOVFF  43,A9
+....................             
+....................          // Copia nuevo valor de llave 
+....................          memcpy ( valueKey, commandRx + 5, 4 ); 
+060E:  CLRF   FEA
+0610:  MOVLW  A4
+0612:  MOVWF  FE9
+0614:  CLRF   FE2
+0616:  MOVLW  44
+0618:  MOVWF  FE1
+061A:  MOVLW  04
+061C:  MOVWF  01
+061E:  MOVFF  FE6,FEE
+0622:  DECFSZ 01,F
+0624:  BRA    061E
+....................          memcpy ( externalKey, commandRx + 5, 4 ); 
+0626:  CLRF   FEA
+0628:  MOVLW  A0
+062A:  MOVWF  FE9
+062C:  CLRF   FE2
+062E:  MOVLW  44
+0630:  MOVWF  FE1
+0632:  MOVLW  04
+0634:  MOVWF  01
+0636:  MOVFF  FE6,FEE
+063A:  DECFSZ 01,F
+063C:  BRA    0636
+....................           
+....................          // Copia bytes token del comando 
+....................          memcpy ( tokenCheck, commandRx + 9, 10 ); 
+063E:  CLRF   FEA
+0640:  MOVLW  67
+0642:  MOVWF  FE9
+0644:  CLRF   FE2
+0646:  MOVLW  48
+0648:  MOVWF  FE1
+064A:  MOVLW  0A
+064C:  MOVWF  01
+064E:  MOVFF  FE6,FEE
+0652:  DECFSZ 01,F
+0654:  BRA    064E
+....................             
+....................          // Cambia a nuevo estado 
+....................          statusNew = STATUS_BLOCKFORMAT;   
+0656:  MOVLW  08
+0658:  MOVWF  x91
+....................          versionOrder = VERSION_2; 
+065A:  MOVLW  02
+065C:  MOVWF  x8F
+....................             
+....................          return ANS_OK; 
+065E:  MOVLW  A0
+0660:  MOVWF  01
+0662:  MOVLB  1
+0664:  BRA    0750
+....................       } 
+....................       break; 
+0666:  BRA    0750
+....................        
+....................        // Comando cambiar llave 
+....................       case COMMAND_CHANGE_KEY: 
+....................       { 
+....................          // Valida numero de datos necesarios 
+....................          if ( commandSize != 19 ) 
+0668:  MOVF   x8C,W
+066A:  SUBLW  13
+066C:  BZ    0678
+....................          { 
+....................             return ANS_ERROR_LENGTH; 
+066E:  MOVLW  E4
+0670:  MOVWF  01
+0672:  MOVLB  1
+0674:  BRA    0750
+0676:  MOVLB  0
+....................          }     
+....................           
+....................          // valida rango de bloque 
+....................          if ( commandRx [ 3 ] > 7 ) 
+0678:  MOVF   42,W
+067A:  SUBLW  07
+067C:  BC    0688
+....................          { 
+....................             return ANS_ERROR_VALUE; 
+067E:  MOVLW  E3
+0680:  MOVWF  01
+0682:  MOVLB  1
+0684:  BRA    0750
+0686:  MOVLB  0
+....................          } 
+....................           
+....................          // Obtiene el indice del bloque 
+....................          indexBlock = commandRx [ 3 ] ; 
+0688:  MOVFF  42,A8
+....................             
+....................          // Copia nuevo valor de llave 
+....................          memcpy ( valueKey, commandRx + 4, 4 ); 
+068C:  CLRF   FEA
+068E:  MOVLW  A4
+0690:  MOVWF  FE9
+0692:  CLRF   FE2
+0694:  MOVLW  43
+0696:  MOVWF  FE1
+0698:  MOVLW  04
+069A:  MOVWF  01
+069C:  MOVFF  FE6,FEE
+06A0:  DECFSZ 01,F
+06A2:  BRA    069C
+....................           
+....................          // Copia bytes token del comando 
+....................          memcpy ( tokenCheck, commandRx + 8, 10 ); 
+06A4:  CLRF   FEA
+06A6:  MOVLW  67
+06A8:  MOVWF  FE9
+06AA:  CLRF   FE2
+06AC:  MOVLW  47
+06AE:  MOVWF  FE1
+06B0:  MOVLW  0A
+06B2:  MOVWF  01
+06B4:  MOVFF  FE6,FEE
+06B8:  DECFSZ 01,F
+06BA:  BRA    06B4
+....................           
+....................          // Cambia a nuevo estado 
+....................          statusNew = STATUS_CHANGE_KEY; 
+06BC:  MOVLW  0B
+06BE:  MOVWF  x91
+....................             
+....................          return ANS_OK; 
+06C0:  MOVLW  A0
+06C2:  MOVWF  01
+06C4:  MOVLB  1
+06C6:  BRA    0750
+....................       } 
+....................       break; 
+06C8:  BRA    0750
+....................          
+....................       // Comando lectura version 
+....................       case COMMAND_VERSION: 
+....................       { 
+....................          // Valida numero de datos necesarios 
+....................          if ( commandSize != 4 ) 
+06CA:  MOVF   x8C,W
+06CC:  SUBLW  04
+06CE:  BZ    06DA
+....................          { 
+....................             return ANS_ERROR_LENGTH; 
+06D0:  MOVLW  E4
+06D2:  MOVWF  01
+06D4:  MOVLB  1
+06D6:  BRA    0750
+06D8:  MOVLB  0
+....................          } 
+....................             
+....................          flagGetVersion = true;         
+06DA:  MOVLW  01
+06DC:  MOVWF  xAD
+....................             
+....................          return ANS_OK; 
+06DE:  MOVLW  A0
+06E0:  MOVWF  01
+06E2:  MOVLB  1
+06E4:  BRA    0750
+....................       } 
+....................       break; 
+06E6:  BRA    0750
+....................        
+....................       // Comando poll 
+....................       case COMMAND_POLL: 
+....................       { 
+....................          // Valida numero de datos necesarios 
+....................          if ( commandSize != 4 ) 
+06E8:  MOVF   x8C,W
+06EA:  SUBLW  04
+06EC:  BZ    06F8
+....................          { 
+....................             return ANS_ERROR_LENGTH; 
+06EE:  MOVLW  E4
+06F0:  MOVWF  01
+06F2:  MOVLB  1
+06F4:  BRA    0750
+06F6:  MOVLB  0
+....................          } 
+....................             
+....................          flagPoll = true;         
+06F8:  MOVLW  01
+06FA:  MOVWF  xAE
+....................             
+....................          return ANS_OK; 
+06FC:  MOVLW  A0
+06FE:  MOVWF  01
+0700:  MOVLB  1
+0702:  BRA    0750
+....................       } 
+....................       break; 
+0704:  BRA    0750
+....................          
+....................       // Comando buzzer 
+....................       case COMMAND_BUZZER: 
+....................       { 
+....................          // Valida numero de datos necesarios 
+....................          if ( commandSize != 5 ) 
+0706:  MOVF   x8C,W
+0708:  SUBLW  05
+070A:  BZ    0716
+....................          { 
+....................             return ANS_ERROR_LENGTH; 
+070C:  MOVLW  E4
+070E:  MOVWF  01
+0710:  MOVLB  1
+0712:  BRA    0750
+0714:  MOVLB  0
+....................          } 
+....................             
+....................          // Obtiene el tiempo de encendido 
+....................          timeBuzzer = commandRx [ 3 ]; 
+0716:  MOVFF  42,B1
+....................             
+....................          statusNew = STATUS_BUZZER;         
+071A:  MOVLW  09
+071C:  MOVWF  x91
+....................          stepNow = STEP_START; 
+071E:  CLRF   x92
+....................             
+....................          return ANS_OK; 
+0720:  MOVLW  A0
+0722:  MOVWF  01
+0724:  MOVLB  1
+0726:  BRA    0750
+....................       } 
+....................       break; 
+0728:  BRA    0750
+....................          
+....................       // Comando estado cashbox 
+....................       case COMMAND_CASHBOX: 
+....................       {         
+....................          // Valida numero de datos necesarios 
+....................          if ( commandSize != 4 ) 
+072A:  MOVF   x8C,W
+072C:  SUBLW  04
+072E:  BZ    073A
+....................          { 
+....................             return ANS_ERROR_LENGTH; 
+0730:  MOVLW  E4
+0732:  MOVWF  01
+0734:  MOVLB  1
+0736:  BRA    0750
+0738:  MOVLB  0
+....................          } 
+....................             
+....................          flagCashBox = true;     
+073A:  MOVLW  01
+073C:  MOVWF  xB4
+....................             
+....................          return ANS_OK; 
+073E:  MOVLW  A0
+0740:  MOVWF  01
+0742:  MOVLB  1
+0744:  BRA    0750
+....................       } 
+....................       break;      
+0746:  BRA    0750
+0748:  MOVLB  0
+....................          
+....................       // comando no definido 
+....................       default: 
+....................       { 
+....................          return ANS_ERROR_UNKNOWN; 
+074A:  MOVLW  E2
+074C:  MOVWF  01
+074E:  MOVLB  1
+....................       } 
+....................    } 
+0750:  MOVLB  0
+0752:  GOTO   0D2E (RETURN)
+.................... } 
+....................  
+.................... /*----------------------------------------------------------------------------- 
+.................... Verifica un paquete de token 
+.................... En tokenCheck debe estar los datos del token a validar 
+.................... Si se obtinee un proceso exitoso en randomValue 
+.................... @param Ninguno 
+.................... @return  
+.................... -----------------------------------------------------------------------------*/ 
+.................... int8 ValidateToken ( unsigned int8 * tempKeyToken ) 
+.................... { 
+....................    int8 tempByte;      
+....................    unsigned int8 tempSh; 
+....................    unsigned int8 tempSl; 
+....................    unsigned int32 tempData; 
+....................    unsigned int32 tempCurrentTime; 
+....................    unsigned int32 tempKey; 
+....................    unsigned char tempBuffer [ 10 ]; 
+....................    unsigned char tempBufferRand [ 4 ]; 
+....................    unsigned char tempBufferData [ 4 ]; 
+....................    unsigned char tempBufferTime [ 5 ]; 
+....................    unsigned int32 tempData2; 
+....................     
+....................    // Get S bytes 
+....................    tempSh = tokenCheck [ 0 ]; 
+*
+0948:  MOVFF  67,106
+....................    tempSl = tokenCheck [ 9 ]; 
+094C:  MOVFF  70,107
+....................     
+....................    // Get random data offset 0 is lower byte 
+....................    tempBufferRand [ 0 ] = tokenCheck [ 1 ]; 
+0950:  MOVFF  68,11E
+....................    tempBufferRand [ 1 ] = tokenCheck [ 3 ]; 
+0954:  MOVFF  6A,11F
+....................    tempBufferRand [ 2 ] = tokenCheck [ 5 ]; 
+0958:  MOVFF  6C,120
+....................    tempBufferRand [ 3 ] = tokenCheck [ 7 ]; 
+095C:  MOVFF  6E,121
+....................     
+....................    randomValue = tempBufferRand [ 3 ] << 24; 
+0960:  MOVFF  121,74
+0964:  CLRF   71
+0966:  CLRF   72
+0968:  CLRF   73
+....................    tempData2 = tempBufferRand [ 2 ] << 16; 
+096A:  MOVFF  120,12D
+096E:  MOVLB  1
+0970:  CLRF   x2B
+0972:  CLRF   x2C
+0974:  CLRF   x2E
+....................    randomValue += tempData2; 
+0976:  MOVF   x2B,W
+0978:  ADDWF  71,F
+097A:  MOVF   x2C,W
+097C:  ADDWFC 72,F
+097E:  MOVF   x2D,W
+0980:  ADDWFC 73,F
+0982:  MOVF   x2E,W
+0984:  ADDWFC 74,F
+....................    tempData2 = tempBufferRand [ 1 ] << 8; 
+0986:  MOVFF  11F,12C
+098A:  CLRF   x2B
+098C:  CLRF   x2D
+098E:  CLRF   x2E
+....................    randomValue += tempData2; 
+0990:  MOVF   x2B,W
+0992:  ADDWF  71,F
+0994:  MOVF   x2C,W
+0996:  ADDWFC 72,F
+0998:  MOVF   x2D,W
+099A:  ADDWFC 73,F
+099C:  MOVF   x2E,W
+099E:  ADDWFC 74,F
+....................    tempData2 = tempBufferRand [ 0 ]; 
+09A0:  CLRF   x2E
+09A2:  CLRF   x2D
+09A4:  CLRF   x2C
+09A6:  MOVFF  11E,12B
+....................    randomValue += tempData2;   
+09AA:  MOVF   x2B,W
+09AC:  ADDWF  71,F
+09AE:  MOVF   x2C,W
+09B0:  ADDWFC 72,F
+09B2:  MOVF   x2D,W
+09B4:  ADDWFC 73,F
+09B6:  MOVF   x2E,W
+09B8:  ADDWFC 74,F
+....................     
+....................    // Get data bytes ofset 0 is lower byte 
+....................    tempBufferData [ 0 ] = tokenCheck [ 6 ] - tempBufferRand [ 3 ]; 
+09BA:  MOVF   x21,W
+09BC:  SUBWF  6D,W
+09BE:  MOVWF  x22
+....................    tempBufferData [ 1 ] = tokenCheck [ 2 ] - tempBufferRand [ 2 ]; 
+09C0:  MOVF   x20,W
+09C2:  SUBWF  69,W
+09C4:  MOVWF  x23
+....................    tempBufferData [ 2 ] = tokenCheck [ 8 ] - tempBufferRand [ 1 ]; 
+09C6:  MOVF   x1F,W
+09C8:  SUBWF  6F,W
+09CA:  MOVWF  x24
+....................    tempBufferData [ 3 ] = tokenCheck [ 4 ] - tempBufferRand [ 0 ];    
+09CC:  MOVF   x1E,W
+09CE:  SUBWF  6B,W
+09D0:  MOVWF  x25
+....................       
+....................    // Get key token 0 is Highest byte 
+....................    ReadEEprom ( tempBuffer,  tempKeyToken + 1, 4 ); 
+09D2:  MOVLW  01
+09D4:  ADDWF  x03,W
+09D6:  MOVWF  x2F
+09D8:  MOVLW  00
+09DA:  ADDWFC x04,W
+09DC:  MOVWF  x30
+09DE:  MOVLW  01
+09E0:  MOVWF  x32
+09E2:  MOVLW  14
+09E4:  MOVWF  x31
+09E6:  MOVFF  12F,133
+09EA:  MOVLW  04
+09EC:  MOVWF  x34
+09EE:  MOVLB  0
+09F0:  RCALL  08A0
+....................    tempKey = tempBuffer [ 0 ] << 24; 
+09F2:  MOVFF  114,113
+09F6:  MOVLB  1
+09F8:  CLRF   x10
+09FA:  CLRF   x11
+09FC:  CLRF   x12
+....................    tempData2 = tempBuffer [ 1 ] << 16; 
+09FE:  MOVFF  115,12D
+0A02:  CLRF   x2B
+0A04:  CLRF   x2C
+0A06:  CLRF   x2E
+....................    tempKey += tempData2; 
+0A08:  MOVF   x2B,W
+0A0A:  ADDWF  x10,F
+0A0C:  MOVF   x2C,W
+0A0E:  ADDWFC x11,F
+0A10:  MOVF   x2D,W
+0A12:  ADDWFC x12,F
+0A14:  MOVF   x2E,W
+0A16:  ADDWFC x13,F
+....................    tempData2 = tempBuffer [ 2 ] << 8; 
+0A18:  MOVFF  116,12C
+0A1C:  CLRF   x2B
+0A1E:  CLRF   x2D
+0A20:  CLRF   x2E
+....................    tempKey += tempData2; 
+0A22:  MOVF   x2B,W
+0A24:  ADDWF  x10,F
+0A26:  MOVF   x2C,W
+0A28:  ADDWFC x11,F
+0A2A:  MOVF   x2D,W
+0A2C:  ADDWFC x12,F
+0A2E:  MOVF   x2E,W
+0A30:  ADDWFC x13,F
+....................    tempData2 = tempBuffer [ 3 ]; 
+0A32:  CLRF   x2E
+0A34:  CLRF   x2D
+0A36:  CLRF   x2C
+0A38:  MOVFF  117,12B
+....................    tempKey += tempData2;  
+0A3C:  MOVF   x2B,W
+0A3E:  ADDWF  x10,F
+0A40:  MOVF   x2C,W
+0A42:  ADDWFC x11,F
+0A44:  MOVF   x2D,W
+0A46:  ADDWFC x12,F
+0A48:  MOVF   x2E,W
+0A4A:  ADDWFC x13,F
+....................     
+....................    // Copy external key calculate 
+....................    memcpy ( externalKey, tempKey, 4 );    
+0A4C:  CLRF   FEA
+0A4E:  MOVLW  A0
+0A50:  MOVWF  FE9
+0A52:  MOVFF  111,FE2
+0A56:  MOVFF  110,FE1
+0A5A:  MOVLW  04
+0A5C:  MOVWF  01
+0A5E:  MOVFF  FE6,FEE
+0A62:  DECFSZ 01,F
+0A64:  BRA    0A5E
+....................     
+....................    // Check SH 
+....................    tempByte = tempBufferRand [ 2 ] + tempBufferData [ 0 ] + tempBuffer [ 0 ] + 
+....................                tempBuffer [ 1 ]; 
+0A66:  MOVF   x22,W
+0A68:  ADDWF  x20,W
+0A6A:  ADDWF  x14,W
+0A6C:  ADDWF  x15,W
+0A6E:  MOVWF  x05
+....................    if ( tempByte != tempSh ) 
+0A70:  MOVF   x06,W
+0A72:  SUBWF  x05,W
+0A74:  BZ    0A7C
+....................    { 
+....................       return ERROR_SIGNATURE; 
+0A76:  MOVLW  0A
+0A78:  MOVWF  01
+0A7A:  BRA    0BD6
+....................    } 
+....................     
+....................    // Check SL 
+....................    tempByte = tempBufferRand [ 1 ] + tempBufferData [ 0 ] + tempBuffer [ 2 ] + 
+....................                tempBuffer [ 3 ]; 
+0A7C:  MOVF   x22,W
+0A7E:  ADDWF  x1F,W
+0A80:  ADDWF  x16,W
+0A82:  ADDWF  x17,W
+0A84:  MOVWF  x05
+....................    if ( tempByte != tempSl ) 
+0A86:  MOVF   x07,W
+0A88:  SUBWF  x05,W
+0A8A:  BZ    0A92
+....................    { 
+....................       return ERROR_SIGNATURE; 
+0A8C:  MOVLW  0A
+0A8E:  MOVWF  01
+0A90:  BRA    0BD6
+....................    } 
+....................     
+....................    // inverter each byte 
+....................    tempBufferData [ 0 ] = ~ ( tempBufferData [ 0 ] ); 
+0A92:  COMF   x22,F
+....................    tempBufferData [ 1 ] = ~ ( tempBufferData [ 1 ] ); 
+0A94:  COMF   x23,F
+....................    tempBufferData [ 2 ] = ~ ( tempBufferData [ 2 ] ); 
+0A96:  COMF   x24,F
+....................    tempBufferData [ 3 ] = ~ ( tempBufferData [ 3 ] ); 
+0A98:  COMF   x25,F
+....................     
+....................    // assemble data negative value, highest byte is offset 0 
+....................    tempData = tempBufferData [ 3 ] << 24; 
+0A9A:  MOVFF  125,10B
+0A9E:  CLRF   x08
+0AA0:  CLRF   x09
+0AA2:  CLRF   x0A
+....................    tempData2 = tempBufferData [ 2 ] << 16; 
+0AA4:  MOVFF  124,12D
+0AA8:  CLRF   x2B
+0AAA:  CLRF   x2C
+0AAC:  CLRF   x2E
+....................    tempData += tempData2; 
+0AAE:  MOVF   x2B,W
+0AB0:  ADDWF  x08,F
+0AB2:  MOVF   x2C,W
+0AB4:  ADDWFC x09,F
+0AB6:  MOVF   x2D,W
+0AB8:  ADDWFC x0A,F
+0ABA:  MOVF   x2E,W
+0ABC:  ADDWFC x0B,F
+....................    tempData2 = tempBufferData [ 1 ] << 8; 
+0ABE:  MOVFF  123,12C
+0AC2:  CLRF   x2B
+0AC4:  CLRF   x2D
+0AC6:  CLRF   x2E
+....................    tempData += tempData2; 
+0AC8:  MOVF   x2B,W
+0ACA:  ADDWF  x08,F
+0ACC:  MOVF   x2C,W
+0ACE:  ADDWFC x09,F
+0AD0:  MOVF   x2D,W
+0AD2:  ADDWFC x0A,F
+0AD4:  MOVF   x2E,W
+0AD6:  ADDWFC x0B,F
+....................    tempData2 = tempBufferData [ 0 ]; 
+0AD8:  CLRF   x2E
+0ADA:  CLRF   x2D
+0ADC:  CLRF   x2C
+0ADE:  MOVFF  122,12B
+....................    tempData += tempData2;     
+0AE2:  MOVF   x2B,W
+0AE4:  ADDWF  x08,F
+0AE6:  MOVF   x2C,W
+0AE8:  ADDWFC x09,F
+0AEA:  MOVF   x2D,W
+0AEC:  ADDWFC x0A,F
+0AEE:  MOVF   x2E,W
+0AF0:  ADDWFC x0B,F
+....................     
+....................    // Add key to data to get real time 
+....................    tempData += tempKey; 
+0AF2:  MOVF   x10,W
+0AF4:  ADDWF  x08,F
+0AF6:  MOVF   x11,W
+0AF8:  ADDWFC x09,F
+0AFA:  MOVF   x12,W
+0AFC:  ADDWFC x0A,F
+0AFE:  MOVF   x13,W
+0B00:  ADDWFC x0B,F
+....................    
+....................    // Lee el bloque tiempo token 
+....................    ReadEEprom ( tempBuffer, ADDRESS_TIMETOKEN, 5 ); 
+0B02:  MOVLW  01
+0B04:  MOVWF  x32
+0B06:  MOVLW  14
+0B08:  MOVWF  x31
+0B0A:  MOVLW  23
+0B0C:  MOVWF  x33
+0B0E:  MOVLW  05
+0B10:  MOVWF  x34
+0B12:  MOVLB  0
+0B14:  RCALL  08A0
+....................     
+....................    // Valida estado bandera bloqueo token 
+....................    if ( tempBuffer [ 0 ] == 0x00 ) 
+0B16:  MOVLB  1
+0B18:  MOVF   x14,F
+0B1A:  BNZ   0B98
+....................    { 
+....................       // Debe convertir buffer de tiempo a un numero       
+....................       tempCurrentTime = tempBuffer [ 1 ] << 24; 
+0B1C:  MOVFF  115,10F
+0B20:  CLRF   x0C
+0B22:  CLRF   x0D
+0B24:  CLRF   x0E
+....................       tempData2 = tempBuffer [ 2 ] << 16; 
+0B26:  MOVFF  116,12D
+0B2A:  CLRF   x2B
+0B2C:  CLRF   x2C
+0B2E:  CLRF   x2E
+....................       tempCurrentTime += tempData2; 
+0B30:  MOVF   x2B,W
+0B32:  ADDWF  x0C,F
+0B34:  MOVF   x2C,W
+0B36:  ADDWFC x0D,F
+0B38:  MOVF   x2D,W
+0B3A:  ADDWFC x0E,F
+0B3C:  MOVF   x2E,W
+0B3E:  ADDWFC x0F,F
+....................       tempData2 = tempBuffer [ 3 ] << 8; 
+0B40:  MOVFF  117,12C
+0B44:  CLRF   x2B
+0B46:  CLRF   x2D
+0B48:  CLRF   x2E
+....................       tempCurrentTime += tempData2; 
+0B4A:  MOVF   x2B,W
+0B4C:  ADDWF  x0C,F
+0B4E:  MOVF   x2C,W
+0B50:  ADDWFC x0D,F
+0B52:  MOVF   x2D,W
+0B54:  ADDWFC x0E,F
+0B56:  MOVF   x2E,W
+0B58:  ADDWFC x0F,F
+....................       tempData2 = tempBuffer [ 4 ]; 
+0B5A:  CLRF   x2E
+0B5C:  CLRF   x2D
+0B5E:  CLRF   x2C
+0B60:  MOVFF  118,12B
+....................       tempCurrentTime += tempData2;   
+0B64:  MOVF   x2B,W
+0B66:  ADDWF  x0C,F
+0B68:  MOVF   x2C,W
+0B6A:  ADDWFC x0D,F
+0B6C:  MOVF   x2D,W
+0B6E:  ADDWFC x0E,F
+0B70:  MOVF   x2E,W
+0B72:  ADDWFC x0F,F
+....................        
+....................       // Valida si el nuevo tiempo es mayor al actual           
+....................       if ( tempCurrentTime >= tempData ) 
+0B74:  MOVF   x0B,W
+0B76:  SUBWF  x0F,W
+0B78:  BNC   0B98
+0B7A:  BNZ   0B92
+0B7C:  MOVF   x0A,W
+0B7E:  SUBWF  x0E,W
+0B80:  BNC   0B98
+0B82:  BNZ   0B92
+0B84:  MOVF   x09,W
+0B86:  SUBWF  x0D,W
+0B88:  BNC   0B98
+0B8A:  BNZ   0B92
+0B8C:  MOVF   x08,W
+0B8E:  SUBWF  x0C,W
+0B90:  BNC   0B98
+....................       {                   
+....................          // Tiempo nuevo no es mayor al actual 
+....................          return ERROR_VALUE; 
+0B92:  MOVLW  0B
+0B94:  MOVWF  01
+0B96:  BRA    0BD6
+....................       } 
+....................    }          
+....................     
+....................    // Convert time to array, offset 0 is highest byte 
+....................    tempBufferTime [ 0 ] = 0x00; 
+0B98:  CLRF   x26
+....................    tempBufferTime [ 1 ] = ( tempData & 0xFF000000 ) >> 24; 
+0B9A:  CLRF   x2F
+0B9C:  CLRF   x30
+0B9E:  CLRF   x31
+0BA0:  MOVFF  10B,127
+....................    tempBufferTime [ 2 ] = ( tempData & 0x00FF0000 ) >> 16; 
+0BA4:  CLRF   x2F
+0BA6:  CLRF   x30
+0BA8:  CLRF   x32
+0BAA:  MOVFF  10A,128
+....................    tempBufferTime [ 3 ] = ( tempData & 0x0000FF00 ) >> 8; 
+0BAE:  CLRF   x2F
+0BB0:  CLRF   x31
+0BB2:  CLRF   x32
+0BB4:  MOVFF  109,129
+....................    tempBufferTime [ 4 ] = tempData & 0x000000FF; 
+0BB8:  MOVFF  108,12A
+....................     
+....................    // Update new time 
+....................    WriteEEprom ( tempBufferTime, ADDRESS_TIMETOKEN, 5 ); 
+0BBC:  MOVLW  01
+0BBE:  MOVWF  x30
+0BC0:  MOVLW  26
+0BC2:  MOVWF  x2F
+0BC4:  MOVLW  23
+0BC6:  MOVWF  x31
+0BC8:  MOVLW  05
+0BCA:  MOVWF  x32
+0BCC:  MOVLB  0
+0BCE:  RCALL  08E2
+....................     
+....................    return TRUE; 
+0BD0:  MOVLW  01
+0BD2:  MOVWF  01
+0BD4:  MOVLB  1
+0BD6:  MOVLB  0
+0BD8:  RETURN 0
+.................... } 
+....................  
+.................... /*----------------------------------------------------------------------------- 
+.................... Escribe datos en la EEPROM 
+.................... @param tempPtr Puntero al buffer con los datos 
+.................... @param tempSize Numero de datos a escribir 
+.................... @param tempAddress Direccion a donde escibir en la EEPROM 
+.................... @return Nada 
+.................... -----------------------------------------------------------------------------*/ 
+.................... void WriteEEprom ( int8 * tempPtr, int8 tempAddress, int8 tempSize ) 
+.................... { 
+....................    int8 pos; 
+....................       
+....................    // Ciclo para escribir datos en la EEPROM 
+....................    for ( pos = 0; pos < tempSize; pos++ ) 
+*
+08E2:  MOVLB  1
+08E4:  CLRF   x33
+08E6:  MOVF   x32,W
+08E8:  SUBWF  x33,W
+08EA:  BC    0944
+....................    { 
+....................       // Envia el dato a escribir 
+....................       WRITE_EEPROM ( tempAddress + pos, *( tempPtr + pos ) );         
+08EC:  MOVF   x33,W
+08EE:  ADDWF  x31,W
+08F0:  MOVWF  x34
+08F2:  MOVF   x33,W
+08F4:  ADDWF  x2F,W
+08F6:  MOVWF  01
+08F8:  MOVLW  00
+08FA:  ADDWFC x30,W
+08FC:  MOVWF  03
+08FE:  MOVF   01,W
+0900:  MOVWF  FE9
+0902:  MOVFF  03,FEA
+0906:  MOVFF  FEF,135
+090A:  MOVF   FF2,W
+090C:  MOVWF  00
+090E:  BCF    FF2.7
+0910:  MOVFF  134,FA9
+0914:  MOVFF  135,FA8
+0918:  BCF    FA6.6
+091A:  BCF    FA6.7
+091C:  BSF    FA6.2
+091E:  MOVLB  F
+0920:  MOVLW  55
+0922:  MOVWF  FA7
+0924:  MOVLW  AA
+0926:  MOVWF  FA7
+0928:  BSF    FA6.1
+092A:  BTFSC  FA6.1
+092C:  BRA    092A
+092E:  BCF    FA6.2
+0930:  MOVF   00,W
+0932:  IORWF  FF2,F
+....................  
+....................       // Espera entre datos escritos 
+....................       delay_ms ( 10 ); 
+0934:  MOVLW  0A
+0936:  MOVLB  1
+0938:  MOVWF  x34
+093A:  MOVLB  0
+093C:  RCALL  0248
+093E:  MOVLB  1
+0940:  INCF   x33,F
+0942:  BRA    08E6
+....................    } 
+0944:  MOVLB  0
+0946:  RETURN 0
+.................... } 
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+
+Configuration Fuses:
+   Word  1: 2200   HS NOOSCSEN
+   Word  2: 0C0D   NOPUT NOBROWNOUT BORV20 NOWDT WDT64
+   Word  3: 0100   CCP2C1
+   Word  4: 0081   STVREN NOLVP NODEBUG
+   Word  5: 4000   PROTECT NOCPB CPD
+   Word  6: E00F   NOWRT NOWRTC NOWRTB NOWRTD
+   Word  7: 400F   NOEBTR NOEBTRB

@@ -1,0 +1,9 @@
+V1.1 30092022
+ADD omando version
+ADD Nuevo bloque apra el token de tiempo
+ADD Comando asignar token
+ADD Comando version 2 para abrir y cerrar puertas
+CHN Soporte puerta 2 tipo actuador
+ADD Comando obtner estado de bolsa lata.
+CHN Proceso iniciaclizacion bloques usando token
+CHN Coamndo cambiar llave usando token
