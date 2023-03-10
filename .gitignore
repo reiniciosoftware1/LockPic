@@ -1,0 +1,4 @@
+*.o
+*_log.txt
+*__history/*
+*.~lock*
